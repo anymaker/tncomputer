@@ -1,13 +1,16 @@
 package a2u.tn.utils.computer;
 
-import a2u.tn.utils.json.JsonParser;
-import a2u.tn.utils.json.JsonSerializer;
+import a2u.tn.utils.computer.formula.Formula;
+import a2u.tn.utils.computer.calcobj.ObjCalcEngine;
+import a2u.tn.utils.json.TnJson;
 import org.junit.Before;
 import org.junit.Test;
-import a2u.tn.utils.computer.maplist.MapListEngine;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
+import java.util.List;
 import java.util.Map;
 
 import static org.junit.Assert.assertEquals;
@@ -92,7 +95,7 @@ public class Demo {
     "  }\n" +
     "}";
 
-    map = JsonParser.parse(json);
+    map = TnJson.parse(json);
   }
 
 
@@ -242,6 +245,28 @@ public class Demo {
   }
 
   @Test
+  public void withLists02() {
+    List<String> list1 = new ArrayList<String>() {{
+      add("1");
+      add("2");
+    }};
+    List<String> list2 = new ArrayList<String>() {{
+      add("2");
+      add("3");
+    }};
+    Map<String, Object> map = new LinkedHashMap<>();
+    map.put("list1", list1);
+    map.put("list2", list2);
+    Formula formula = new Formula(".list1 xor .list2");
+
+    ObjCalcEngine engine = new ObjCalcEngine();
+    Object res = engine.calc(formula, map);
+
+    String jsonResult = jsonbuilder.buildJson(res);
+    assertEquals("['1','3']", jsonResult);
+  }
+
+  @Test
   public void withMap() {
     //check(".event.requestList(.id='r01') xor .event.requestList(.id='r02')", "{List:[1,2,3,1,2,3,1,2,3]}");
   }
@@ -326,13 +351,13 @@ public class Demo {
     check("1+2,3,4,5,6*7", "{List:[3,3,4,5,42]}");
   }
 
-  JsonSerializer.Settings jsonsettings = JsonSerializer.Settings.init().readable().withoutKeyQuote().singleQuote().keepNull();
+  TnJson jsonbuilder = TnJson.builder().readable().withoutKeyQuote().singleQuote().keepNull();
   private void check(String query, String value) {
     Object result = null;
     String jsonResult = null;
 
     try {
-      MapListEngine engine = new MapListEngine();
+      ObjCalcEngine engine = new ObjCalcEngine();
       result = engine.calc(query, map);
 
 
@@ -351,7 +376,7 @@ public class Demo {
         key = result.getClass().getSimpleName();
       }
       mapval.put(key, result);
-      jsonResult = jsonsettings.serialize(mapval);
+      jsonResult = jsonbuilder.buildJson(mapval);
 
       assertEquals(value, jsonResult);
     }
@@ -367,11 +392,7 @@ public class Demo {
     Object result;
     String errMsg;
     try {
-      //Formula formula = new Formula(query);
-      //MapListProvider engine = new MapListProvider();
-      //result = engine.calculate(map, formula);
-
-      MapListEngine engine = new MapListEngine();
+      ObjCalcEngine engine = new ObjCalcEngine();
       result = engine.calc(query, map);
 
       System.out.println(query);
@@ -394,7 +415,7 @@ public class Demo {
 
   @Test
   public void test01() {
-    //
+    check("max((2,3,2,-1))", "{Long:3}");
   }
 
 }

@@ -74,7 +74,7 @@ class Parser {
         elt.value = b.toString();
         return elt;
       }
-      if (Character.isLetter(c)) {
+      if (Character.isLetter(c) || c == '@' || c == '#' || c == '$') {
         elt.type = ElementType.IDENTY;
         getIdentify(b, text, ix);
         elt.value = b.toString();
@@ -219,14 +219,14 @@ class Parser {
 
     char c = text.charAt(ix.get());
     if (!Character.isLetter(c) && !isWhiteSpace(c)) {
-      if (c!='*' && c!='/' && c!='+' && c!='-' && c!='=' && c!='<' && c!='>' && c!=',') {
+      if (c!='*' && c!='/' && c!='+' && c!='-' && c!='=' && c!='<' && c!='>' && c!=',' && c!='@' && c!='#' && c!='$') {
         throw new InternalError("Invalid character '" + c + "' at position " + ix.get() + " in text '" + text + "'.");
       }
     }
 
     while (index < len) {
       c = text.charAt(index);
-      if (Character.isLetterOrDigit(c) || c == '_') {
+      if (Character.isLetterOrDigit(c) || c == '_' || c == '@' || c == '#' || c == '$') {
         b.append(c);
         index = ix.addAndGet(1);
         continue;

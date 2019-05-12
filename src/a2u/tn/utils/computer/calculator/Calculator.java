@@ -342,6 +342,7 @@ public abstract class Calculator {
    * Convert value to type
    * @param toCls goal-class for result
    * @param value value which be converted
+   * @param <T> type of returned value
    * @return value with goal type
    */
   public <T> T toType(Class<?> toCls, Object value) {

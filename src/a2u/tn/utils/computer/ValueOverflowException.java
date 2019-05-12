@@ -1,4 +1,4 @@
-package a2u.tn.utils.computer.maplist;
+package a2u.tn.utils.computer;
 
 /**
  * Error when value is overflowed

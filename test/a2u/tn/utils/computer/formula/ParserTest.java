@@ -180,12 +180,7 @@ public class ParserTest {
 
     checkIdentifyError("_abcd", "InternalError: Invalid character '_' at position 0 in text '_abcd'.");
     checkIdentifyError("1abcd", "InternalError: Invalid character '1' at position 0 in text '1abcd'.");
-    checkIdentifyError("@abcd", "InternalError: Invalid character '@' at position 0 in text '@abcd'.");
 
-    StringBuilder b = new StringBuilder();
-    AtomicInteger ix = new AtomicInteger(0);
-    Parser.getIdentify(b, "ab@cd", ix);
-    assertEquals(b.toString(), "ab");
   }
   private void testIdentify(String text, String resultString) {
     StringBuilder b = new StringBuilder();

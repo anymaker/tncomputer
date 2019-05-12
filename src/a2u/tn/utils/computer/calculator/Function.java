@@ -41,11 +41,13 @@ public abstract class Function {
 
   /**
    * Return function name for using in query
+   * @return function name
    */
   public abstract String getName();
 
   /**
    * Return descriptors for incoming parameters
+   * @return descriptors for incoming parameters
    */
   public List<Parameter> getParameters() {
     return Collections.emptyList();

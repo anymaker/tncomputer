@@ -1,8 +1,7 @@
 package a2u.tn.utils.computer.maplist.functions;
 
 import a2u.tn.utils.computer.formula.Formula;
-import a2u.tn.utils.json.JsonParser;
-import a2u.tn.utils.json.JsonSerializer;
+import a2u.tn.utils.json.TnJson;
 import org.junit.Before;
 import org.junit.Test;
 import a2u.tn.utils.computer.maplist.MapListEngine;
@@ -52,7 +51,7 @@ public class FunctionsTest {
       "   }\n" +
       " ]\n" +
       "}";
-    map = JsonParser.parse(json);
+    map = TnJson.parse(json);
   }
 
   @Test
@@ -152,7 +151,7 @@ public class FunctionsTest {
 
 
 
-  JsonSerializer.Settings jsonsettings = JsonSerializer.Settings.init().readable().withoutKeyQuote().singleQuote().keepNull();
+  TnJson jsonsettings = TnJson.builder().readable().withoutKeyQuote().singleQuote().keepNull();
   private void check(String query, String value) {
     Object result = null;
     String jsonResult = null;
@@ -188,7 +187,7 @@ public class FunctionsTest {
         mapval.put(key, result);
       }
 
-      jsonResult = jsonsettings.serialize(mapval);
+      jsonResult = jsonsettings.buildJson(mapval);
 
       assertEquals(value, jsonResult);
     }

@@ -32,7 +32,14 @@ public class FPFunction implements FormulaPart {
 
   @Override
   public String toString() {
-    return name + (params != null ?  "(" + String.valueOf(params) + ")" : "");
+    StringBuilder b = new StringBuilder();
+    b.append(name).append('(');
+    if (params != null && !params.isEmpty()) {
+      String list = StringUtil.collectionToString(", ", params, Object::toString);
+      b.append(list);
+    }
+    b.append(')');
+    return b.toString();
   }
 
   @Override

@@ -23,6 +23,9 @@ public class FPOperation implements FormulaPart {
     equal(3),
     notequal(3),
 
+    like(3),
+    notlike(3),
+
     great(3),
     greatEqual(3),
     less(3),
@@ -56,6 +59,9 @@ public class FPOperation implements FormulaPart {
         case "=" :  return Command.equal;
         case "!=" : return Command.notequal;
 
+        case "like" :    return Command.like;
+        case "notlike" : return Command.notlike;
+
         case ">" :  return Command.great;
         case ">=" : return Command.greatEqual;
         case "<" :  return Command.less;
@@ -80,6 +86,8 @@ public class FPOperation implements FormulaPart {
         case "-" :
         case "=" :
         case "!=" :
+        case "like" :
+        case "notlike" :
         case ">" :
         case ">=" :
         case "<" :
@@ -97,12 +105,27 @@ public class FPOperation implements FormulaPart {
       }
     }
 
+    public String toQuery() {
+      switch (this) {
+        case mul: return "*";
+        case div: return "/";
+        case plus: return "+";
+        case minus: return "-";
+        case equal: return "=";
+        case notequal: return "!=";
+        case great: return ">";
+        case greatEqual: return ">=";
+        case less: return "<";
+        case lessEqual: return "<=";
+        default: return name();
+      }
+    }
   }
 
   Command command;  //command
   FormulaPart arg1; //first argument
   FormulaPart arg2; //seconf argument
-  private FPOperation parent;  //parent operation, where this operation as second (right) argument
+  private FPOperation parent;  //parent operation, where this operation as the second argument (right part)
 
   FPOperation() {
 
@@ -162,6 +185,11 @@ public class FPOperation implements FormulaPart {
     this.command = command;
     this.arg1 = arg1;
   }
+  public FPOperation(Command command, FormulaPart arg1, FormulaPart arg2) {
+    this.command = command;
+    this.arg1 = arg1;
+    this.arg2 = arg2;
+  }
 
   public Command getCommand() {
     return command;
@@ -179,8 +207,10 @@ public class FPOperation implements FormulaPart {
    * @param command left operation
    * @param arg new second argument
    * @return top operation
+   * @deprecated нужно использовать make
    */
-  public FPOperation addOperation(Command command, FormulaPart arg) {
+  @Deprecated
+  public FPOperation addOperation_1(Command command, FormulaPart arg) {
     if (arg1 == null) {
       arg1 = arg;
       this.command = command;
@@ -194,28 +224,24 @@ public class FPOperation implements FormulaPart {
       }
       return topNop;
     }
-    else if (this.command.prior == command.prior) {
-      FPOperation nop = new FPOperation(this);
-      nop.command = command;
-      nop.arg1 = arg;
-      this.arg2 = nop;
-      return nop;
-    }
     else if (this.command.prior < command.prior) {
-      this.arg2 = arg;
+      //this.arg2 = arg;
 
       FPOperation nop;
       if (this.parent == null) {
         nop = new FPOperation(null);
         nop.command = command;
         nop.arg1 = this;
+        nop.arg2 = arg;
         this.parent = nop;
+        return nop;
       }
       else {
         FPOperation parentOP = findEqualParentOrTop(command.prior);
         nop = new FPOperation(parentOP.parent);
         nop.command = command;
         nop.arg1 = parentOP;
+        nop.arg2 = arg;
         parentOP.parent = nop;
       }
       return nop;
@@ -226,6 +252,7 @@ public class FPOperation implements FormulaPart {
       nop.arg1 = arg;
       nop.parent = this;
       this.arg2 = nop;
+
 
       return nop;
     }
@@ -245,7 +272,7 @@ public class FPOperation implements FormulaPart {
 
   @Override
   public String toString() {
-    return arg1 +( command != null ? " " + command + " " + arg2 : "");
+    return arg1 +( command != null ? " " + command.toQuery() + " " + arg2 : "");
   }
 
   @Override

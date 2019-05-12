@@ -41,6 +41,7 @@ public class Formula {
 
   /**
    * Return Root operation
+   * @return Root operation
    */
   public FormulaPart getRootPart() {
     return rootPart;
@@ -207,6 +208,7 @@ public class Formula {
 
   /**
    * Return the internal formated formula representation
+   * @return formated formula representation
    */
   public String toFormated() {
     StringBuilder b = new StringBuilder();

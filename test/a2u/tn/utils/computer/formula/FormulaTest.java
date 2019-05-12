@@ -38,7 +38,8 @@ public class FormulaTest {
 
     check(".fieldA(.FieldB = .FieldC + 3)", "{type= 'value', fieldName: 'fieldA', filter: {type: 'operation', command: 'equal', arg1: {type= 'value', fieldName: 'FieldB', filter: null, next: null}, arg2: {type: 'operation', command: 'plus', arg1: {type= 'value', fieldName: 'FieldC', filter: null, next: null}, arg2: {type: 'number', value: 3}}}, next: null}");
 
-    checkError("#",    "FormulaException: Invalid character '#' at position 0 in text '#'.");
+    checkError(":",    "FormulaException: Invalid character ':' at position 0 in text ':'.");
+    checkError("+",    "FormulaException: Illegal part OPERATOR: +' at position 0 in text '+'.");
     checkError("1 2",  "FormulaException: Illegal part NUMBER: 2 at position 2, expected operator. Source text '1 2'.");
     checkError("1+",   "FormulaException: Unexpected end of expression at position 2, in text '1+'.");
     checkError("1+(",  "FormulaException: Unexpected end of block in text '1+(', no 1 parentheses.");
@@ -79,6 +80,12 @@ public class FormulaTest {
   @Test
   public void test01() {
     //
+    //.entity = obj.pubList.entity
+    String query = ".entity = 8@TnPubList.entity";
+    query = ".entity = child('8@TnPubList', 'entity.part')";
+    //query = ".$8@TnPubList.entity";
+    Formula formula = new Formula(query);
+    System.out.println(formula.toString());
   }
 
 }
