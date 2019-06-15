@@ -36,14 +36,24 @@ public class Converter {
   }
 
 
-  public <T> T toType(Class<?> toCls, Object value) {
+  /**
+   * Convert value to type
+   * @param toCls goal-class for result
+   * @param value value which be converted
+   * @param <T> type of returned value. This type must be subtype of toCls.
+   * @return Converted value with goal type
+   * @throws NullPointerException if toCls is null
+   * @throws UnknownDataTypeException if toCls is not defined in converters
+   * @see Converter#addConverter(Class, Class, Converter.ConvertHandler)
+   */
+  public <T> T toType(Class<? extends T> toCls, Object value) {
     if (toCls == null) {
       throw new NullPointerException("Parameter 'toCls' is not defined.");
     }
 
     Map<Class<?>, ConvertHandler<?>> to = find(converters, toCls);
     if (to == null) {
-      throw new UnknownDataTypeException("Not found converters to class "+ toCls.getClass().getName() +".");
+      throw new UnknownDataTypeException("Not found converters to class "+ toCls.getName() +".");
     }
 
     Class<?> key = value == null ? NullClass.class : value.getClass();
@@ -52,7 +62,7 @@ public class Converter {
       handler = to.get(AnyClass.class);
     }
     if (handler == null) {
-      throw new UnknownDataTypeException("Not found converters to class "+ toCls.getClass().getName() +" from "+ (value == null ? "null" : value.getClass()) +".");
+      throw new UnknownDataTypeException("Not found converters to class "+ toCls.getName() +" from "+ (value == null ? "null" : value.getClass()) +".");
     }
 
     Object result = handler.convert(value);

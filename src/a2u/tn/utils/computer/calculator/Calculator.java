@@ -342,10 +342,13 @@ public abstract class Calculator {
    * Convert value to type
    * @param toCls goal-class for result
    * @param value value which be converted
-   * @param <T> type of returned value
-   * @return value with goal type
+   * @param <T> type of returned value. This type must be subtype of toCls.
+   * @return Converted value with goal type
+   * @throws NullPointerException if toCls is null
+   * @throws UnknownDataTypeException if toCls is not defined in converters
+   * @see Converter#addConverter(Class, Class, Converter.ConvertHandler)
    */
-  public <T> T toType(Class<?> toCls, Object value) {
+  public <T> T toType(Class<? extends T> toCls, Object value) {
     return converters.toType(toCls, value);
   }
 
