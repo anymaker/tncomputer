@@ -1,5 +1,6 @@
 package a2u.tn.utils.computer.calcobj;
 
+import a2u.tn.utils.computer.calcobj.types.TNull;
 import a2u.tn.utils.computer.calculator.Calculator;
 import a2u.tn.utils.computer.calcobj.functions.Count;
 import a2u.tn.utils.computer.calcobj.functions.DateToStr;
@@ -172,6 +173,7 @@ public class ObjCalcEngine extends Calculator {
     addType(new TList(this));
     addType(new TSet(this));
     addType(new TMap(this));
+    addType(new TNull(this));
   }
 
 }

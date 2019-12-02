@@ -1,5 +1,6 @@
 package a2u.tn.utils.computer.calculator;
 
+import a2u.tn.utils.computer.calcobj.types.TNull;
 import a2u.tn.utils.computer.formula.FPBlock;
 import a2u.tn.utils.computer.formula.FPLiteralString;
 import a2u.tn.utils.computer.formula.FPValue;
@@ -117,7 +118,7 @@ public abstract class Calculator {
   private Object calcOperation(FPOperation operation, Object startval, int rowIndex, Collection<Object> allRows) {
     Object value1 = calcArgument(operation.getArg1(), startval, rowIndex, allRows);
     if (value1 == null) {
-      return null;
+      value1 = TNull.getNull();
     }
 
     if (operation.getArg2() == null) {
