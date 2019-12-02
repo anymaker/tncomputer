@@ -1,5 +1,6 @@
 package a2u.tn.utils.computer.maplist;
 
+import a2u.tn.utils.computer.calcobj.ObjCalcEngine;
 import a2u.tn.utils.computer.calculator.Calculator;
 import a2u.tn.utils.computer.maplist.functions.Count;
 import a2u.tn.utils.computer.maplist.functions.DateToStr;
@@ -37,91 +38,5 @@ import java.util.Set;
  * @deprecated you should use ObjCalcEngine insted this. @see a2u.tn.utils.computer.calcobj.ObjCalcEngine
  */
 @Deprecated
-public class MapListEngine extends Calculator {
-
-  public MapListEngine() {
-    fillFunctions();
-    fillTypes();
-  }
-
-  private void fillFunctions() {
-    addFunction(new Null(this));
-    addFunction(new Nvl(this));
-    addFunction(new True(this));
-    addFunction(new False(this));
-
-    addFunction(new Distinct(this));
-    addFunction(new First(this));
-    addFunction(new Last(this));
-
-    addFunction(new RowNum(this));
-    addFunction(new RowsCount(this));
-    addFunction(new MaxInRows(this));
-    addFunction(new Count(this));
-    addFunction(new Max(this));
-    addFunction(new Min(this));
-
-    addFunction(new ToDate(this));
-    addFunction(new DateToStr(this));
-
-    addFunction(new Like(this));
-  }
-
-  private void fillTypes() {
-    addType(new TInt(this));
-    addType(new TLong(this));
-    addType(new TBool(this));
-    addType(new TString(this));
-    addType(new TDouble(this));
-    addType(new TDate(this));
-    addType(new TFloat(this));
-    addType(new TList(this));
-    addType(new TMap(this));
-  }
-
-
-  @Override
-  protected Collection<Object> extractValues(String byCode, Collection<Object> fromObjList) {
-    if (fromObjList == null) {
-      return null;
-    }
-
-    Set<Object> valueListSet = new LinkedHashSet<>();
-
-    if (byCode.length() == 0) {
-      valueListSet.addAll(fromObjList);
-      return valueListSet;
-    }
-
-    for (Object fromObj : fromObjList) {
-      if (fromObj == null) {
-        valueListSet.add(null); //one null must be present in the collection
-      }
-      else if (fromObj instanceof Map) {
-        Map map = (Map) fromObj;
-        Object mapval = map.get(byCode);
-        if (mapval instanceof Collection) {
-          valueListSet.addAll((Collection<Object>)mapval);
-        }
-        else {
-          valueListSet.add(mapval);
-        }
-      }
-      else {
-        throw new IllegalArgumentException("Illegal value fromObj "+ fromObj.getClass().getName() +": '"+ String.valueOf(fromObj) +"'.");
-      }
-
-    }
-    return valueListSet;
-  }
-
-
-
-
-
-
-
-
-
-
+public class MapListEngine extends ObjCalcEngine {
 }
