@@ -1,5 +1,6 @@
 package a2u.tn.utils.computer.maplist.functions;
 
+import a2u.tn.utils.computer.calcobj.ObjCalcEngine;
 import a2u.tn.utils.computer.formula.Formula;
 import a2u.tn.utils.json.TnJson;
 import org.junit.Before;
@@ -158,7 +159,7 @@ public class FunctionsTest {
     try {
 
       Formula formula = new Formula(query);
-      MapListEngine engine = new MapListEngine();
+      ObjCalcEngine engine = new ObjCalcEngine();
       result = engine.calc(formula, map);
 
 
