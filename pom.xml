@@ -3,7 +3,7 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>com.github.anymaker</groupId>
   <artifactId>tncomputer</artifactId>
-  <version>0.0.6</version>
+  <version>0.0.7</version>
   <packaging>jar</packaging>
   
   <name>${project.groupId}:${project.artifactId}</name>
@@ -72,6 +72,14 @@
     <testSourceDirectory>test</testSourceDirectory>
     <directory>${basedir}/target</directory>
     <finalName>${project.artifactId}-${project.version}</finalName>
+
+    <testResources>
+      <testResource>
+        <directory>${basedir}/test</directory>
+        <filtering>true</filtering>
+      </testResource>
+    </testResources>
+
     <plugins>
       <!-- Javadoc and Sources Attachments -->
       <plugin>
