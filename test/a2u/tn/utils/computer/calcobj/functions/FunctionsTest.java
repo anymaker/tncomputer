@@ -95,6 +95,12 @@ public class FunctionsTest {
   }
 
   @Test
+  public void decodeTest() {
+    check("decode(.mailList.attachment.type,  'pict', 'photo',  'text', 'message',    null, 'no attach')", "{List:['message','photo','no attach']}");
+    check("decode(.mailList.attachment.type,  'pict', 'photo',   null,  'no attach',  'default')", "{List:['default','photo','no attach']}");
+  }
+
+  @Test
   public void firstRowTest() {
     check(".mailList.autor(first)", "{String:'Autor01'}");
   }

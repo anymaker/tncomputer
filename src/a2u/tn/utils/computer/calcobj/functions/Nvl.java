@@ -2,6 +2,7 @@ package a2u.tn.utils.computer.calcobj.functions;
 
 import a2u.tn.utils.computer.calculator.Calculator;
 import a2u.tn.utils.computer.calculator.Function;
+import a2u.tn.utils.computer.formula.FormulaPart;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -32,9 +33,9 @@ public class Nvl extends Function {
   }
 
   @Override
-  public Object run(Map<String, Object> paramValues, Object row, int rowIndex, Collection<Object> allRows) {
-    Object value = paramValues.get("value");
-    Object substitute  = paramValues.get("substitute");
+  public Object run(Map<String, FormulaPart> namedParams, List<FormulaPart> otherParams, Object row, int rowIndex, Collection<Object> allRows) {
+    Object value       = calculator.calcArgument(namedParams.get("value"),  row, rowIndex, allRows);
+    Object substitute  = calculator.calcArgument(namedParams.get("substitute"),  row, rowIndex, allRows);
 
     return value == null ? substitute : value;
   }

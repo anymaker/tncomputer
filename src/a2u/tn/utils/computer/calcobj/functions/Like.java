@@ -2,6 +2,7 @@ package a2u.tn.utils.computer.calcobj.functions;
 
 import a2u.tn.utils.computer.calculator.Calculator;
 import a2u.tn.utils.computer.calculator.Function;
+import a2u.tn.utils.computer.formula.FormulaPart;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -40,9 +41,12 @@ public class Like extends Function {
   }
 
   @Override
-  public Object run(Map<String, Object> paramValues, Object row, int rowIndex, Collection<Object> allRows) {
-    String string   = calculator.toType(String.class, paramValues.get("string"));
-    String template = calculator.toType(String.class, paramValues.get("template"));
+  public Object run(Map<String, FormulaPart> namedParams, List<FormulaPart> otherParams, Object row, int rowIndex, Collection<Object> allRows) {
+    Object stringValue   = calculator.calcArgument(namedParams.get("string"),   row, rowIndex, allRows);
+    Object templateValue = calculator.calcArgument(namedParams.get("template"), row, rowIndex, allRows);
+
+    String string   = calculator.toType(String.class, stringValue);
+    String template = calculator.toType(String.class, templateValue);
 
     Pattern p = Pattern.compile(template);
     Matcher mtch = p.matcher(string);

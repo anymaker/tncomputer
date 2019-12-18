@@ -5,6 +5,7 @@ import a2u.tn.utils.computer.calculator.Calculator;
 import a2u.tn.utils.computer.calculator.Function;
 import a2u.tn.utils.computer.calculator.Type;
 import a2u.tn.utils.computer.formula.FPValue;
+import a2u.tn.utils.computer.formula.Formula;
 import a2u.tn.utils.computer.formula.FormulaPart;
 
 import java.util.ArrayList;
@@ -35,18 +36,18 @@ public class MaxInRows extends Function {
   }
 
   @Override
-  public Object run(Map<String, Object> paramValues, Object row, int rowIndex, Collection<Object> allRows) {
+  public Object run(Map<String, FormulaPart> namedParams, List<FormulaPart> otherParams, Object row, int rowIndex, Collection<Object> allRows) {
     if (allRows == null) {
       throw new CalculatingException("Function 'maxInRows' can only be used to filtering rows.");
     }
 
-    FormulaPart path = (FormulaPart) paramValues.get("path");
+    FormulaPart path = namedParams.get("path");
     Object max = null;
     int ix=0;
     for (Object obj : allRows) {
       Object value = calculator.calcArgument(path, obj, ix, allRows);
       if (max == null) {
-          max = value;
+        max = value;
       }
       else {
         Type type = calculator.getType(max.getClass());

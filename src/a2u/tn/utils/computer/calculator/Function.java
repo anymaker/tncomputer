@@ -1,5 +1,7 @@
 package a2u.tn.utils.computer.calculator;
 
+import a2u.tn.utils.computer.formula.FormulaPart;
+
 import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
@@ -55,13 +57,14 @@ public abstract class Function {
 
   /**
    * Invoke function to execution
-   * @param paramValues Map with parameters value
+   * @param namedParams Map with named parameters value
+   * @param otherParams Other params
    * @param row         Data from current row
    * @param rowIndex    Index current row in rows
    * @param allRows     Collection with all rows
    * @return            result of execution function
    */
-  public abstract Object run(Map<String, Object> paramValues, Object row, int rowIndex, Collection<Object> allRows);
+  public abstract Object run(Map<String, FormulaPart> namedParams, List<FormulaPart> otherParams, Object row, int rowIndex, Collection<Object> allRows);
 
 
   public String toString() {

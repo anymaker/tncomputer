@@ -190,38 +190,29 @@ public abstract class Calculator {
       throw new CalculatingException("Function '"+ function.getName() +"' is not defined.");
     }
 
-    Map<String, Object> paramValues = new LinkedHashMap<>();
+    Map<String, FormulaPart> namedParams = new LinkedHashMap<>();
+    List<FormulaPart> otherParam = null;
 
     if (!fn.getParameters().isEmpty()) {
-      if (function.getParams().isEmpty()) {
+      if (function.getParams() == null) {
         String par2 = StringUtil.collectionToString(", ", fn.getParameters(), Function.Parameter::getTypeName);
         throw new CalculatingException("For function '"+ function.getName() +"' parameter is not specified. You need specify (" + par2 + ").");
       }
-
-      if (fn.getParameters().size() !=  function.getParams().size()) {
-        String par1 = StringUtil.collectionToString(", ", function.getParams(), obj -> obj.getClass().getName());
-        String par2 = StringUtil.collectionToString(", ", fn.getParameters(), Function.Parameter::getTypeName);
-        throw new CalculatingException("Function "+ function.getName() +"("+par1+") is not defined. You have function "+ function.getName() +"("+par2+").");
-      }
-
-      for (int ix = 0; ix < fn.getParameters().size(); ix++) {
+      List<FormulaPart> paramValsList = function.getParams();
+      int ix = 0;
+      while (ix < fn.getParameters().size()) {
         Function.Parameter parameter = fn.getParameters().get(ix);
-        FormulaPart def = function.getParams().get(ix);
-        if (FormulaPart.class.isAssignableFrom(parameter.getType())) {
-          paramValues.put(parameter.getName(), def);
-        }
-        else {
-          Object paramListValue = calcArgument(def, value, rowIndex, allRows);
-           paramValues.put(parameter.getName(), paramListValue);
-        }
+        FormulaPart param = paramValsList.get(ix);
+        namedParams.put(parameter.getName(), param);
+        ix++;
       }
-
+      otherParam = paramValsList.subList(ix, paramValsList.size());
     }
-    else if (!function.getParams().isEmpty()) {
+    else if (function.getParams() == null && fn.getParameters().size() != 0) {
        throw new CalculatingException("Function '"+ function.getName() +"' no need in parameters.");
     }
 
-    Object result = fn.run(paramValues, value, rowIndex, allRows);
+    Object result = fn.run(namedParams, otherParam, value, rowIndex, allRows);
     return result;
   }
 
@@ -362,8 +353,9 @@ public abstract class Calculator {
    * @return comparison result
    */
   public boolean equalValues(Object v1, Object v2) {
-    Type type = getType(v1.getClass());
-    return type.equal(v1, v2);
+    Object v1val = v1 == null ? TNull.getNull() : v1;
+    Type type = getType(v1val.getClass());
+    return type.equal(v1val, v2);
   }
 
 

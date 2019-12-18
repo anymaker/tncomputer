@@ -176,6 +176,7 @@ public class Formula {
       if (params != null) {
         fnParams = new ArrayList<>();
         convertPartToList(params, fnParams);
+        Collections.reverse(fnParams);
       }
 
     }
@@ -187,8 +188,8 @@ public class Formula {
     if (part instanceof FPOperation) {
       FPOperation op = (FPOperation) part;
       if (op.getCommand() == FPOperation.Command.addToDim) {
-        list.add(op.getArg1());
-        convertPartToList(op.getArg2(), list);
+        list.add(op.getArg2());
+        convertPartToList(op.getArg1(), list);
       }
       else {
         list.add(op);
@@ -198,8 +199,6 @@ public class Formula {
       list.add(part);
     }
   }
-
-
 
   @Override
   public String toString() {

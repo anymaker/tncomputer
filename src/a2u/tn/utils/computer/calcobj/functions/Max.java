@@ -3,6 +3,7 @@ package a2u.tn.utils.computer.calcobj.functions;
 import a2u.tn.utils.computer.calculator.Calculator;
 import a2u.tn.utils.computer.calculator.Function;
 import a2u.tn.utils.computer.calculator.Type;
+import a2u.tn.utils.computer.formula.FormulaPart;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -33,8 +34,8 @@ public class Max extends Function {
   }
 
   @Override
-  public Object run(Map<String, Object> paramValues, Object row, int rowIndex, Collection<Object> allRows) {
-    Object data = paramValues.get("data");
+  public Object run(Map<String, FormulaPart> namedParams, List<FormulaPart> otherParams, Object row, int rowIndex, Collection<Object> allRows) {
+    Object data = calculator.calcArgument(namedParams.get("data"),  row, rowIndex, allRows);
     if (data == null) {
       return null;
     }

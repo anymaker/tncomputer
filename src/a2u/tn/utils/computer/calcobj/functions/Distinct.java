@@ -3,8 +3,10 @@ package a2u.tn.utils.computer.calcobj.functions;
 import a2u.tn.utils.computer.calculator.CalculatingException;
 import a2u.tn.utils.computer.calculator.Calculator;
 import a2u.tn.utils.computer.calculator.Function;
+import a2u.tn.utils.computer.formula.FormulaPart;
 
 import java.util.Collection;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -23,7 +25,7 @@ public class Distinct extends Function {
 
 
   @Override
-  public Object run(Map<String, Object> paramValues, Object row, int rowIndex, Collection<Object> allRows) {
+  public Object run(Map<String, FormulaPart> namedParams, List<FormulaPart> otherParams, Object row, int rowIndex, Collection<Object> allRows) {
     if (allRows == null) {
       throw new CalculatingException("Function 'distinct' is used only for filtering rows.");
     }

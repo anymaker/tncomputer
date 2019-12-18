@@ -2,6 +2,7 @@ package a2u.tn.utils.computer.calcobj.functions;
 
 import a2u.tn.utils.computer.calculator.Calculator;
 import a2u.tn.utils.computer.calculator.Function;
+import a2u.tn.utils.computer.formula.FormulaPart;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -36,9 +37,12 @@ public class DateToStr extends Function {
   }
 
   @Override
-  public Object run(Map<String, Object> paramValues, Object row, int rowIndex, Collection<Object> allRows) {
-    Date date     = calculator.toType(Date.class, paramValues.get("input"));
-    String format = calculator.toType(String.class, paramValues.get("format"));
+  public Object run(Map<String, FormulaPart> namedParams, List<FormulaPart> otherParams, Object row, int rowIndex, Collection<Object> allRows) {
+    Object dateValue  = calculator.calcArgument(namedParams.get("input"),  row, rowIndex, allRows);
+    Object formatValue = calculator.calcArgument(namedParams.get("format"), row, rowIndex, allRows);
+
+    Date date     = calculator.toType(Date.class,   dateValue);
+    String format = calculator.toType(String.class, formatValue);
 
     DateFormat df = new SimpleDateFormat(format);
     String str = df.format(date);

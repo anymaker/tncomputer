@@ -1,5 +1,8 @@
 package a2u.tn.utils.computer.calcobj;
 
+import a2u.tn.utils.computer.calcobj.functions.Decode;
+import a2u.tn.utils.computer.calcobj.functions.First;
+import a2u.tn.utils.computer.calcobj.functions.Nil;
 import a2u.tn.utils.computer.calcobj.types.TNull;
 import a2u.tn.utils.computer.calculator.Calculator;
 import a2u.tn.utils.computer.calcobj.functions.Count;
@@ -27,7 +30,6 @@ import a2u.tn.utils.computer.calcobj.types.TLong;
 import a2u.tn.utils.computer.calcobj.types.TMap;
 import a2u.tn.utils.computer.calcobj.types.TSet;
 import a2u.tn.utils.computer.calcobj.types.TString;
-import a2u.tn.utils.computer.maplist.functions.First;
 
 import java.lang.reflect.Field;
 import java.util.Collection;
@@ -141,7 +143,9 @@ public class ObjCalcEngine extends Calculator {
 
   private void fillFunctions() {
     addFunction(new Null(this));
+    addFunction(new Nil(this));
     addFunction(new Nvl(this));
+    addFunction(new Decode(this));
     addFunction(new True(this));
     addFunction(new False(this));
 
