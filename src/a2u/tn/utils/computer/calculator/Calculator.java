@@ -190,8 +190,7 @@ public abstract class Calculator {
       throw new CalculatingException("Function '"+ function.getName() +"' is not defined.");
     }
 
-    Map<String, FormulaPart> namedParams = new LinkedHashMap<>();
-    List<FormulaPart> otherParam = null;
+    List<FormulaPart> params = new ArrayList<>();
 
     if (!fn.getParameters().isEmpty()) {
       if (function.getParams() == null) {
@@ -201,18 +200,17 @@ public abstract class Calculator {
       List<FormulaPart> paramValsList = function.getParams();
       int ix = 0;
       while (ix < fn.getParameters().size()) {
-        Function.Parameter parameter = fn.getParameters().get(ix);
         FormulaPart param = paramValsList.get(ix);
-        namedParams.put(parameter.getName(), param);
+        params.add(param);
         ix++;
       }
-      otherParam = paramValsList.subList(ix, paramValsList.size());
+      params.addAll(paramValsList.subList(ix, paramValsList.size()));
     }
     else if (function.getParams() == null && fn.getParameters().size() != 0) {
        throw new CalculatingException("Function '"+ function.getName() +"' no need in parameters.");
     }
 
-    Object result = fn.run(namedParams, otherParam, value, rowIndex, allRows);
+    Object result = fn.run(params, value, rowIndex, allRows);
     return result;
   }
 

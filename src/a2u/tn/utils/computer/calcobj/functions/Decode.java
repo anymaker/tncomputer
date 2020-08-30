@@ -7,7 +7,6 @@ import a2u.tn.utils.computer.formula.FormulaPart;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
-import java.util.Map;
 
 /**
  * Provide switch-case-default functionality
@@ -23,46 +22,41 @@ import java.util.Map;
  *
  */
 public class Decode extends Function {
-  private static List<Parameter> parameters;
 
   public Decode(Calculator calculator) {
     super(calculator);
-    parameters = new ArrayList<>();
+  }
+
+
+  @Override
+  protected List<Parameter> initParameters() {
+    List<Parameter> parameters = new ArrayList<>();
     parameters.add(new Parameter(Object.class, "expression"));
-  }
-
-  @Override
-  public String getName() {
-    return "decode";
-  }
-
-  @Override
-  public List<Parameter> getParameters() {
     return parameters;
   }
 
   @Override
-  public Object run(Map<String, FormulaPart> namedParams, List<FormulaPart> otherParams, Object row, int rowIndex, Collection<Object> allRows) {
-    FormulaPart expression = namedParams.get("expression");
+  public Object run(List<FormulaPart> params, Object row, int rowIndex, Collection<Object> allRows) {
+    FormulaPart expression = params.get(0);
     Object testValue = calculator.calcArgument(expression, row, rowIndex, allRows);
 
     if (testValue instanceof Collection) {
       Collection caseValue = (Collection)testValue;
       List<Object> resultList = new ArrayList<>();
       for (Object test : caseValue) {
-        Object result = doDecode(test, otherParams, row, rowIndex, allRows);
+        Object result = doDecode(test, params, row, rowIndex, allRows);
         resultList.add(result);
       }
       return resultList;
     }
     else {
-      Object result = doDecode(testValue, otherParams, row, rowIndex, allRows);
+      Object result = doDecode(testValue, params, row, rowIndex, allRows);
       return result;
     }
   }
 
   private Object doDecode(Object caseValue, List<FormulaPart> params, Object row, int rowIndex, Collection<Object> allRows) {
-    int ix = 0;
+    int ix = 1; // first param contains expression
     while (ix < params.size()) {
       FormulaPart part = params.get(ix++);
       Object test = calculator.calcArgument(part, row, rowIndex, allRows);

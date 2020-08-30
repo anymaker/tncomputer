@@ -5,7 +5,6 @@ import a2u.tn.utils.computer.formula.FormulaPart;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
-import java.util.Map;
 
 /**
  * Function descriptor
@@ -36,35 +35,42 @@ public abstract class Function {
   }
 
   protected Calculator calculator;
+  private List<Parameter> parameters;
 
   public Function(Calculator calculator) {
     this.calculator = calculator;
+    parameters = initParameters();
+  }
+
+  protected List<Parameter> initParameters() {
+    return Collections.emptyList();
   }
 
   /**
-   * Return function name for using in query
+   * Return function name to use in queries
    * @return function name
    */
-  public abstract String getName();
+  public String getName() {
+    return this.getClass().getSimpleName();
+  }
 
   /**
    * Return descriptors for incoming parameters
    * @return descriptors for incoming parameters
    */
-  public List<Parameter> getParameters() {
-    return Collections.emptyList();
+  public final List<Parameter> getParameters() {
+    return parameters;
   }
 
   /**
    * Invoke function to execution
-   * @param namedParams Map with named parameters value
-   * @param otherParams Other params
-   * @param row         Data from current row
-   * @param rowIndex    Index current row in rows
-   * @param allRows     Collection with all rows
-   * @return            result of execution function
+   * @param params   Other params
+   * @param row      Data from current row
+   * @param rowIndex Index current row in rows
+   * @param allRows  Collection with all rows
+   * @return         result of execution function
    */
-  public abstract Object run(Map<String, FormulaPart> namedParams, List<FormulaPart> otherParams, Object row, int rowIndex, Collection<Object> allRows);
+  public abstract Object run(List<FormulaPart> params, Object row, int rowIndex, Collection<Object> allRows);
 
 
   public String toString() {

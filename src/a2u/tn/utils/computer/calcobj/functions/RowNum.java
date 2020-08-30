@@ -7,7 +7,6 @@ import a2u.tn.utils.computer.formula.FormulaPart;
 
 import java.util.Collection;
 import java.util.List;
-import java.util.Map;
 
 /**
  * Return number of current row in collection. Starting from 0.
@@ -19,12 +18,7 @@ public class RowNum extends Function {
   }
 
   @Override
-  public String getName() {
-    return "rowNum";
-  }
-
-  @Override
-  public Object run(Map<String, FormulaPart> namedParams, List<FormulaPart> otherParams, Object row, int rowIndex, Collection<Object> allRows) {
+  public Object run(List<FormulaPart> params, Object row, int rowIndex, Collection<Object> allRows) {
     if (allRows == null) {
       throw new CalculatingException("Function 'rowNum' can only be used to filtering rows.");
     }

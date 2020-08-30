@@ -6,7 +6,6 @@ import a2u.tn.utils.computer.formula.FormulaPart;
 
 import java.util.Collection;
 import java.util.List;
-import java.util.Map;
 
 
 /**
@@ -19,12 +18,7 @@ public class Null extends Function {
   }
 
   @Override
-  public String getName() {
-    return "null";
-  }
-
-  @Override
-  public Object run(Map<String, FormulaPart> namedParams, List<FormulaPart> otherParams, Object row, int rowIndex, Collection<Object> allRows) {
+  public Object run(List<FormulaPart> params, Object row, int rowIndex, Collection<Object> allRows) {
     return null;
   }
 }

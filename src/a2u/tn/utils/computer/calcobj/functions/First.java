@@ -7,7 +7,6 @@ import a2u.tn.utils.computer.formula.FormulaPart;
 
 import java.util.Collection;
 import java.util.List;
-import java.util.Map;
 
 /**
  * Return true is current row is first
@@ -26,12 +25,7 @@ public class First extends Function {
   }
 
   @Override
-  public String getName() {
-    return "first";
-  }
-
-  @Override
-  public Object run(Map<String, FormulaPart> namedParams, List<FormulaPart> otherParams, Object row, int rowIndex, Collection<Object> allRows) {
+  public Object run(List<FormulaPart> params, Object row, int rowIndex, Collection<Object> allRows) {
     if (allRows == null) {
       throw new CalculatingException("Function 'first' can only be used to filtering rows.");
     }

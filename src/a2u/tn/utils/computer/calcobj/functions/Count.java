@@ -7,7 +7,6 @@ import a2u.tn.utils.computer.formula.FormulaPart;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
-import java.util.Map;
 
 /**
  * Calc count not null values in path
@@ -15,28 +14,21 @@ import java.util.Map;
  */
 public class Count extends Function {
 
-  private static List<Parameter> parameters;
-
   public Count(Calculator calculator) {
     super(calculator);
-    parameters = new ArrayList<>();
+  }
+
+
+  @Override
+  protected List<Parameter> initParameters() {
+    List<Parameter> parameters = new ArrayList<>();
     parameters.add(new Parameter(Object.class, "data"));
-  }
-
-
-  @Override
-  public String getName() {
-    return "count";
-  }
-
-  @Override
-  public List<Parameter> getParameters() {
     return parameters;
   }
 
   @Override
-  public Object run(Map<String, FormulaPart> namedParams, List<FormulaPart> otherParams, Object row, int rowIndex, Collection<Object> allRows) {
-    Object data = calculator.calcArgument(namedParams.get("data"),  row, rowIndex, allRows);
+  public Object run(List<FormulaPart> params, Object row, int rowIndex, Collection<Object> allRows) {
+    Object data = calculator.calcArgument(params.get(0),  row, rowIndex, allRows);
     if (data == null) {
       return 0;
     }

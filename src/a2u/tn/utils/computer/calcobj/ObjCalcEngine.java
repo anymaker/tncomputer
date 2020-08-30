@@ -1,8 +1,19 @@
 package a2u.tn.utils.computer.calcobj;
 
+import a2u.tn.utils.computer.calcobj.functions.datetime.AddDays;
+import a2u.tn.utils.computer.calcobj.functions.datetime.AddHours;
+import a2u.tn.utils.computer.calcobj.functions.datetime.AddMinutes;
+import a2u.tn.utils.computer.calcobj.functions.datetime.AddMonths;
+import a2u.tn.utils.computer.calcobj.functions.datetime.AddSeconds;
+import a2u.tn.utils.computer.calcobj.functions.datetime.AddWeeks;
+import a2u.tn.utils.computer.calcobj.functions.datetime.AddYears;
 import a2u.tn.utils.computer.calcobj.functions.Decode;
 import a2u.tn.utils.computer.calcobj.functions.First;
+import a2u.tn.utils.computer.calcobj.functions.datetime.LastDayInMonth;
+import a2u.tn.utils.computer.calcobj.functions.datetime.LastDayInYear;
 import a2u.tn.utils.computer.calcobj.functions.Nil;
+import a2u.tn.utils.computer.calcobj.functions.datetime.SysDate;
+import a2u.tn.utils.computer.calcobj.functions.datetime.SysTime;
 import a2u.tn.utils.computer.calcobj.types.TNull;
 import a2u.tn.utils.computer.calculator.Calculator;
 import a2u.tn.utils.computer.calcobj.functions.Count;
@@ -164,6 +175,20 @@ public class ObjCalcEngine extends Calculator {
     addFunction(new DateToStr(this));
 
     addFunction(new Like(this));
+
+    addFunction(new AddDays(this));
+    addFunction(new AddHours(this));
+    addFunction(new AddMinutes(this));
+    addFunction(new AddMonths(this));
+    addFunction(new AddSeconds(this));
+    addFunction(new AddWeeks(this));
+    addFunction(new AddYears(this));
+
+    addFunction(new SysDate(this));
+    addFunction(new SysTime(this));
+
+    addFunction(new LastDayInMonth(this));
+    addFunction(new LastDayInYear(this));
   }
 
   private void fillTypes() {

@@ -5,43 +5,35 @@ import a2u.tn.utils.computer.calculator.Calculator;
 import a2u.tn.utils.computer.calculator.Function;
 import a2u.tn.utils.computer.calculator.Type;
 import a2u.tn.utils.computer.formula.FPValue;
-import a2u.tn.utils.computer.formula.Formula;
 import a2u.tn.utils.computer.formula.FormulaPart;
 
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
-import java.util.Map;
 
 /**
  * Detect max value in path by all rows
  */
 public class MaxInRows extends Function {
-  private static List<Parameter> parameters;
 
   public MaxInRows(Calculator calculator) {
     super(calculator);
-    parameters = new ArrayList<>();
+  }
+
+  @Override
+  protected List<Parameter> initParameters() {
+    List<Parameter> parameters = new ArrayList<>();
     parameters.add(new Parameter(FPValue.class, "path"));
-  }
-
-  @Override
-  public String getName() {
-    return "maxinrows";
-  }
-
-  @Override
-  public List<Parameter> getParameters() {
     return parameters;
   }
 
   @Override
-  public Object run(Map<String, FormulaPart> namedParams, List<FormulaPart> otherParams, Object row, int rowIndex, Collection<Object> allRows) {
+  public Object run(List<FormulaPart> params, Object row, int rowIndex, Collection<Object> allRows) {
     if (allRows == null) {
       throw new CalculatingException("Function 'maxInRows' can only be used to filtering rows.");
     }
 
-    FormulaPart path = namedParams.get("path");
+    FormulaPart path = params.get(0);
     Object max = null;
     int ix=0;
     for (Object obj : allRows) {
