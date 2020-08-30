@@ -4,6 +4,9 @@ import a2u.tn.utils.computer.calculator.Calculator;
 import a2u.tn.utils.computer.calculator.Converter;
 import a2u.tn.utils.computer.calculator.Type;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
 import java.util.Date;
 
 /**
@@ -19,7 +22,14 @@ public class TDate extends Type {
   public void fillConverter(Converter converter) {
     converter.addConverter(Date.class, null, value -> new Date(0));
     converter.addConverter(Date.class, Date.class, value -> value);
-    converter.addConverter(Date.class, Long.class, value -> new Date((Long) value));
+    converter.addConverter(Date.class, Long.class, (Object value) -> new Date((Long) value));
+    converter.addConverter(Date.class, LocalDateTime.class, (Object date) -> Date.from(((LocalDateTime)date).atZone(ZoneId.systemDefault()).toInstant()));
+    converter.addConverter(Date.class, LocalDate.class,     (Object date) -> java.sql.Date.valueOf((LocalDate)date));
+
+    converter.addConverter(LocalDate.class,     Date.class, (Object date) -> ((Date)date).toInstant().atZone(ZoneId.systemDefault()).toLocalDate());
+    converter.addConverter(LocalDateTime.class, Date.class, (Object date) -> ((Date)date).toInstant().atZone(ZoneId.systemDefault()).toLocalDateTime());
+    converter.addConverter(Long.class,          Date.class, (Object date) -> ((Date)date).getTime());
+
   }
 
   @Override
