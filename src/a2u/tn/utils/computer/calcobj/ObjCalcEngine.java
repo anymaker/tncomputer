@@ -1,5 +1,6 @@
 package a2u.tn.utils.computer.calcobj;
 
+import a2u.tn.utils.computer.calcobj.functions.*;
 import a2u.tn.utils.computer.calcobj.functions.datetime.AddDays;
 import a2u.tn.utils.computer.calcobj.functions.datetime.AddHours;
 import a2u.tn.utils.computer.calcobj.functions.datetime.AddMinutes;
@@ -7,30 +8,13 @@ import a2u.tn.utils.computer.calcobj.functions.datetime.AddMonths;
 import a2u.tn.utils.computer.calcobj.functions.datetime.AddSeconds;
 import a2u.tn.utils.computer.calcobj.functions.datetime.AddWeeks;
 import a2u.tn.utils.computer.calcobj.functions.datetime.AddYears;
-import a2u.tn.utils.computer.calcobj.functions.Decode;
-import a2u.tn.utils.computer.calcobj.functions.First;
 import a2u.tn.utils.computer.calcobj.functions.datetime.LastDayInMonth;
 import a2u.tn.utils.computer.calcobj.functions.datetime.LastDayInYear;
-import a2u.tn.utils.computer.calcobj.functions.Nil;
 import a2u.tn.utils.computer.calcobj.functions.datetime.SysDate;
 import a2u.tn.utils.computer.calcobj.functions.datetime.SysTime;
+import a2u.tn.utils.computer.calcobj.functions.string.*;
 import a2u.tn.utils.computer.calcobj.types.TNull;
 import a2u.tn.utils.computer.calculator.Calculator;
-import a2u.tn.utils.computer.calcobj.functions.Count;
-import a2u.tn.utils.computer.calcobj.functions.DateToStr;
-import a2u.tn.utils.computer.calcobj.functions.Distinct;
-import a2u.tn.utils.computer.calcobj.functions.False;
-import a2u.tn.utils.computer.calcobj.functions.Last;
-import a2u.tn.utils.computer.calcobj.functions.Like;
-import a2u.tn.utils.computer.calcobj.functions.Max;
-import a2u.tn.utils.computer.calcobj.functions.MaxInRows;
-import a2u.tn.utils.computer.calcobj.functions.Min;
-import a2u.tn.utils.computer.calcobj.functions.Null;
-import a2u.tn.utils.computer.calcobj.functions.Nvl;
-import a2u.tn.utils.computer.calcobj.functions.RowNum;
-import a2u.tn.utils.computer.calcobj.functions.RowsCount;
-import a2u.tn.utils.computer.calcobj.functions.ToDate;
-import a2u.tn.utils.computer.calcobj.functions.True;
 import a2u.tn.utils.computer.calcobj.types.TBool;
 import a2u.tn.utils.computer.calcobj.types.TDate;
 import a2u.tn.utils.computer.calcobj.types.TDouble;
@@ -155,10 +139,13 @@ public class ObjCalcEngine extends Calculator {
   private void fillFunctions() {
     addFunction(new Null(this));
     addFunction(new Nil(this));
-    addFunction(new Nvl(this));
-    addFunction(new Decode(this));
     addFunction(new True(this));
     addFunction(new False(this));
+
+    addFunction(new Nvl(this));
+    addFunction(new IfNotNull(this));
+    addFunction(new Ifnn(this));
+    addFunction(new Decode(this));
 
     addFunction(new Distinct(this));
     addFunction(new First(this));
@@ -168,13 +155,35 @@ public class ObjCalcEngine extends Calculator {
     addFunction(new RowsCount(this));
     addFunction(new MaxInRows(this));
     addFunction(new Count(this));
+
     addFunction(new Max(this));
     addFunction(new Min(this));
 
     addFunction(new ToDate(this));
     addFunction(new DateToStr(this));
 
+    addFunction(new CharAt(this));
+    addFunction(new StartsWith(this));
+    addFunction(new EndWith(this));
+    addFunction(new IndexOf(this));
+    addFunction(new Substring(this));
+    addFunction(new Replace(this));
+    addFunction(new PadLeft(this));
+    addFunction(new PadRight(this));
+    addFunction(new IsBlank(this));
+    addFunction(new IsEmpty(this));
+    addFunction(new LTrim(this));
+    addFunction(new RTrim(this));
+    addFunction(new Trim(this));
+    addFunction(new TrimToNull(this));
+    addFunction(new RemoveSpaces(this));
+    addFunction(new RemoveWhitespaces(this));
+    addFunction(new NormalizeSpaces(this));
+    addFunction(new ExtractDigits(this));
     addFunction(new Like(this));
+    addFunction(new Format(this));
+
+    addFunction(new Length(this));
 
     addFunction(new AddDays(this));
     addFunction(new AddHours(this));

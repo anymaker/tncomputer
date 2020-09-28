@@ -1,15 +1,8 @@
 package a2u.tn.utils.computer.calculator;
 
 import a2u.tn.utils.computer.calcobj.types.TNull;
-import a2u.tn.utils.computer.formula.FPBlock;
-import a2u.tn.utils.computer.formula.FPLiteralString;
-import a2u.tn.utils.computer.formula.FPValue;
-import a2u.tn.utils.computer.formula.Formula;
-import a2u.tn.utils.computer.formula.FormulaPart;
+import a2u.tn.utils.computer.formula.*;
 import a2u.tn.utils.computer.StringUtil;
-import a2u.tn.utils.computer.formula.FPFunction;
-import a2u.tn.utils.computer.formula.FPLiteralNumber;
-import a2u.tn.utils.computer.formula.FPOperation;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -47,6 +40,40 @@ public abstract class Calculator {
   /**
    * Run computing using the prepared formula
    * @param formula prepared formula
+   * @return result of calculations
+   */
+  public Object calc(Formula formula) {
+    try {
+      FormulaPart root = formula.getRootPart();
+      Object result = calcArgument(root, null, 0, null);
+      return result;
+    }
+    catch (CalculatingException cex) {
+      StringBuilder b = new StringBuilder();
+      Throwable tr = cex;
+      while (tr != null) {
+        b.append("ERROR: ");
+        b.append(tr).append("\n");
+        tr = tr.getCause();
+      }
+      throw new CalculatingException("Error calculate formula:\n" + formula.toString() + "\n" + b.toString(), cex);
+    }
+  }
+
+  /**
+   * Run computing using query as string
+   * @param query query as string
+   * @return result of calculations
+   */
+  public Object calc(String query) {
+    Formula formula = new Formula(query);
+    return calc(formula);
+  }
+
+
+  /**
+   * Run computing using the prepared formula
+   * @param formula prepared formula
    * @param startObj object for begin computing
    * @return result of calculations
    */
@@ -79,6 +106,65 @@ public abstract class Calculator {
     return calc(formula, startObj);
   }
 
+
+  /**
+   * Run computing using the prepared formula and convert value to result type
+   * @param formula prepared formula
+   * @param cls goal-class for result
+   * @param <T> type of returned value. This type must be subtype of cls.
+   * @return result of calculations
+   */
+  public <T> T calc(Formula formula, Class<? extends T> cls) {
+    Object result = calc(formula);
+    T value = toType(cls, result);
+    return value;
+  }
+
+  /**
+   * Run computing using query as string and convert value to result type
+   * @param query query as string
+   * @param cls goal-class for result
+   * @param <T> type of returned value. This type must be subtype of cls.
+   * @return result of calculations
+   */
+  public <T> T calc(String query, Class<? extends T> cls) {
+    Formula formula = new Formula(query);
+    Object result = calc(formula);
+    T value = toType(cls, result);
+    return value;
+  }
+
+
+  /**
+   * Run computing using the prepared formula and convert value to result type
+   * @param formula prepared formula
+   * @param startObj object for begin computing
+   * @param cls goal-class for result
+   * @param <T> type of returned value. This type must be subtype of cls.
+   * @return result of calculations
+   */
+  public <T> T calc(Formula formula, Object startObj, Class<? extends T> cls) {
+    Object result = calc(formula, startObj);
+    T value = toType(cls, result);
+    return value;
+  }
+
+  /**
+   * Run computing using query as string and convert value to result type
+   * @param query query as string
+   * @param startObj object for begin computing
+   * @param cls goal-class for result
+   * @param <T> type of returned value. This type must be subtype of cls.
+   * @return result of calculations
+   */
+  public <T> T calc(String query, Object startObj, Class<? extends T> cls) {
+    Formula formula = new Formula(query);
+    Object result = calc(formula, startObj);
+    T value = toType(cls, result);
+    return value;
+  }
+
+
   /**
    * Compute result for part of formula
    * @param part part of formula
@@ -104,6 +190,11 @@ public abstract class Calculator {
     }
     if (part instanceof FPLiteralString) {
       FPLiteralString exs = (FPLiteralString) part;
+      Object v = exs.getValue();
+      return v;
+    }
+    if (part instanceof FPLiteral) {
+      FPLiteral exs = (FPLiteral) part;
       Object v = exs.getValue();
       return v;
     }
@@ -193,18 +284,40 @@ public abstract class Calculator {
     List<FormulaPart> params = new ArrayList<>();
 
     if (!fn.getParameters().isEmpty()) {
+
       if (function.getParams() == null) {
         String par2 = StringUtil.collectionToString(", ", fn.getParameters(), Function.Parameter::getTypeName);
         throw new CalculatingException("For function '"+ function.getName() +"' parameter is not specified. You need specify (" + par2 + ").");
       }
+
       List<FormulaPart> paramValsList = function.getParams();
       int ix = 0;
       while (ix < fn.getParameters().size()) {
-        FormulaPart param = paramValsList.get(ix);
-        params.add(param);
+        Function.Parameter fp = fn.getParameters().get(ix);
+        if (fp.isRequired()) {
+          if (paramValsList.size() > ix) {
+            FormulaPart param = paramValsList.get(ix);
+            params.add(param);
+          }
+          else {
+            throw new CalculatingException("Parameter '"+fp.getName()+"' is not specified for function '"+ function.getName() +"'.");
+          }
+        }
+        else {
+          if (paramValsList.size() > ix) {
+            FormulaPart param = paramValsList.get(ix);
+            params.add(param);
+          }
+          else if (fp.getDefaultValue() != null){
+            FormulaPart param = new FPLiteral(fp.getDefaultValue());
+            params.add(param);
+          }
+        }
         ix++;
       }
-      params.addAll(paramValsList.subList(ix, paramValsList.size()));
+      if (paramValsList.size() > ix) {
+        params.addAll(paramValsList.subList(ix, paramValsList.size()));
+      }
     }
     else if (function.getParams() == null && fn.getParameters().size() != 0) {
        throw new CalculatingException("Function '"+ function.getName() +"' no need in parameters.");
@@ -222,7 +335,7 @@ public abstract class Calculator {
    */
   private Object calcValue(FPValue fpValue, Object arg1) {
     Collection<Object> resultList = calcValueProcess(fpValue, arg1);
-    if (resultList.isEmpty()) {
+    if (resultList == null || resultList.isEmpty()) {
       return null;
     }
     else if (resultList.size() == 1) {

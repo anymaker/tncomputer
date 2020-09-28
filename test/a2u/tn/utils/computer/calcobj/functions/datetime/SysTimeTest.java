@@ -25,7 +25,7 @@ public class SysTimeTest {
   @Test
   public void run() {
     Formula formula = new Formula("sysTime");
-    Date date1 = (Date) engine.calc(formula, null);
+    Date date1 = engine.calc(formula, Date.class);
     Date date2 = new Date();
 
     String v1 = df.format(date1);

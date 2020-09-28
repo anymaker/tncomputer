@@ -29,7 +29,7 @@ public class SysDateTest {
   @Test
   public void run() {
     Formula formula = new Formula("sysDate");
-    Date date1 = (Date) engine.calc(formula, null);
+    Date date1 = engine.calc(formula, Date.class);
 
     LocalDateTime date2 = LocalDateTime.now();
     date2 = date2.truncatedTo(ChronoUnit.DAYS);

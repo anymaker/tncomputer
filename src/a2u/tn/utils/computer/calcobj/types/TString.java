@@ -29,47 +29,47 @@ public class TString extends Type {
 
   @Override
   public String plus(Object v1, Object v2) {
-    String str1 = calculator.toType(String.class, v1);
-    String str2 = calculator.toType(String.class, v2);
+    String str1 = v1 == null ? "" : calculator.toType(String.class, v1);
+    String str2 = v2 == null ? "" : calculator.toType(String.class, v2);
     return str1 + str2;
   }
 
 
   @Override
   public boolean equal(Object v1, Object v2) {
-    String str1 = calculator.toType(String.class, v1);
-    String str2 = calculator.toType(String.class, v2);
+    String str1 = v1 == null ? "" : calculator.toType(String.class, v1);
+    String str2 = v2 == null ? "" : calculator.toType(String.class, v2);
     return str1.equals(str2);
   }
   @Override
   public boolean notequal(Object v1, Object v2) {
-    String str1 = calculator.toType(String.class, v1);
-    String str2 = calculator.toType(String.class, v2);
+    String str1 = v1 == null ? "" : calculator.toType(String.class, v1);
+    String str2 = v2 == null ? "" : calculator.toType(String.class, v2);
     return !str1.equals(str2);
   }
 
   @Override
   public boolean great(Object v1, Object v2) {
-    String str1 = calculator.toType(String.class, v1);
-    String str2 = calculator.toType(String.class, v2);
+    String str1 = v1 == null ? "" : calculator.toType(String.class, v1);
+    String str2 = v2 == null ? "" : calculator.toType(String.class, v2);
     return str1.compareTo(str2) > 0;
   }
   @Override
   public boolean greatEqual(Object v1, Object v2) {
-    String str1 = calculator.toType(String.class, v1);
-    String str2 = calculator.toType(String.class, v2);
+    String str1 = v1 == null ? "" : calculator.toType(String.class, v1);
+    String str2 = v2 == null ? "" : calculator.toType(String.class, v2);
     return str1.compareTo(str2) >= 0;
   }
   @Override
   public boolean less(Object v1, Object v2) {
-    String str1 = calculator.toType(String.class, v1);
-    String str2 = calculator.toType(String.class, v2);
+    String str1 = v1 == null ? "" : calculator.toType(String.class, v1);
+    String str2 = v2 == null ? "" : calculator.toType(String.class, v2);
     return str1.compareTo(str2) < 0;
   }
   @Override
   public boolean lessEqual(Object v1, Object v2) {
-    String str1 = calculator.toType(String.class, v1);
-    String str2 = calculator.toType(String.class, v2);
+    String str1 = v1 == null ? "" : calculator.toType(String.class, v1);
+    String str2 = v2 == null ? "" : calculator.toType(String.class, v2);
     return str1.compareTo(str2) <= 0;
   }
 

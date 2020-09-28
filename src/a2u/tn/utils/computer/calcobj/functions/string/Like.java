@@ -1,4 +1,4 @@
-package a2u.tn.utils.computer.calcobj.functions;
+package a2u.tn.utils.computer.calcobj.functions.string;
 
 import a2u.tn.utils.computer.calculator.Calculator;
 import a2u.tn.utils.computer.calculator.Function;
@@ -30,6 +30,7 @@ public class Like extends Function {
     List<Parameter> parameters = new ArrayList<>();
     parameters.add(new Parameter(String.class, "string"));
     parameters.add(new Parameter(String.class, "template"));
+    parameters.add(new Parameter(String.class, "escape", false, null));
     return parameters;
   }
 
@@ -40,6 +41,22 @@ public class Like extends Function {
 
     String string   = calculator.toType(String.class, stringValue);
     String template = calculator.toType(String.class, templateValue);
+    /*
+    int ixTemplate = 0;
+    int ixString = 0;
+
+    while (ixTemplate < template.length() && ixString < string.length()) {
+      char ct = template.charAt(ixTemplate);
+      if (ct == '_') {
+        ixString++;
+        ixTemplate++;
+        continue;
+      }
+      else if (ct == '%') {
+
+      }
+    }
+     */
 
     Pattern p = Pattern.compile(template);
     Matcher mtch = p.matcher(string);

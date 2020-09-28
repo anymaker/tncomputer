@@ -3,36 +3,36 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>com.github.anymaker</groupId>
   <artifactId>tncomputer</artifactId>
-  <version>0.0.8</version>
+  <version>0.0.9</version>
   <packaging>jar</packaging>
-  
+
   <name>${project.groupId}:${project.artifactId}</name>
   <description>Computation with Extendable Query Language</description>
   <url>https://github.com/anymaker/tncomputer</url>
   <issueManagement>
     <url>https://github.com/anymaker/tncomputer/issues</url>
   </issueManagement>
-  
+
   <licenses>
     <license>
       <name>The Unlicense</name>
       <url>http://unlicense.org</url>
     </license>
   </licenses>
-  
+
   <developers>
     <developer>
       <name>anymaker</name>
       <email>a2uqwertyu@gmail.com</email>
     </developer>
   </developers>
-  
+
   <scm>
     <connection>scm:git:git://https://github.com/anymaker/tncomputer.git</connection>
     <developerConnection>scm:git:ssh://github.com/anymaker/tncomputer.git</developerConnection>
     <url>https://github.com/anymaker/tncomputer</url>
   </scm>
-  
+
   <dependencies>
     <!-- https://mvnrepository.com/artifact/junit/junit -->
     <dependency>
@@ -50,7 +50,7 @@
       <scope>test</scope>
     </dependency>
   </dependencies>
-  
+
   <distributionManagement>
     <snapshotRepository>
       <id>ossrh</id>
@@ -61,11 +61,11 @@
       <url>https://oss.sonatype.org/service/local/staging/deploy/maven2/</url>
     </repository>
   </distributionManagement>
-  
+
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
   </properties>
-  
+
   <build>
     <defaultGoal>package</defaultGoal>
     <sourceDirectory>src</sourceDirectory>
@@ -108,7 +108,7 @@
           </execution>
         </executions>
       </plugin>
-      
+
       <!-- GPG Signed Components -->
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
@@ -124,7 +124,7 @@
           </execution>
         </executions>
       </plugin>
-      
+
       <!-- Nexus Staging Maven Plugin -->
       <plugin>
         <groupId>org.sonatype.plugins</groupId>
@@ -137,7 +137,7 @@
            <autoReleaseAfterClose>true</autoReleaseAfterClose>
         </configuration>
       </plugin>
-      
+
       <!-- CUSTOM -->
       <!-- Override compiler-plugin -->
       <plugin>
@@ -151,7 +151,7 @@
           <compilerArgument>-Xlint:unchecked</compilerArgument>
         </configuration>
       </plugin>
-      
+
       <!-- Override test-plugin -->
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>

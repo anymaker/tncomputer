@@ -17,11 +17,21 @@ public abstract class Function {
   public class Parameter {
     private Class<?> type;
     private String name;
+    private boolean required = true;
+    private String defaultValue = null;
 
     public Parameter(Class<?> type, String name) {
       this.type = type;
       this.name = name;
     }
+    
+    public Parameter(Class<?> type, String name, boolean required, String defaultValue) {
+      this.type = type;
+      this.name = name;
+      this.required = required;
+      this.defaultValue = defaultValue;
+    }
+
 
     public Class<?> getType() {
       return type;
@@ -31,6 +41,12 @@ public abstract class Function {
     }
     public String getName() {
       return name;
+    }
+    public boolean isRequired() {
+      return required;
+    };
+    public String getDefaultValue() {
+      return defaultValue;
     }
   }
 

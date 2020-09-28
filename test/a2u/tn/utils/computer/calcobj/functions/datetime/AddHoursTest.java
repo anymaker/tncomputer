@@ -25,7 +25,7 @@ public class AddHoursTest {
   @Test
   public void testPlus() {
     Formula formula = new Formula("addHours(todate('2018.01.01', 'yyyy.MM.dd'), 5)");
-    Date date = (Date) engine.calc(formula, null);
+    Date date = engine.calc(formula, Date.class);
     String res = df.format(date);
 
     assertEquals("2018.01.01-05:00:00", res);
@@ -34,7 +34,7 @@ public class AddHoursTest {
   @Test
   public void testMinus() {
     Formula formula = new Formula("addHours(todate('2018.01.01', 'yyyy.MM.dd'), -5)");
-    Date date = (Date) engine.calc(formula, null);
+    Date date = engine.calc(formula, Date.class);
     String res = df.format(date);
 
     assertEquals("2017.12.31-19:00:00", res);

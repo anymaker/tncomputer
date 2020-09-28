@@ -24,7 +24,7 @@ public class LastDayInYearTest {
   @Test
   public void run01() {
     Formula formula = new Formula("lastDayInYear(todate('2018.02.01', 'yyyy.MM.dd'))");
-    Date date = (Date) engine.calc(formula, null);
+    Date date = engine.calc(formula, Date.class);
     String res = df.format(date);
     assertEquals("2018.12.31-00:00:00", res);
   }
@@ -32,7 +32,7 @@ public class LastDayInYearTest {
   @Test
   public void run02() {
     Formula formula = new Formula("lastDayInYear(todate('2018.02.01-10:35:17', 'yyyy.MM.dd-HH:mm:ss'))");
-    Date date = (Date) engine.calc(formula, null);
+    Date date = engine.calc(formula, Date.class);
     String res = df.format(date);
     assertEquals("2018.12.31-10:35:17", res);
   }
