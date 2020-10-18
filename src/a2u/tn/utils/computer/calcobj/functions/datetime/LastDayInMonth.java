@@ -11,8 +11,11 @@ import java.util.Collection;
 import java.util.Date;
 import java.util.List;
 
+/**
+ * Returns the last day of the month
+ */
 public class LastDayInMonth extends Function {
-  
+
   public LastDayInMonth(Calculator calculator) {
     super(calculator);
   }

@@ -8,6 +8,9 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
+/**
+ * Adds characters to the left of the string until the string reaches the specified length.
+ */
 public class PadLeft extends Function {
 
   public PadLeft(Calculator calculator) {

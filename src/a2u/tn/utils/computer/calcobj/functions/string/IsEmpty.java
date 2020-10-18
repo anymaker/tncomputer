@@ -8,6 +8,9 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
+/**
+ * Checks if a string is empty ("") or null.
+ */
 public class IsEmpty extends Function {
 
   public IsEmpty(Calculator calculator) {

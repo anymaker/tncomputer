@@ -8,6 +8,9 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
+/**
+ * Adds characters to the right of the string until the string reaches the specified length.
+ */
 public class PadRight extends Function {
 
   public PadRight(Calculator calculator) {
@@ -18,7 +21,8 @@ public class PadRight extends Function {
   protected List<Parameter> initParameters() {
     List<Function.Parameter> parameters = new ArrayList<>();
     parameters.add(new Function.Parameter(Object.class, "string"));
-    parameters.add(new Function.Parameter(Object.class, "quantity"));
+    parameters.add(new Function.Parameter(Object.class, "length"));
+    parameters.add(new Function.Parameter(Object.class, "sample"));
     return parameters;
   }
 

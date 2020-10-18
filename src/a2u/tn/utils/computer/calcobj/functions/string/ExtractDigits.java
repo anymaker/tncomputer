@@ -1,6 +1,5 @@
 package a2u.tn.utils.computer.calcobj.functions.string;
 
-import a2u.tn.utils.computer.StringUtil;
 import a2u.tn.utils.computer.calculator.Calculator;
 import a2u.tn.utils.computer.calculator.Function;
 import a2u.tn.utils.computer.formula.FormulaPart;
@@ -9,6 +8,9 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
+/**
+ * Retrieves all digits from a string
+ */
 public class ExtractDigits extends Function {
 
   public ExtractDigits(Calculator calculator) {

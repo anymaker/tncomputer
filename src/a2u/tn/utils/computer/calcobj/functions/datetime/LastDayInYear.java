@@ -11,6 +11,9 @@ import java.util.Collection;
 import java.util.Date;
 import java.util.List;
 
+/**
+ * Returns the last day of the year
+ */
 public class LastDayInYear extends Function {
 
   public LastDayInYear(Calculator calculator) {

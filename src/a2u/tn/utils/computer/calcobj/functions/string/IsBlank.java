@@ -10,7 +10,7 @@ import java.util.Collection;
 import java.util.List;
 
 /**
- * Tests if string contain only whitespace characters or null
+ * Checks if string contain only whitespace characters or null
  */
 public class IsBlank extends Function {
 

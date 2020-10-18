@@ -4,6 +4,9 @@ import a2u.tn.utils.computer.calculator.Calculator;
 
 import java.time.LocalDateTime;
 
+/**
+ * Adds or subtracts the specified number of days
+ */
 public class AddDays extends DateCalculationAbstract {
 
   public AddDays(Calculator calculator) {

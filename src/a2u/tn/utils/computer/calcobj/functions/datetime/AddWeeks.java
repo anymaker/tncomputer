@@ -4,6 +4,9 @@ import a2u.tn.utils.computer.calculator.Calculator;
 
 import java.time.LocalDateTime;
 
+/**
+ * Adds or subtracts a specified number of weeks
+ */
 public class AddWeeks extends DateCalculationAbstract {
 
   public AddWeeks(Calculator calculator) {

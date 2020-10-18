@@ -4,6 +4,9 @@ import a2u.tn.utils.computer.calculator.Calculator;
 
 import java.time.LocalDateTime;
 
+/**
+ * Adds or subtracts the specified number of minutes
+ */
 public class AddMinutes extends DateCalculationAbstract {
 
   public AddMinutes(Calculator calculator) {

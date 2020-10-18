@@ -4,6 +4,9 @@ import a2u.tn.utils.computer.calculator.Calculator;
 
 import java.time.LocalDateTime;
 
+/**
+ * Adds or subtracts a specified number of months
+ */
 public class AddMonths extends DateCalculationAbstract {
 
   public AddMonths(Calculator calculator) {
