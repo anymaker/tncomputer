@@ -166,13 +166,20 @@ AAABBB
 ```
 
 The *ID* class is your own class that contains the data to retrieve the values ​​(*value* and *sourceName*). 
-This class can retrieve values ​​using the loadObj () method.
+This class can retrieve values ​​using the *loadObj()* method.
 
 You can override the *extractValues* method in the *ObjCalcEngine* class.
 ```java
 protected Collection<Object> extractValues(String byCode, Collection<Object> fromObjList)
 ``` 
 where check *instanceof* to determine when you should call *ID.loadObj()*.
+```java
+if (obj instanceof ID) {
+  //own way
+  Map<String, Object> objData = ((ID)obj).loadObj();
+  resultList.add(objData.get(byCode));
+}
+```
 
 **PS:** Do not use this method to get a lot of rows from the database. \
 You can use *SqlBuilder* to create sql-query by formula. \
