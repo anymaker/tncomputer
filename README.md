@@ -32,3 +32,148 @@ Or download jar from https://mvnrepository.com/artifact/com.github.anymaker/tnco
 
 ## Note
 Currently this is a experimental project and it has no fixed API.
+
+## Simple usage
+Calculating with extract values by code from any objects such as plain object and Map or List instances
+
+```java
+import a2u.tn.utils.computer.calcobj.ObjCalcEngine;
+
+public class Main {
+  private static ObjCalcEngine engine = new ObjCalcEngine();
+
+  private int     fieldA = 123;
+  private String  fieldB = "BBB";
+  private Main    fieldC;
+
+  public static void main(String[] args) {
+    Main startObj = new Main();
+    startObj.fieldC = startObj;
+
+    System.out.println(engine.calc("'1: ' + .fieldA", startObj));
+    System.out.println(engine.calc("'2: ' + .fieldB", startObj));
+    System.out.println(engine.calc("'3: ' + .fieldC", startObj));
+    System.out.println(engine.calc("'4: ' + .fieldC.fieldA * 10", startObj));
+    System.out.println(engine.calc("'5: ' + .fieldA + .fieldC.fieldA", startObj));
+    System.out.println(engine.calc("'6: ' + (.fieldA + .fieldC.fieldA)", startObj));
+    System.out.println(engine.calc("'7: ' + .fieldB + ' -> ' + .fieldC.fieldA", startObj));
+  }
+
+  @Override
+  public String toString() {
+    return fieldA + ", " + fieldB;
+  }
+}
+```
+Output
+```
+1: 123
+2: BBB
+3: 123, BBB
+4: 1230
+5: 123123
+6: 246
+7: BBB -> 123
+```
+
+## With own value extraction method
+
+```java
+import a2u.tn.utils.computer.calcobj.ObjCalcEngine;
+
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.Map;
+
+public class Main2 {
+
+  public static class ID {
+    Object value;
+    String sourceName;
+
+    public ID(Object value, String sourceName) {
+      this.value = value;
+      this.sourceName = sourceName;
+    }
+
+    public Map<String, Object> loadObj() {
+      //todo: Your implementation to load an object from a database or other source
+      Map<String, Object> data = new LinkedHashMap<String, Object>();
+      data.put("field01", "AAA");
+      return data;
+    }
+
+    public String toString() {
+      return value+"@"+sourceName;
+    }
+  }
+
+  private static ObjCalcEngine engine = new ObjCalcEngine() {
+
+    //We override this method to get values in our own way
+    /**
+     * Extract values from each object 'fromObjList' by code
+     * @param byCode code for extracting values
+     * @param fromObjList collection with objects for extracting values
+     * @return Values
+     */
+    @Override
+    protected Collection<Object> extractValues(String byCode, Collection<Object> fromObjList) {
+      if (fromObjList == null) {
+        return null;
+      }
+
+      List<Object> resultList = new ArrayList<Object>();
+
+      for (Object obj : fromObjList) {
+        if (obj instanceof ID) {
+          //own way
+          Map<String, Object> objData = ((ID)obj).loadObj();
+          resultList.add(objData.get(byCode));
+        }
+        else {
+          //standart way
+          resultList.addAll(super.extractValues(byCode, Collections.singletonList(obj)));
+        }
+      }
+
+      return resultList;
+    }
+  };
+
+
+  public static void main(String[] args) {
+    Map<String, Object> map = new LinkedHashMap<String, Object>();
+    map.put("value01", new ID(12345, "table01"));
+    map.put("value02", "BBB");
+    System.out.println(engine.calc(".value01", map));
+    System.out.println(engine.calc(".value01.field01", map));
+    System.out.println(engine.calc(".value02", map));
+    System.out.println(engine.calc(".value01.field01 + .value02", map));
+  }
+
+}
+```
+Output
+```
+12345@table01
+AAA
+BBB
+AAABBB
+```
+
+The *ID* class is your own class that contains the data to retrieve the values ​​(*value* and *sourceName*). 
+This class can retrieve values ​​using the loadObj () method.
+
+You can override the *extractValues* method in the *ObjCalcEngine* class.
+```java
+protected Collection<Object> extractValues(String byCode, Collection<Object> fromObjList)
+``` 
+where check *instanceof* to determine when you should call *ID.loadObj()*.
+
+**PS:** Do not use this method to get a lot of rows from the database. \
+You can use *SqlBuilder* to create sql-query by formula. \
+*SqlBuilder* will be available soon.
