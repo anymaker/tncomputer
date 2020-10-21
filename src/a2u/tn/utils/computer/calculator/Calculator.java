@@ -4,11 +4,7 @@ import a2u.tn.utils.computer.calcobj.types.TNull;
 import a2u.tn.utils.computer.formula.*;
 import a2u.tn.utils.computer.StringUtil;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.LinkedHashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * Computing by formula
@@ -352,31 +348,35 @@ public abstract class Calculator {
     resultRows.add(fromObj);
     do {
       path.append(".").append(current.getFieldName());
-      Collection<Object> valueList;
+      Collection<Object> extractedValues;
       try {
-        valueList = extractValues(current.getFieldName(), resultRows);
+        extractedValues = extractValues(current.getFieldName(), resultRows);
       }
       catch (Exception ex) {
         throw new CalculatingException("Error on getting values from '"+String.valueOf(fromObj)+"' by code '"+current.getFieldName()+"' in path "+ path +".", ex);
       }
 
-      Collection<Object> filteredValues;
-      if (current.getFilter() != null) {
-        filteredValues = new ArrayList<>();
+      Collection<Object> loopValues;
+      if (extractedValues == null || extractedValues.isEmpty()) {
+        loopValues = Collections.emptyList();
+      }
+      else if (current.getFilter() != null) {
+        loopValues = new ArrayList<>();
         int ix = 0;
-        for (Object value : valueList) {
-          Object isPassObj = calcArgument(current.getFilter(), value, ix, valueList);
+        for (Object value : extractedValues) {
+          Object isPassObj = calcArgument(current.getFilter(), value, ix, extractedValues);
           boolean isPass = toType(Boolean.class, isPassObj);
           if (isPass) {
-            filteredValues.add(value);
+            loopValues.add(value);
           }
           ix++;
         }
       }
       else {
-        filteredValues = valueList;
+        loopValues = extractedValues;
       }
-      resultRows = filteredValues;
+
+      resultRows = loopValues;
       current = current.getNext();
     }
     while (current != null);
@@ -433,6 +433,11 @@ public abstract class Calculator {
         type = entry.getValue();
         break;
       }
+    }
+
+    //If enum is not overridden
+    if (type == null && forClass.isEnum()) {
+      type = getType(String.class);
     }
 
     if (type == null) {

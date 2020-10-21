@@ -14,7 +14,7 @@ import java.util.List;
 /**
  * Abstract class for date calculation
  */
-public abstract class DateCalculationAbstract extends Function {
+abstract class DateCalculationAbstract extends Function {
 
   public DateCalculationAbstract(Calculator calculator) {
     super(calculator);
@@ -38,7 +38,7 @@ public abstract class DateCalculationAbstract extends Function {
 
     LocalDateTime date  = calculator.toType(LocalDateTime.class, dateValue);
     Long item = calculator.toType(Long.class, monthsValue);
-    
+
     LocalDateTime calcedDate = calc(date, item);
 
     Date result = Date.from(calcedDate.atZone(ZoneId.systemDefault()).toInstant());
