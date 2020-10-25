@@ -138,27 +138,7 @@ public class ObjCalcEngine extends Calculator {
           }
         }
         else {
-          Object val;
-          if (fromObj instanceof Map) {
-            Map map = (Map) fromObj;
-            val = map.get(byCode);
-          }
-          else if (fromObj instanceof CharSequence || fromObj instanceof Number || fromObj instanceof Boolean) {
-            throw new IllegalArgumentException("Object '"+fromObj+"' with class "+fromObj.getClass()+" is incorrect for extract field "+byCode+".");
-          }
-          else {
-            Class<?> cls = fromObj.getClass();
-            Field fld = null;
-            try {
-              fld = cls.getDeclaredField(byCode);
-            }
-            catch (NoSuchFieldException e) {
-              return null;
-            }
-
-            fld.setAccessible(true);
-            val = fld.get(fromObj);
-          }
+          Object val = extractValue(byCode, fromObj);
 
           if (val instanceof Collection) {
             valueListSet.addAll((Collection<Object>) val);
@@ -175,6 +155,35 @@ public class ObjCalcEngine extends Calculator {
 
     }
     return valueListSet;
+  }
+
+  /**
+   * Extract value from object 'fromObj' by code
+   * @param byCode code for extracting values
+   * @param fromObj objects for extracting values
+   * @return Values
+   */
+  protected Object extractValue(String byCode, Object fromObj) throws Exception {
+    if (fromObj instanceof Map) {
+      Map map = (Map) fromObj;
+      return map.get(byCode);
+    }
+    else if (fromObj instanceof CharSequence || fromObj instanceof Number || fromObj instanceof Boolean) {
+      throw new IllegalArgumentException("Object '"+fromObj+"' with class "+fromObj.getClass()+" is incorrect for extract field "+byCode+".");
+    }
+    else {
+      Class<?> cls = fromObj.getClass();
+      Field fld;
+      try {
+        fld = cls.getDeclaredField(byCode);
+      }
+      catch (NoSuchFieldException e) {
+        return null;
+      }
+
+      fld.setAccessible(true);
+      return fld.get(fromObj);
+    }
   }
 
 
