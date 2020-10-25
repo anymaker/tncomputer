@@ -12,7 +12,8 @@ import java.util.Collection;
 import java.util.List;
 
 /**
- * Detect max value in path by all rows
+ * Determine the max value in the path across all rows
+ * Unlike the similar function "max", this function looks for the largest value in all rows processed by the filter.
  */
 public class MaxInRows extends Function {
 

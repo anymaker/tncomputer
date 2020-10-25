@@ -24,7 +24,7 @@ public class ToDate extends Function {
   @Override
   protected List<Parameter> initParameters() {
     List<Parameter> parameters = new ArrayList<>();
-    parameters.add(new Parameter(String.class, "input"));
+    parameters.add(new Parameter(String.class, "string"));
     parameters.add(new Parameter(String.class, "format"));
     return parameters;
   }

@@ -21,7 +21,7 @@ public class Length extends Function {
   @Override
   protected List<Parameter> initParameters() {
     List<Parameter> parameters = new ArrayList<>();
-    parameters.add(new Parameter(Object.class, "string"));
+    parameters.add(new Parameter(Object.class, "value"));
     return parameters;
   }
 

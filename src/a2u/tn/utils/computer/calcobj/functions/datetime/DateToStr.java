@@ -23,7 +23,7 @@ public class DateToStr extends Function {
   @Override
   protected List<Parameter> initParameters() {
     List<Parameter> parameters = new ArrayList<>();
-    parameters.add(new Parameter(Date.class,   "input"));
+    parameters.add(new Parameter(Date.class,   "date"));
     parameters.add(new Parameter(String.class, "format"));
     return parameters;
   }

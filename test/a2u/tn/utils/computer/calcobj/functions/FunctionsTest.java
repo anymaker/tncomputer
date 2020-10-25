@@ -69,7 +69,6 @@ public class FunctionsTest {
   @Test
   public void distinctTest() {
     check(".mailList.autor(distinct)", "{List:['Autor01','Autor02','Autor03']}");
-    //check("distinct", "{List:['Autor01','Autor02','Autor03']}");
   }
 
   @Test
