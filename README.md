@@ -24,7 +24,7 @@ You can use maven dependensy
     <dependency>
       <groupId>com.github.anymaker</groupId>
       <artifactId>tncomputer</artifactId>
-      <version>0.0.9</version>
+      <version>0.0.11</version>
     </dependency>
 ```
 Or download jar from https://mvnrepository.com/artifact/com.github.anymaker/tncomputer
@@ -34,7 +34,8 @@ Or download jar from https://mvnrepository.com/artifact/com.github.anymaker/tnco
 Currently this is a experimental project and it has no fixed API.
 
 ## Simple usage
-Calculating with extract values by code from any objects such as plain object and Map or List instances
+Calculating with extract values by code from any objects such as plain object and Map or List instances. \
+See details here [Wiki: Simple usage](https://github.com/anymaker/tncomputer/wiki/Simple-usage)
 
 ```java
 import a2u.tn.utils.computer.calcobj.ObjCalcEngine;
@@ -81,11 +82,7 @@ Output
 ```java
 import a2u.tn.utils.computer.calcobj.ObjCalcEngine;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
 import java.util.LinkedHashMap;
-import java.util.List;
 import java.util.Map;
 
 public class Main2 {
@@ -100,7 +97,7 @@ public class Main2 {
     }
 
     public Map<String, Object> loadObj() {
-      //todo: Your implementation to load an object from a database or other source
+      //todo: Your implementation to load an object from a source
       Map<String, Object> data = new LinkedHashMap<String, Object>();
       data.put("field01", "AAA");
       return data;
@@ -111,36 +108,27 @@ public class Main2 {
     }
   }
 
+  //We extend this class to override the method that extract values
   private static ObjCalcEngine engine = new ObjCalcEngine() {
 
     //We override this method to get values in our own way
     /**
-     * Extract values from each object 'fromObjList' by code
+     * Extract value from object 'fromObj' by code
      * @param byCode code for extracting values
-     * @param fromObjList collection with objects for extracting values
+     * @param fromObj objects for extracting values
      * @return Values
      */
     @Override
-    protected Collection<Object> extractValues(String byCode, Collection<Object> fromObjList) {
-      if (fromObjList == null) {
-        return null;
+    protected Object extractValue(String byCode, Object fromObj) throws Exception {
+      if (fromObj instanceof ID) {
+        //own way
+        Map<String, Object> objData = ((ID)fromObj).loadObj();
+        return objData.get(byCode);
       }
-
-      List<Object> resultList = new ArrayList<Object>();
-
-      for (Object obj : fromObjList) {
-        if (obj instanceof ID) {
-          //own way
-          Map<String, Object> objData = ((ID)obj).loadObj();
-          resultList.add(objData.get(byCode));
-        }
-        else {
-          //standart way
-          resultList.addAll(super.extractValues(byCode, Collections.singletonList(obj)));
-        }
+      else {
+        //standart way
+        return super.extractValue(byCode, fromObj);
       }
-
-      return resultList;
     }
   };
 
@@ -153,6 +141,10 @@ public class Main2 {
     System.out.println(engine.calc(".value01.field01", map));
     System.out.println(engine.calc(".value02", map));
     System.out.println(engine.calc(".value01.field01 + .value02", map));
+
+    System.out.println(engine.calc("true"));
+    System.out.println(Boolean.TRUE.equals(engine.calc("true")));
+    System.out.println(Boolean.FALSE.equals(engine.calc("true")));
   }
 
 }
