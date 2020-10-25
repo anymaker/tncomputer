@@ -119,7 +119,7 @@ class Parser {
       ix.addAndGet(1);
     }
     else {
-      throw new InternalError("Invalid character '"+ c +"' at position "+ ix.get() +" in text '"+ text +"'.");
+      throw new ParserError("Invalid character '"+ c +"' at position "+ ix.get() +" in text '"+ text +"'.");
     }
     int entreNum = 1;
 
@@ -219,8 +219,8 @@ class Parser {
 
     char c = text.charAt(ix.get());
     if (!Character.isLetter(c) && !isWhiteSpace(c)) {
-      if (c!='*' && c!='/' && c!='+' && c!='-' && c!='=' && c!='<' && c!='>' && c!=',' && c!='@' && c!='#' && c!='$') {
-        throw new InternalError("Invalid character '" + c + "' at position " + ix.get() + " in text '" + text + "'.");
+      if (c!='*' && c!='/' && c!='+' && c!='-' && c!='=' && c!='<' && c!='>' && c!=',' && c!='@' && c!='#' && c!='$' && c!='(') {
+        throw new ParserError("Invalid character '" + c + "' at position " + ix.get() + " in text '" + text + "'.");
       }
     }
 
@@ -245,7 +245,7 @@ class Parser {
   protected static void getNumber(StringBuilder b, String text, AtomicInteger ix) {
     char c = text.charAt(ix.get());
     if (!Character.isDigit(c)) {
-      throw new InternalError("Invalid character '"+ c +"' at position "+ ix.get() +" in text '"+ text +"'.");
+      throw new ParserError("Invalid character '"+ c +"' at position "+ ix.get() +" in text '"+ text +"'.");
     }
 
     int len = text.length();

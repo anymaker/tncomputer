@@ -1,18 +1,57 @@
 package a2u.tn.utils.computer.calcobj;
 
-import a2u.tn.utils.computer.calcobj.functions.auxiliary.*;
-import a2u.tn.utils.computer.calcobj.functions.datetime.*;
+import a2u.tn.utils.computer.calcobj.functions.auxiliary.Decode;
+import a2u.tn.utils.computer.calcobj.functions.auxiliary.IfNotNull;
+import a2u.tn.utils.computer.calcobj.functions.auxiliary.Ifnn;
+import a2u.tn.utils.computer.calcobj.functions.auxiliary.Length;
+import a2u.tn.utils.computer.calcobj.functions.auxiliary.Nvl;
+import a2u.tn.utils.computer.calcobj.functions.datetime.AddDays;
+import a2u.tn.utils.computer.calcobj.functions.datetime.AddHours;
+import a2u.tn.utils.computer.calcobj.functions.datetime.AddMinutes;
+import a2u.tn.utils.computer.calcobj.functions.datetime.AddMonths;
+import a2u.tn.utils.computer.calcobj.functions.datetime.AddSeconds;
+import a2u.tn.utils.computer.calcobj.functions.datetime.AddWeeks;
+import a2u.tn.utils.computer.calcobj.functions.datetime.AddYears;
+import a2u.tn.utils.computer.calcobj.functions.datetime.DateToStr;
+import a2u.tn.utils.computer.calcobj.functions.datetime.LastDayInMonth;
+import a2u.tn.utils.computer.calcobj.functions.datetime.LastDayInYear;
+import a2u.tn.utils.computer.calcobj.functions.datetime.SysDate;
+import a2u.tn.utils.computer.calcobj.functions.datetime.SysTime;
+import a2u.tn.utils.computer.calcobj.functions.datetime.ToDate;
 import a2u.tn.utils.computer.calcobj.functions.forcollections.Count;
 import a2u.tn.utils.computer.calcobj.functions.forcollections.Max;
 import a2u.tn.utils.computer.calcobj.functions.forcollections.Min;
-import a2u.tn.utils.computer.calcobj.functions.incollection.*;
+import a2u.tn.utils.computer.calcobj.functions.incollection.Distinct;
+import a2u.tn.utils.computer.calcobj.functions.incollection.First;
+import a2u.tn.utils.computer.calcobj.functions.incollection.Last;
+import a2u.tn.utils.computer.calcobj.functions.incollection.MaxInRows;
+import a2u.tn.utils.computer.calcobj.functions.incollection.RowNum;
+import a2u.tn.utils.computer.calcobj.functions.incollection.RowsCount;
 import a2u.tn.utils.computer.calcobj.functions.staticvalue.False;
 import a2u.tn.utils.computer.calcobj.functions.staticvalue.Nil;
 import a2u.tn.utils.computer.calcobj.functions.staticvalue.Null;
 import a2u.tn.utils.computer.calcobj.functions.staticvalue.True;
-import a2u.tn.utils.computer.calcobj.functions.string.*;
-import a2u.tn.utils.computer.calcobj.types.TNull;
-import a2u.tn.utils.computer.calculator.Calculator;
+import a2u.tn.utils.computer.calcobj.functions.string.CharAt;
+import a2u.tn.utils.computer.calcobj.functions.string.EndWith;
+import a2u.tn.utils.computer.calcobj.functions.string.ExtractDigits;
+import a2u.tn.utils.computer.calcobj.functions.string.Format;
+import a2u.tn.utils.computer.calcobj.functions.string.IndexOf;
+import a2u.tn.utils.computer.calcobj.functions.string.IsBlank;
+import a2u.tn.utils.computer.calcobj.functions.string.IsEmpty;
+import a2u.tn.utils.computer.calcobj.functions.string.LTrim;
+import a2u.tn.utils.computer.calcobj.functions.string.Like;
+import a2u.tn.utils.computer.calcobj.functions.string.NormalizeSpaces;
+import a2u.tn.utils.computer.calcobj.functions.string.PadLeft;
+import a2u.tn.utils.computer.calcobj.functions.string.PadRight;
+import a2u.tn.utils.computer.calcobj.functions.string.RTrim;
+import a2u.tn.utils.computer.calcobj.functions.string.RemoveSpaces;
+import a2u.tn.utils.computer.calcobj.functions.string.RemoveWhitespaces;
+import a2u.tn.utils.computer.calcobj.functions.string.Replace;
+import a2u.tn.utils.computer.calcobj.functions.string.StartsWith;
+import a2u.tn.utils.computer.calcobj.functions.string.Substring;
+import a2u.tn.utils.computer.calcobj.functions.string.ToString;
+import a2u.tn.utils.computer.calcobj.functions.string.Trim;
+import a2u.tn.utils.computer.calcobj.functions.string.TrimToNull;
 import a2u.tn.utils.computer.calcobj.types.TBool;
 import a2u.tn.utils.computer.calcobj.types.TDate;
 import a2u.tn.utils.computer.calcobj.types.TDouble;
@@ -21,8 +60,10 @@ import a2u.tn.utils.computer.calcobj.types.TInt;
 import a2u.tn.utils.computer.calcobj.types.TList;
 import a2u.tn.utils.computer.calcobj.types.TLong;
 import a2u.tn.utils.computer.calcobj.types.TMap;
+import a2u.tn.utils.computer.calcobj.types.TNull;
 import a2u.tn.utils.computer.calcobj.types.TSet;
 import a2u.tn.utils.computer.calcobj.types.TString;
+import a2u.tn.utils.computer.calculator.Calculator;
 
 import java.lang.reflect.Field;
 import java.util.Collection;
@@ -83,15 +124,18 @@ public class ObjCalcEngine extends Calculator {
 
     Set<Object> valueListSet = new LinkedHashSet<>();
 
-    if (byCode.length() == 0) {
-      valueListSet.addAll(fromObjList);
-      return valueListSet;
-    }
-
     for (Object fromObj : fromObjList) {
       try {
         if (fromObj == null) {
           valueListSet.add(null); //one null must be present in the collection
+        }
+        else if (byCode.length() == 0) {
+          if (fromObj instanceof Collection) {
+            valueListSet.addAll((Collection<?>) fromObj);
+          }
+          else {
+            valueListSet.add(fromObj);
+          }
         }
         else {
           Object val;

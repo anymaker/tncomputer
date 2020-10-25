@@ -65,7 +65,7 @@ public class ParserTest {
 
 
   @Test
-  public void testGetEntry() throws Exception {
+  public void testGetEntry() {
     testEntry("(.code = '123')", ".code = '123'");
     testEntry("(.code = ('123'+'str'))", ".code = ('123'+'str')");
     testEntry("(.code = '(123'+'str')",  ".code = '(123'+'str'");
@@ -75,7 +75,7 @@ public class ParserTest {
     checkEntryError("(.code = '123'(+'str')",   "FormulaException: Unexpected end of block in text '(.code = '123'(+'str')', no 1 parentheses.");
     checkEntryError("(.code = '123'(+('str')",  "FormulaException: Unexpected end of block in text '(.code = '123'(+('str')', no 2 parentheses.");
     checkEntryError("(.code = '123'(+(('str')", "FormulaException: Unexpected end of block in text '(.code = '123'(+(('str')', no 3 parentheses.");
-    checkEntryError(".code = '123'(+(('str')",  "InternalError: Invalid character '.' at position 0 in text '.code = '123'(+(('str')'.");
+    checkEntryError(".code = '123'(+(('str')",  "ParserError: Invalid character '.' at position 0 in text '.code = '123'(+(('str')'.");
 
     StringBuilder b = new StringBuilder();
     AtomicInteger ix = new AtomicInteger(0);
@@ -178,8 +178,8 @@ public class ParserTest {
     testIdentify("a_bcd",   "a_bcd");
     testIdentify("abcd_",   "abcd_");
 
-    checkIdentifyError("_abcd", "InternalError: Invalid character '_' at position 0 in text '_abcd'.");
-    checkIdentifyError("1abcd", "InternalError: Invalid character '1' at position 0 in text '1abcd'.");
+    checkIdentifyError("_abcd", "ParserError: Invalid character '_' at position 0 in text '_abcd'.");
+    checkIdentifyError("1abcd", "ParserError: Invalid character '1' at position 0 in text '1abcd'.");
 
   }
   private void testIdentify(String text, String resultString) {
@@ -217,13 +217,13 @@ public class ParserTest {
 
 
   @Test
-  public void testGetNumber() throws Exception {
+  public void testGetNumber() {
     testNumber("123",  "123");
     testNumber("1.23", "1.23");
-    checkNumberError("-123",  "InternalError: Invalid character '-' at position 0 in text '-123'.");
-    checkNumberError("+123",  "InternalError: Invalid character '+' at position 0 in text '+123'.");
+    checkNumberError("-123",  "ParserError: Invalid character '-' at position 0 in text '-123'.");
+    checkNumberError("+123",  "ParserError: Invalid character '+' at position 0 in text '+123'.");
     checkNumberError("1.2.3", "FormulaException: Invalid number at position 3 in text '1.2.3'.");
-    checkNumberError(".123",  "InternalError: Invalid character '.' at position 0 in text '.123'.");
+    checkNumberError(".123",  "ParserError: Invalid character '.' at position 0 in text '.123'.");
   }
   private void testNumber(String text, String resultString) {
     StringBuilder b = new StringBuilder();
