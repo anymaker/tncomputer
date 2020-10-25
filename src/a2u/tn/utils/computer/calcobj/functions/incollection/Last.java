@@ -1,4 +1,4 @@
-package a2u.tn.utils.computer.calcobj.functions;
+package a2u.tn.utils.computer.calcobj.functions.incollection;
 
 import a2u.tn.utils.computer.calculator.CalculatingException;
 import a2u.tn.utils.computer.calculator.Calculator;
@@ -9,26 +9,27 @@ import java.util.Collection;
 import java.util.List;
 
 /**
- * Return true is current row is first
+ * Return true is current row is last
  *
  * Using:
  * If query      .mailList.autor
  * return        {List:['Autor01','Autor02','Autor03']}
  *
- * Then query    .mailList.autor(firstRow)
- * will return   {String:'Autor01'}
+ * Then query    .mailList.autor(lastRow)
+ * will return   {String:'Autor03'}
+ *
  */
-public class First extends Function {
+public class Last extends Function {
 
-  public First(Calculator calculator) {
+  public Last(Calculator calculator) {
     super(calculator);
   }
 
   @Override
   public Object run(List<FormulaPart> params, Object row, int rowIndex, Collection<Object> allRows) {
     if (allRows == null) {
-      throw new CalculatingException("Function 'first' can only be used to filtering rows.");
+      throw new CalculatingException("Function 'last' can only be used to filtering rows.");
     }
-    return rowIndex == 0;
+    return rowIndex == allRows.size()-1;
   }
 }

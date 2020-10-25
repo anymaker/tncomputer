@@ -1,17 +1,15 @@
 package a2u.tn.utils.computer.calcobj;
 
-import a2u.tn.utils.computer.calcobj.functions.*;
-import a2u.tn.utils.computer.calcobj.functions.datetime.AddDays;
-import a2u.tn.utils.computer.calcobj.functions.datetime.AddHours;
-import a2u.tn.utils.computer.calcobj.functions.datetime.AddMinutes;
-import a2u.tn.utils.computer.calcobj.functions.datetime.AddMonths;
-import a2u.tn.utils.computer.calcobj.functions.datetime.AddSeconds;
-import a2u.tn.utils.computer.calcobj.functions.datetime.AddWeeks;
-import a2u.tn.utils.computer.calcobj.functions.datetime.AddYears;
-import a2u.tn.utils.computer.calcobj.functions.datetime.LastDayInMonth;
-import a2u.tn.utils.computer.calcobj.functions.datetime.LastDayInYear;
-import a2u.tn.utils.computer.calcobj.functions.datetime.SysDate;
-import a2u.tn.utils.computer.calcobj.functions.datetime.SysTime;
+import a2u.tn.utils.computer.calcobj.functions.auxiliary.*;
+import a2u.tn.utils.computer.calcobj.functions.datetime.*;
+import a2u.tn.utils.computer.calcobj.functions.forcollections.Count;
+import a2u.tn.utils.computer.calcobj.functions.forcollections.Max;
+import a2u.tn.utils.computer.calcobj.functions.forcollections.Min;
+import a2u.tn.utils.computer.calcobj.functions.incollection.*;
+import a2u.tn.utils.computer.calcobj.functions.staticvalue.False;
+import a2u.tn.utils.computer.calcobj.functions.staticvalue.Nil;
+import a2u.tn.utils.computer.calcobj.functions.staticvalue.Null;
+import a2u.tn.utils.computer.calcobj.functions.staticvalue.True;
 import a2u.tn.utils.computer.calcobj.functions.string.*;
 import a2u.tn.utils.computer.calcobj.types.TNull;
 import a2u.tn.utils.computer.calculator.Calculator;
@@ -182,6 +180,7 @@ public class ObjCalcEngine extends Calculator {
     addFunction(new ExtractDigits(this));
     addFunction(new Like(this));
     addFunction(new Format(this));
+    addFunction(new ToString(this));
 
     addFunction(new Length(this));
 

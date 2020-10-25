@@ -1,4 +1,4 @@
-package a2u.tn.utils.computer.calcobj.functions;
+package a2u.tn.utils.computer.calcobj.functions.incollection;
 
 import a2u.tn.utils.computer.calculator.CalculatingException;
 import a2u.tn.utils.computer.calculator.Calculator;
@@ -9,19 +9,19 @@ import java.util.Collection;
 import java.util.List;
 
 /**
- * Return number of current row in collection. Starting from 0.
+ * Return the number of rows in this collection
  */
-public class RowNum extends Function {
+public class RowsCount extends Function {
 
-  public RowNum(Calculator calculator) {
+  public RowsCount(Calculator calculator) {
     super(calculator);
   }
 
   @Override
   public Object run(List<FormulaPart> params, Object row, int rowIndex, Collection<Object> allRows) {
     if (allRows == null) {
-      throw new CalculatingException("Function 'rowNum' can only be used to filtering rows.");
+      throw new CalculatingException("Function 'rowsCount' can only be used to filtering rows.");
     }
-    return rowIndex;
+    return allRows.size();
   }
 }

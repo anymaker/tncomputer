@@ -1,10 +1,10 @@
 package a2u.tn.utils.computer.maplist.functions;
 
+import a2u.tn.utils.computer.calcobj.ObjCalcEngine;
 import a2u.tn.utils.computer.formula.Formula;
 import a2u.tn.utils.json.TnJson;
 import org.junit.Before;
 import org.junit.Test;
-import a2u.tn.utils.computer.maplist.MapListEngine;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -13,9 +13,11 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 
 public class FunctionsTest {
+
+  private ObjCalcEngine engine = new ObjCalcEngine();
 
   private Map<String, Object> map;
 
@@ -158,7 +160,6 @@ public class FunctionsTest {
     try {
 
       Formula formula = new Formula(query);
-      MapListEngine engine = new MapListEngine();
       result = engine.calc(formula, map);
 
 
@@ -202,8 +203,7 @@ public class FunctionsTest {
     String errMsg;
     try {
       Formula formula = new Formula(query);
-      MapListEngine engine = new MapListEngine();
-      Object result = engine.calc(formula, map);
+       Object result = engine.calc(formula, map);
 
       System.out.println(formula.toFormated());
       throw new AssertionError("No Error:"+ error +".");

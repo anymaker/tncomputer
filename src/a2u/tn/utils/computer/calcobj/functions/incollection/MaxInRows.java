@@ -1,4 +1,4 @@
-package a2u.tn.utils.computer.calcobj.functions;
+package a2u.tn.utils.computer.calcobj.functions.incollection;
 
 import a2u.tn.utils.computer.calculator.CalculatingException;
 import a2u.tn.utils.computer.calculator.Calculator;

@@ -1,4 +1,4 @@
-package a2u.tn.utils.computer.calcobj.functions;
+package a2u.tn.utils.computer.calcobj.functions.incollection;
 
 import a2u.tn.utils.computer.calculator.CalculatingException;
 import a2u.tn.utils.computer.calculator.Calculator;
@@ -9,29 +9,19 @@ import java.util.Collection;
 import java.util.List;
 
 /**
- * Return true if this row is encountered for the first time
+ * Return number of current row in collection. Starting from 0.
  */
-public class Distinct extends Function {
+public class RowNum extends Function {
 
-  public Distinct(Calculator calculator) {
+  public RowNum(Calculator calculator) {
     super(calculator);
   }
-
 
   @Override
   public Object run(List<FormulaPart> params, Object row, int rowIndex, Collection<Object> allRows) {
     if (allRows == null) {
-      throw new CalculatingException("Function 'distinct' is used only for filtering rows.");
+      throw new CalculatingException("Function 'rowNum' can only be used to filtering rows.");
     }
-    int ix = 0;
-    for (Object val : allRows) {
-      if (calculator.equalValues(val, row)) {
-        break;
-      }
-      ix++;
-    }
-    return ix == rowIndex;
+    return rowIndex;
   }
-
-
 }

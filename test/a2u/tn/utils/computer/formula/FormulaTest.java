@@ -41,7 +41,7 @@ public class FormulaTest {
     checkError(":",    "FormulaException: Invalid character ':' at position 0 in text ':'.");
     checkError("+",    "FormulaException: Illegal part OPERATOR: +' at position 0 in text '+'.");
     checkError("1 2",  "FormulaException: Illegal part NUMBER: 2 at position 2, expected operator. Source text '1 2'.");
-    checkError("1+",   "FormulaException: Unexpected end of expression at position 2, in text '1+'.");
+    checkError("1+",   "FormulaException: Operation '1 plus' is unfinished at position 2, in text '1+'.");
     checkError("1+(",  "FormulaException: Unexpected end of block in text '1+(', no 1 parentheses.");
     checkError("1+(2", "FormulaException: Unexpected end of block in text '1+(2', no 1 parentheses.");
     checkError("1)",   "FormulaException: Invalid character ')' at position 1 in text '1)'.");

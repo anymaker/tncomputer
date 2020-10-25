@@ -53,7 +53,7 @@ public class Formula {
 
     Parser.Element part = Parser.extractElement(text, ix);
     if (part == null) {
-      throw new FormulaException("Unexpected end of expression at position "+ ix.get() +", in text '"+ text +"'.");
+      return null;
     }
     switch (part.type) {
       case FIELD:

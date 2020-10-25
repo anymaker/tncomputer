@@ -1,13 +1,13 @@
-package a2u.tn.utils.computer.calcobj.functions;
+package a2u.tn.utils.computer.calcobj.functions.auxiliary;
 
 import a2u.tn.utils.computer.calcobj.ObjCalcEngine;
 import a2u.tn.utils.computer.formula.Formula;
 import org.junit.Before;
 import org.junit.Test;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 
-public class IfNotNullTest {
+public class NvlTest {
 
     private ObjCalcEngine engine;
 
@@ -17,16 +17,16 @@ public class IfNotNullTest {
     }
 
     @Test
-    public void runIfNull() {
-        Formula formula = new Formula("'aaa' + ifNotNull(null, ' ' + 'bbb')");
+    public void withNull() {
+        Formula formula = new Formula("'aaa' + nvl(null, ' ' + 'bbb')");
         String str = engine.calc(formula, null, String.class);
-        assertEquals("aaa", str);
+        assertEquals("aaa bbb", str);
     }
 
     @Test
-    public void runIfNotNull() {
-        Formula formula = new Formula("'aaa' + ifNotNull('not null', ' ' + 'bbb')");
+    public void withoutNull() {
+        Formula formula = new Formula("'aaa ' + nvl('no null', ' ' + 'bbb')");
         String str = engine.calc(formula, null, String.class);
-        assertEquals("aaa bbb", str);
+        assertEquals("aaa no null", str);
     }
 }
