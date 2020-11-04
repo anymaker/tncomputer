@@ -9,10 +9,6 @@ import java.time.LocalDateTime;
  */
 public class AddDays extends DateCalculationAbstract {
 
-  public AddDays(Calculator calculator) {
-    super(calculator);
-  }
-
   @Override
   protected String getSecondParamName() {
     return "days";

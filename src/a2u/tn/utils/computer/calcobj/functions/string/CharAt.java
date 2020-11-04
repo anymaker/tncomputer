@@ -14,10 +14,6 @@ import java.util.List;
  */
 public class CharAt extends Function {
 
-    public CharAt(Calculator calculator) {
-        super(calculator);
-    }
-
     @Override
     protected List<Parameter> initParameters() {
         List<Parameter> parameters = new ArrayList<>();
@@ -27,7 +23,7 @@ public class CharAt extends Function {
     }
 
     @Override
-    public Object run(List<FormulaPart> params, Object row, int rowIndex, Collection<Object> allRows) {
+    public Object run(Calculator calculator, List<FormulaPart> params, Object row, int rowIndex, Collection<Object> allRows) {
         Object string   = calculator.calcArgument(params.get(0), row, rowIndex, allRows);
         Object position = calculator.calcArgument(params.get(1), row, rowIndex, allRows);
 
@@ -46,5 +42,5 @@ public class CharAt extends Function {
 
         return String.valueOf(c);
     }
-    
+
 }

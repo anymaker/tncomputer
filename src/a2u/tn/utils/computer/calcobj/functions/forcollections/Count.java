@@ -14,10 +14,6 @@ import java.util.List;
  */
 public class Count extends Function {
 
-  public Count(Calculator calculator) {
-    super(calculator);
-  }
-
 
   @Override
   protected List<Parameter> initParameters() {
@@ -27,7 +23,7 @@ public class Count extends Function {
   }
 
   @Override
-  public Object run(List<FormulaPart> params, Object row, int rowIndex, Collection<Object> allRows) {
+  public Object run(Calculator calculator, List<FormulaPart> params, Object row, int rowIndex, Collection<Object> allRows) {
     Object data = calculator.calcArgument(params.get(0),  row, rowIndex, allRows);
     if (data == null) {
       return 0;

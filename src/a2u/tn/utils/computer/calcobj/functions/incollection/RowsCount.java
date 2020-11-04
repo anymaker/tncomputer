@@ -13,12 +13,8 @@ import java.util.List;
  */
 public class RowsCount extends Function {
 
-  public RowsCount(Calculator calculator) {
-    super(calculator);
-  }
-
   @Override
-  public Object run(List<FormulaPart> params, Object row, int rowIndex, Collection<Object> allRows) {
+  public Object run(Calculator calculator, List<FormulaPart> params, Object row, int rowIndex, Collection<Object> allRows) {
     if (allRows == null) {
       throw new CalculatingException("Function 'rowsCount' can only be used to filtering rows.");
     }

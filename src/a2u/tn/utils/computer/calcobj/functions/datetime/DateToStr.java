@@ -16,10 +16,6 @@ import java.util.List;
  */
 public class DateToStr extends Function {
 
-  public DateToStr(Calculator calculator) {
-    super(calculator);
-  }
-
   @Override
   protected List<Parameter> initParameters() {
     List<Parameter> parameters = new ArrayList<>();
@@ -29,7 +25,7 @@ public class DateToStr extends Function {
   }
 
   @Override
-  public Object run(List<FormulaPart> params, Object row, int rowIndex, Collection<Object> allRows) {
+  public Object run(Calculator calculator, List<FormulaPart> params, Object row, int rowIndex, Collection<Object> allRows) {
     Object dateValue   = calculator.calcArgument(params.get(0), row, rowIndex, allRows);
     Object formatValue = calculator.calcArgument(params.get(1), row, rowIndex, allRows);
 

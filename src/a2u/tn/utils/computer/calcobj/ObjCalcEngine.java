@@ -188,68 +188,68 @@ public class ObjCalcEngine extends Calculator {
 
 
   private void fillFunctions() {
-    addFunction(new Null(this));
-    addFunction(new Nil(this));
-    addFunction(new True(this));
-    addFunction(new False(this));
+    addFunction(new Null());
+    addFunction(new Nil());
+    addFunction(new True());
+    addFunction(new False());
 
-    addFunction(new Nvl(this));
-    addFunction(new IfNotNull(this));
-    addFunction(new Ifnn(this));
-    addFunction(new Decode(this));
+    addFunction(new Nvl());
+    addFunction(new IfNotNull());
+    addFunction(new Ifnn());
+    addFunction(new Decode());
 
-    addFunction(new Distinct(this));
-    addFunction(new First(this));
-    addFunction(new Last(this));
+    addFunction(new Distinct());
+    addFunction(new First());
+    addFunction(new Last());
 
-    addFunction(new RowNum(this));
-    addFunction(new RowsCount(this));
-    addFunction(new MaxInRows(this));
-    addFunction(new Count(this));
+    addFunction(new RowNum());
+    addFunction(new RowsCount());
+    addFunction(new MaxInRows());
+    addFunction(new Count());
 
-    addFunction(new Max(this));
-    addFunction(new Min(this));
+    addFunction(new Max());
+    addFunction(new Min());
 
-    addFunction(new ToDate(this));
-    addFunction(new DateToStr(this));
+    addFunction(new ToDate());
+    addFunction(new DateToStr());
 
-    addFunction(new CharAt(this));
-    addFunction(new StartsWith(this));
-    addFunction(new EndWith(this));
-    addFunction(new IndexOf(this));
-    addFunction(new Substring(this));
-    addFunction(new Replace(this));
-    addFunction(new PadLeft(this));
-    addFunction(new PadRight(this));
-    addFunction(new IsBlank(this));
-    addFunction(new IsEmpty(this));
-    addFunction(new LTrim(this));
-    addFunction(new RTrim(this));
-    addFunction(new Trim(this));
-    addFunction(new TrimToNull(this));
-    addFunction(new RemoveSpaces(this));
-    addFunction(new RemoveWhitespaces(this));
-    addFunction(new NormalizeSpaces(this));
-    addFunction(new ExtractDigits(this));
-    addFunction(new Like(this));
-    addFunction(new Format(this));
-    addFunction(new ToString(this));
+    addFunction(new CharAt());
+    addFunction(new StartsWith());
+    addFunction(new EndWith());
+    addFunction(new IndexOf());
+    addFunction(new Substring());
+    addFunction(new Replace());
+    addFunction(new PadLeft());
+    addFunction(new PadRight());
+    addFunction(new IsBlank());
+    addFunction(new IsEmpty());
+    addFunction(new LTrim());
+    addFunction(new RTrim());
+    addFunction(new Trim());
+    addFunction(new TrimToNull());
+    addFunction(new RemoveSpaces());
+    addFunction(new RemoveWhitespaces());
+    addFunction(new NormalizeSpaces());
+    addFunction(new ExtractDigits());
+    addFunction(new Like());
+    addFunction(new Format());
+    addFunction(new ToString());
 
-    addFunction(new Length(this));
+    addFunction(new Length());
 
-    addFunction(new AddDays(this));
-    addFunction(new AddHours(this));
-    addFunction(new AddMinutes(this));
-    addFunction(new AddMonths(this));
-    addFunction(new AddSeconds(this));
-    addFunction(new AddWeeks(this));
-    addFunction(new AddYears(this));
+    addFunction(new AddDays());
+    addFunction(new AddHours());
+    addFunction(new AddMinutes());
+    addFunction(new AddMonths());
+    addFunction(new AddSeconds());
+    addFunction(new AddWeeks());
+    addFunction(new AddYears());
 
-    addFunction(new SysDate(this));
-    addFunction(new SysTime(this));
+    addFunction(new SysDate());
+    addFunction(new SysTime());
 
-    addFunction(new LastDayInMonth(this));
-    addFunction(new LastDayInYear(this));
+    addFunction(new LastDayInMonth());
+    addFunction(new LastDayInYear());
   }
 
   private void fillTypes() {

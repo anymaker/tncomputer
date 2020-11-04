@@ -24,7 +24,7 @@ public abstract class Function {
       this.type = type;
       this.name = name;
     }
-    
+
     public Parameter(Class<?> type, String name, boolean required, String defaultValue) {
       this.type = type;
       this.name = name;
@@ -50,11 +50,9 @@ public abstract class Function {
     }
   }
 
-  protected Calculator calculator;
   private List<Parameter> parameters;
 
-  public Function(Calculator calculator) {
-    this.calculator = calculator;
+  public Function() {
     parameters = initParameters();
   }
 
@@ -86,7 +84,7 @@ public abstract class Function {
    * @param allRows  Collection with all rows
    * @return         result of execution function
    */
-  public abstract Object run(List<FormulaPart> params, Object row, int rowIndex, Collection<Object> allRows);
+  public abstract Object run(Calculator calculator, List<FormulaPart> params, Object row, int rowIndex, Collection<Object> allRows);
 
 
   public String toString() {

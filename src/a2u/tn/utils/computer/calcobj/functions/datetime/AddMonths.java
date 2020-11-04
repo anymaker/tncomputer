@@ -9,10 +9,6 @@ import java.time.LocalDateTime;
  */
 public class AddMonths extends DateCalculationAbstract {
 
-  public AddMonths(Calculator calculator) {
-    super(calculator);
-  }
-
   @Override
   protected String getSecondParamName() {
     return "months";

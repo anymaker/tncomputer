@@ -15,10 +15,6 @@ import java.util.List;
  */
 public class Max extends Function {
 
-  public Max(Calculator calculator) {
-    super(calculator);
-  }
-
   @Override
   protected List<Parameter> initParameters() {
     List<Parameter> parameters = new ArrayList<>();
@@ -27,7 +23,7 @@ public class Max extends Function {
   }
 
   @Override
-  public Object run(List<FormulaPart> params, Object row, int rowIndex, Collection<Object> allRows) {
+  public Object run(Calculator calculator, List<FormulaPart> params, Object row, int rowIndex, Collection<Object> allRows) {
     Collection<?> iincomigCollection;
 
     if (params.size() == 1) {

@@ -14,10 +14,6 @@ import java.util.Map;
  */
 public class Length extends Function {
 
-  public Length(Calculator calculator) {
-    super(calculator);
-  }
-
   @Override
   protected List<Parameter> initParameters() {
     List<Parameter> parameters = new ArrayList<>();
@@ -26,7 +22,7 @@ public class Length extends Function {
   }
 
   @Override
-  public Object run(List<FormulaPart> params, Object row, int rowIndex, Collection<Object> allRows) {
+  public Object run(Calculator calculator, List<FormulaPart> params, Object row, int rowIndex, Collection<Object> allRows) {
     Object value = calculator.calcArgument(params.get(0), row, rowIndex, allRows);
 
     if (value == null) {

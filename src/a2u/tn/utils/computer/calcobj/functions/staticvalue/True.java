@@ -12,12 +12,8 @@ import java.util.List;
  */
 public class True extends Function {
 
-  public True(Calculator calculator) {
-    super(calculator);
-  }
-
   @Override
-  public Object run(List<FormulaPart> params, Object row, int rowIndex, Collection<Object> allRows) {
+  public Object run(Calculator calculator, List<FormulaPart> params, Object row, int rowIndex, Collection<Object> allRows) {
     return true;
   }
 }

@@ -9,10 +9,6 @@ import java.time.LocalDateTime;
  */
 public class AddHours extends DateCalculationAbstract {
 
-  public AddHours(Calculator calculator) {
-    super(calculator);
-  }
-
   @Override
   protected String getSecondParamName() {
     return "hours";

@@ -9,10 +9,6 @@ import java.time.LocalDateTime;
  */
 public class AddWeeks extends DateCalculationAbstract {
 
-  public AddWeeks(Calculator calculator) {
-    super(calculator);
-  }
-
   @Override
   protected String getSecondParamName() {
     return "weeks";

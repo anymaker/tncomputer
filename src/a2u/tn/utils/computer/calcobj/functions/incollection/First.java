@@ -20,12 +20,8 @@ import java.util.List;
  */
 public class First extends Function {
 
-  public First(Calculator calculator) {
-    super(calculator);
-  }
-
   @Override
-  public Object run(List<FormulaPart> params, Object row, int rowIndex, Collection<Object> allRows) {
+  public Object run(Calculator calculator, List<FormulaPart> params, Object row, int rowIndex, Collection<Object> allRows) {
     if (allRows == null) {
       throw new CalculatingException("Function 'first' can only be used to filtering rows.");
     }

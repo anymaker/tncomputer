@@ -14,12 +14,8 @@ import java.util.List;
  */
 public class Nil extends Function {
 
-  public Nil(Calculator calculator) {
-    super(calculator);
-  }
-
   @Override
-  public Object run(List<FormulaPart> params, Object row, int rowIndex, Collection<Object> allRows) {
+  public Object run(Calculator calculator, List<FormulaPart> params, Object row, int rowIndex, Collection<Object> allRows) {
     return null;
   }
 }

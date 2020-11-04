@@ -13,10 +13,6 @@ import java.util.List;
  */
 public class PadLeft extends Function {
 
-  public PadLeft(Calculator calculator) {
-    super(calculator);
-  }
-
   @Override
   protected List<Function.Parameter> initParameters() {
     List<Function.Parameter> parameters = new ArrayList<>();
@@ -26,7 +22,7 @@ public class PadLeft extends Function {
   }
 
   @Override
-  public Object run(List<FormulaPart> params, Object row, int rowIndex, Collection<Object> allRows) {
+  public Object run(Calculator calculator, List<FormulaPart> params, Object row, int rowIndex, Collection<Object> allRows) {
     Object string_ = calculator.calcArgument(params.get(0), row, rowIndex, allRows);
     Object length_ = calculator.calcArgument(params.get(1), row, rowIndex, allRows);
     Object sample_ = calculator.calcArgument(params.get(2), row, rowIndex, allRows);

@@ -17,10 +17,6 @@ import java.util.List;
  */
 public class MaxInRows extends Function {
 
-  public MaxInRows(Calculator calculator) {
-    super(calculator);
-  }
-
   @Override
   protected List<Parameter> initParameters() {
     List<Parameter> parameters = new ArrayList<>();
@@ -29,7 +25,7 @@ public class MaxInRows extends Function {
   }
 
   @Override
-  public Object run(List<FormulaPart> params, Object row, int rowIndex, Collection<Object> allRows) {
+  public Object run(Calculator calculator, List<FormulaPart> params, Object row, int rowIndex, Collection<Object> allRows) {
     if (allRows == null) {
       throw new CalculatingException("Function 'maxInRows' can only be used to filtering rows.");
     }

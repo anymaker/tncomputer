@@ -13,12 +13,8 @@ import java.util.List;
  */
 public class SysTime extends Function {
 
-  public SysTime(Calculator calculator) {
-    super(calculator);
-  }
-
   @Override
-  public Object run(List<FormulaPart> params, Object row, int rowIndex, Collection<Object> allRows) {
+  public Object run(Calculator calculator, List<FormulaPart> params, Object row, int rowIndex, Collection<Object> allRows) {
     return new Date();
   }
 

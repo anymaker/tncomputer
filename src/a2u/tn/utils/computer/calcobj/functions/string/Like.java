@@ -20,10 +20,6 @@ import java.util.regex.Pattern;
  */
 public class Like extends Function {
 
-  public Like(Calculator calculator) {
-    super(calculator);
-  }
-
 
   @Override
   protected List<Parameter> initParameters() {
@@ -35,7 +31,7 @@ public class Like extends Function {
   }
 
   @Override
-  public Object run(List<FormulaPart> params, Object row, int rowIndex, Collection<Object> allRows) {
+  public Object run(Calculator calculator, List<FormulaPart> params, Object row, int rowIndex, Collection<Object> allRows) {
     Object stringValue   = calculator.calcArgument(params.get(0), row, rowIndex, allRows);
     Object templateValue = calculator.calcArgument(params.get(1), row, rowIndex, allRows);
 

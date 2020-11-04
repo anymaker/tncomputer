@@ -14,10 +14,6 @@ import java.util.List;
  */
 public class Replace extends Function {
 
-  public Replace(Calculator calculator) {
-    super(calculator);
-  }
-
   @Override
   protected List<Parameter> initParameters() {
     List<Parameter> parameters = new ArrayList<>();
@@ -28,7 +24,7 @@ public class Replace extends Function {
   }
 
   @Override
-  public Object run(List<FormulaPart> params, Object row, int rowIndex, Collection<Object> allRows) {
+  public Object run(Calculator calculator, List<FormulaPart> params, Object row, int rowIndex, Collection<Object> allRows) {
     Object string_    = calculator.calcArgument(params.get(0), row, rowIndex, allRows);
     Object oldString_ = calculator.calcArgument(params.get(1), row, rowIndex, allRows);
     Object newString_ = calculator.calcArgument(params.get(2), row, rowIndex, allRows);

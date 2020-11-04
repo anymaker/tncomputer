@@ -14,10 +14,6 @@ import java.util.List;
  */
 public class RemoveWhitespaces extends Function {
 
-  public RemoveWhitespaces(Calculator calculator) {
-    super(calculator);
-  }
-
   @Override
   protected List<Parameter> initParameters() {
     List<Parameter> parameters = new ArrayList<>();
@@ -26,7 +22,7 @@ public class RemoveWhitespaces extends Function {
   }
 
   @Override
-  public Object run(List<FormulaPart> params, Object row, int rowIndex, Collection<Object> allRows) {
+  public Object run(Calculator calculator, List<FormulaPart> params, Object row, int rowIndex, Collection<Object> allRows) {
     Object string_ = calculator.calcArgument(params.get(0), row, rowIndex, allRows);
     String string = calculator.toType(String.class, string_);
 
@@ -36,7 +32,7 @@ public class RemoveWhitespaces extends Function {
 
     StringBuilder b = new StringBuilder();
     int len = string.length();
-    
+
     for (int ix = 0; ix < len; ix++) {
       char c = string.charAt(ix);
       if (! StringUtil.isWhiteSpace(c)) {

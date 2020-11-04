@@ -16,10 +16,6 @@ import java.util.List;
  */
 public class LastDayInYear extends Function {
 
-  public LastDayInYear(Calculator calculator) {
-    super(calculator);
-  }
-
   @Override
   protected List<Parameter> initParameters() {
     List<Parameter> parameters = new ArrayList<>();
@@ -28,7 +24,7 @@ public class LastDayInYear extends Function {
   }
 
   @Override
-  public Object run(List<FormulaPart> params, Object row, int rowIndex, Collection<Object> allRows) {
+  public Object run(Calculator calculator, List<FormulaPart> params, Object row, int rowIndex, Collection<Object> allRows) {
     Object value = calculator.calcArgument(params.get(0), row, rowIndex, allRows);
     LocalDateTime date = calculator.toType(LocalDateTime.class, value);
 

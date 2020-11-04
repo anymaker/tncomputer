@@ -8,8 +8,4 @@ import a2u.tn.utils.computer.calculator.Calculator;
  */
 public class Ifnn extends IfNotNull {
 
-  public Ifnn(Calculator calculator) {
-    super(calculator);
-  }
-
 }

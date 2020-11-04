@@ -23,10 +23,6 @@ import java.util.List;
  */
 public class Decode extends Function {
 
-  public Decode(Calculator calculator) {
-    super(calculator);
-  }
-
 
   @Override
   protected List<Parameter> initParameters() {
@@ -36,7 +32,7 @@ public class Decode extends Function {
   }
 
   @Override
-  public Object run(List<FormulaPart> params, Object row, int rowIndex, Collection<Object> allRows) {
+  public Object run(Calculator calculator, List<FormulaPart> params, Object row, int rowIndex, Collection<Object> allRows) {
     FormulaPart expression = params.get(0);
     Object testValue = calculator.calcArgument(expression, row, rowIndex, allRows);
 
@@ -44,18 +40,18 @@ public class Decode extends Function {
       Collection caseValue = (Collection)testValue;
       List<Object> resultList = new ArrayList<>();
       for (Object test : caseValue) {
-        Object result = doDecode(test, params, row, rowIndex, allRows);
+        Object result = doDecode(calculator, test, params, row, rowIndex, allRows);
         resultList.add(result);
       }
       return resultList;
     }
     else {
-      Object result = doDecode(testValue, params, row, rowIndex, allRows);
+      Object result = doDecode(calculator, testValue, params, row, rowIndex, allRows);
       return result;
     }
   }
 
-  private Object doDecode(Object caseValue, List<FormulaPart> params, Object row, int rowIndex, Collection<Object> allRows) {
+  private Object doDecode(Calculator calculator, Object caseValue, List<FormulaPart> params, Object row, int rowIndex, Collection<Object> allRows) {
     int ix = 1; // first param contains expression
     while (ix < params.size()) {
       FormulaPart part = params.get(ix++);

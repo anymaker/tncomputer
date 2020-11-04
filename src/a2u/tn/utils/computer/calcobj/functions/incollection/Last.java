@@ -21,12 +21,8 @@ import java.util.List;
  */
 public class Last extends Function {
 
-  public Last(Calculator calculator) {
-    super(calculator);
-  }
-
   @Override
-  public Object run(List<FormulaPart> params, Object row, int rowIndex, Collection<Object> allRows) {
+  public Object run(Calculator calculator, List<FormulaPart> params, Object row, int rowIndex, Collection<Object> allRows) {
     if (allRows == null) {
       throw new CalculatingException("Function 'last' can only be used to filtering rows.");
     }

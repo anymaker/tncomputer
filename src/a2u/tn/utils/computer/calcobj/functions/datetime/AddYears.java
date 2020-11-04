@@ -9,10 +9,6 @@ import java.time.LocalDateTime;
  */
 public class AddYears extends DateCalculationAbstract {
 
-  public AddYears(Calculator calculator) {
-    super(calculator);
-  }
-
   @Override
   protected String getSecondParamName() {
     return "years";

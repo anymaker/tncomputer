@@ -319,7 +319,7 @@ public abstract class Calculator {
        throw new CalculatingException("Function '"+ function.getName() +"' no need in parameters.");
     }
 
-    Object result = fn.run(params, value, rowIndex, allRows);
+    Object result = fn.run(this, params, value, rowIndex, allRows);
     return result;
   }
 
@@ -400,6 +400,19 @@ public abstract class Calculator {
    */
   public void addFunction(Function function) {
     functions.put(function.getName().toLowerCase(), function);
+  }
+
+  /**
+   * Add or replace function for used in query
+   * @param function new function
+   * @param name the function name
+   */
+  public void addFunction(Function function, String name) {
+    String fnName = StringUtil.trim(name);
+    if (fnName == null || fnName.length() == 0) {
+      throw new IllegalArgumentException("The function name must not be empty.");
+    }
+    functions.put(name.toLowerCase(), function);
   }
 
   /**

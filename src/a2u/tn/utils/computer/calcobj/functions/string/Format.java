@@ -20,10 +20,6 @@ import java.util.List;
  */
 public class Format extends Function {
 
-  public Format(Calculator calculator) {
-    super(calculator);
-  }
-
   @Override
   protected List<Parameter> initParameters() {
     List<Parameter> parameters = new ArrayList<>();
@@ -35,7 +31,7 @@ public class Format extends Function {
   }
 
   @Override
-  public Object run(List<FormulaPart> params, Object row, int rowIndex, Collection<Object> allRows) {
+  public Object run(Calculator calculator, List<FormulaPart> params, Object row, int rowIndex, Collection<Object> allRows) {
     Object value_ = calculator.calcArgument(params.get(0), row, rowIndex, allRows);
     Object mask_ = calculator.calcArgument(params.get(1), row, rowIndex, allRows);
     Object digitHolder_ = calculator.calcArgument(params.get(2), row, rowIndex, allRows);
@@ -78,7 +74,7 @@ public class Format extends Function {
       }
       else {
         b.append(maskChar);
-      }       
+      }
       maskIx++;
     }
 

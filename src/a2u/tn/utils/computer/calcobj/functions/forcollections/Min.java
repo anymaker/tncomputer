@@ -15,10 +15,6 @@ import java.util.List;
  */
 public class Min extends Function {
 
-  public Min(Calculator calculator) {
-    super(calculator);
-  }
-
   @Override
   protected List<Parameter> initParameters() {
     List<Parameter> parameters = new ArrayList<>();
@@ -27,7 +23,7 @@ public class Min extends Function {
   }
 
   @Override
-  public Object run(List<FormulaPart> params, Object row, int rowIndex, Collection<Object> allRows) {
+  public Object run(Calculator calculator, List<FormulaPart> params, Object row, int rowIndex, Collection<Object> allRows) {
     Collection<?> iincomigCollection;
 
     if (params.size() == 1) {
@@ -64,31 +60,4 @@ public class Min extends Function {
     return min;
   }
 
-
-
-  public Object run2(List<FormulaPart> params, Object row, int rowIndex, Collection<Object> allRows) {
-    Object data = calculator.calcArgument(params.get(0),  row, rowIndex, allRows);
-    if (data == null) {
-      return null;
-    }
-    if (data instanceof Collection) {
-      Collection list = (Collection) data;
-      Object min = null;
-      for (Object obj : list) {
-        if (obj == null) {
-          continue;
-        }
-        if (min == null) {
-          min = obj;
-        }
-        Type type = calculator.getType(min.getClass());
-        if (type.less(obj, min)) {
-          min = obj;
-        }
-      }
-      return min;
-    }
-    return data;
-
-  }
 }

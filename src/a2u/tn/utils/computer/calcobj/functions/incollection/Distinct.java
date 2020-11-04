@@ -13,13 +13,9 @@ import java.util.List;
  */
 public class Distinct extends Function {
 
-  public Distinct(Calculator calculator) {
-    super(calculator);
-  }
-
 
   @Override
-  public Object run(List<FormulaPart> params, Object row, int rowIndex, Collection<Object> allRows) {
+  public Object run(Calculator calculator, List<FormulaPart> params, Object row, int rowIndex, Collection<Object> allRows) {
     if (allRows == null) {
       throw new CalculatingException("Function 'distinct' is used only for filtering rows.");
     }

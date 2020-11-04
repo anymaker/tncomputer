@@ -13,12 +13,8 @@ import java.util.List;
  */
 public class RowNum extends Function {
 
-  public RowNum(Calculator calculator) {
-    super(calculator);
-  }
-
   @Override
-  public Object run(List<FormulaPart> params, Object row, int rowIndex, Collection<Object> allRows) {
+  public Object run(Calculator calculator, List<FormulaPart> params, Object row, int rowIndex, Collection<Object> allRows) {
     if (allRows == null) {
       throw new CalculatingException("Function 'rowNum' can only be used to filtering rows.");
     }

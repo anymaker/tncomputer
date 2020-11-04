@@ -13,10 +13,6 @@ import java.util.List;
  */
 public class ToString extends Function {
 
-  public ToString(Calculator calculator) {
-    super(calculator);
-  }
-
   @Override
   protected List<Parameter> initParameters() {
     List<Parameter> parameters = new ArrayList<>();
@@ -25,7 +21,7 @@ public class ToString extends Function {
   }
 
   @Override
-  public Object run(List<FormulaPart> params, Object row, int rowIndex, Collection<Object> allRows) {
+  public Object run(Calculator calculator, List<FormulaPart> params, Object row, int rowIndex, Collection<Object> allRows) {
     Object object_ = calculator.calcArgument(params.get(0), row, rowIndex, allRows);
     String object = calculator.toType(String.class, object_);
     return object;

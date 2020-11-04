@@ -14,12 +14,8 @@ import java.util.List;
  */
 public class SysDate extends Function {
 
-  public SysDate(Calculator calculator) {
-    super(calculator);
-  }
-
   @Override
-  public Object run(List<FormulaPart> params, Object row, int rowIndex, Collection<Object> allRows) {
+  public Object run(Calculator calculator, List<FormulaPart> params, Object row, int rowIndex, Collection<Object> allRows) {
     LocalDate ld = LocalDate.now();
     Date result = java.sql.Date.valueOf(ld);
     return result;

@@ -16,10 +16,6 @@ import java.util.List;
  */
 abstract class DateCalculationAbstract extends Function {
 
-  public DateCalculationAbstract(Calculator calculator) {
-    super(calculator);
-  }
-
 
   @Override
   protected List<Parameter> initParameters() {
@@ -32,7 +28,7 @@ abstract class DateCalculationAbstract extends Function {
   protected abstract String getSecondParamName();
 
   @Override
-  public Object run(List<FormulaPart> params, Object row, int rowIndex, Collection<Object> allRows) {
+  public Object run(Calculator calculator, List<FormulaPart> params, Object row, int rowIndex, Collection<Object> allRows) {
     Object dateValue   = calculator.calcArgument(params.get(0),  row, rowIndex, allRows);
     Object monthsValue = calculator.calcArgument(params.get(1),  row, rowIndex, allRows);
 
