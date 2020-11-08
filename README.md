@@ -29,6 +29,7 @@ You can use maven dependensy
 ```
 Or download jar from https://mvnrepository.com/artifact/com.github.anymaker/tncomputer
 
+[![Build Status](https://travis-ci.org/anymaker/tncomputer.svg?branch=master)](https://travis-ci.org/anymaker/tncomputer)
 
 ## Note
 Currently this is a experimental project and it has no fixed API.
