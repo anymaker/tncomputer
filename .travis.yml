@@ -6,6 +6,9 @@ after_success:
 - bash <(curl -s https://codecov.io/bash)
 before_install:
 - echo $TEST02
+- echo $env.TEST02
+- echo ${TEST02}
+- echo ${env.TEST02}
 - echo $keys_encript_pwd | gpg --passphrase-fd 0 $GPG_DIR/public.key.gpg
 - echo $keys_encript_pwd | gpg --passphrase-fd 0 $GPG_DIR/secret.key.gpg
 env:
