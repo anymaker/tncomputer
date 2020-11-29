@@ -18,37 +18,37 @@ public abstract class Type {
 
 
   public Object mul(Object v1, Object v2) {
-    throw new IllegalOperationException("Operation mul is not aloowet for type '"+ forClass().getName() +"'.");
+    throw new IllegalOperationException("Operation mul is not allowed for type '"+ forClass().getName() +"'.");
   }
   public Object div(Object v1, Object v2) {
-    throw new IllegalOperationException("Operation div is not aloowet for type '"+ forClass().getName() +"'.");
+    throw new IllegalOperationException("Operation div is not allowed for type '"+ forClass().getName() +"'.");
   }
 
   public Object plus(Object v1, Object v2) {
-    throw new IllegalOperationException("Operation plus is not aloowet for type '"+ forClass().getName() +"'.");
+    throw new IllegalOperationException("Operation plus is not allowed for type '"+ forClass().getName() +"'.");
   }
   public Object minus(Object v1, Object v2) {
-    throw new IllegalOperationException("Operation minus is not aloowet for type '"+ forClass().getName() +"'.");
+    throw new IllegalOperationException("Operation minus is not allowed for type '"+ forClass().getName() +"'.");
   }
 
   public boolean equal(Object v1, Object v2) {
-    throw new IllegalOperationException("Operation equal is not aloowet for type '"+ forClass().getName() +"'.");
+    throw new IllegalOperationException("Operation equal is not allowed for type '"+ forClass().getName() +"'.");
   }
   public boolean notequal(Object v1, Object v2) {
-    throw new IllegalOperationException("Operation notequal is not aloowet for type '"+ forClass().getName() +"'.");
+    throw new IllegalOperationException("Operation notequal is not allowed for type '"+ forClass().getName() +"'.");
   }
 
   public boolean great(Object v1, Object v2) {
-    throw new IllegalOperationException("Operation great is not aloowet for type '"+ forClass().getName() +"'.");
+    throw new IllegalOperationException("Operation great is not allowed for type '"+ forClass().getName() +"'.");
   }
   public boolean greatEqual(Object v1, Object v2) {
-    throw new IllegalOperationException("Operation greatEqual is not aloowet for type '"+ forClass().getName() +"'.");
+    throw new IllegalOperationException("Operation greatEqual is not allowed for type '"+ forClass().getName() +"'.");
   }
   public boolean less(Object v1, Object v2) {
-    throw new IllegalOperationException("Operation less is not aloowet for type '"+ forClass().getName() +"'.");
+    throw new IllegalOperationException("Operation less is not allowed for type '"+ forClass().getName() +"'.");
   }
   public boolean lessEqual(Object v1, Object v2) {
-    throw new IllegalOperationException("Operation lessEqual is not aloowet for type '"+ forClass().getName() +"'.");
+    throw new IllegalOperationException("Operation lessEqual is not allowed for type '"+ forClass().getName() +"'.");
   }
 
   public Object and(Object v1, Object v2) {

@@ -23,10 +23,16 @@ public class Nvl extends Function {
 
   @Override
   public Object run(Calculator calculator, List<FormulaPart> params, Object row, int rowIndex, Collection<Object> allRows) {
-    Object value       = calculator.calcArgument(params.get(0), row, rowIndex, allRows);
-    Object substitute  = calculator.calcArgument(params.get(1), row, rowIndex, allRows);
+    int ix = 0;
+    while (ix < params.size()) {
+      Object value = calculator.calcArgument(params.get(ix), row, rowIndex, allRows);
+      if (value != null) {
+        return value;
+      }
+      ix++;
+    }
 
-    return value == null ? substitute : value;
+    return null;
   }
 
 }

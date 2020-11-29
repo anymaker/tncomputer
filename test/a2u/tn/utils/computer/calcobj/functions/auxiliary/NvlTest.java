@@ -6,6 +6,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNull;
 
 public class NvlTest {
 
@@ -29,4 +30,19 @@ public class NvlTest {
         String str = engine.calc(formula, null, String.class);
         assertEquals("aaa no null", str);
     }
+
+  @Test
+  public void multiParams() {
+    Formula formula = new Formula("nvl(null, null, null, 'NOTNULL')");
+    String str = engine.calc(formula, null, String.class);
+    assertEquals("NOTNULL", str);
+  }
+
+  @Test
+  public void allNulls() {
+    Formula formula = new Formula("nvl(null, null, null, null)");
+    String str = engine.calc(formula, null, String.class);
+    assertNull(str);
+  }
+
 }
