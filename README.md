@@ -24,7 +24,7 @@ You can use maven dependensy
     <dependency>
       <groupId>com.github.anymaker</groupId>
       <artifactId>tncomputer</artifactId>
-      <version>0.0.12</version>
+      <version>0.0.13</version>
     </dependency>
 ```
 Or download jar from https://mvnrepository.com/artifact/com.github.anymaker/tncomputer

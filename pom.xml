@@ -3,7 +3,7 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>com.github.anymaker</groupId>
   <artifactId>tncomputer</artifactId>
-  <version>0.0.13-SNAPSHOT</version>
+  <version>0.0.13</version>
   <packaging>jar</packaging>
 
   <name>${project.groupId}:${project.artifactId}</name>
@@ -165,40 +165,7 @@
           </dependency>
         </dependencies>
       </plugin>
-        
-      <!-- For Coverage Reports -->  
-      <plugin>
-        <groupId>org.codehaus.mojo</groupId>
-        <artifactId>cobertura-maven-plugin</artifactId>
-        <version>2.7</version>
-        <configuration>
-          <formats>
-            <format>html</format>
-            <format>xml</format>
-          </formats>
-          <check />
-        </configuration>
-          
-      </plugin>
 
     </plugins>
   </build>
-  
-  <profiles>
-    <profile>
-      <id>ossrh</id>
-      <activation>
-        <activeByDefault>true</activeByDefault>
-      </activation>
-      <properties>
-        <gpg.executable>gpg</gpg.executable>
-        <gpg.keyname>${env.GPG_KEYNAME}</gpg.keyname>
-        <gpg.passphrase>${env.GPG_PASSPHRASE}</gpg.passphrase>
-        <gpg.defaultKeyring>false</gpg.defaultKeyring>
-        <gpg.publicKeyring>${env.GPG_DIR}/public.key</gpg.publicKeyring>
-        <gpg.secretKeyring>${env.GPG_DIR}/secret.key</gpg.secretKeyring>
-      </properties>
-    </profile>
-  </profiles>
-  
 </project>
