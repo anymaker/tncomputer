@@ -218,7 +218,7 @@ class Parser {
     }
 
     char c = text.charAt(ix.get());
-    if (!Character.isLetter(c) && !isWhiteSpace(c)) {
+    if (!Character.isLetter(c) && !Character.isDigit(c) && !isWhiteSpace(c)) {
       if (c!='*' && c!='/' && c!='+' && c!='-' && c!='=' && c!='<' && c!='>' && c!=',' && c!='@' && c!='#' && c!='$' && c!='(') {
         throw new ParserError("Invalid character '" + c + "' at position " + ix.get() + " in text '" + text + "'.");
       }

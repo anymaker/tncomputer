@@ -177,9 +177,10 @@ public class ParserTest {
     testIdentify("abcd123", "abcd123");
     testIdentify("a_bcd",   "a_bcd");
     testIdentify("abcd_",   "abcd_");
+    testIdentify("1abcd",   "1abcd");
 
     checkIdentifyError("_abcd", "ParserError: Invalid character '_' at position 0 in text '_abcd'.");
-    checkIdentifyError("1abcd", "ParserError: Invalid character '1' at position 0 in text '1abcd'.");
+    //checkIdentifyError("1abcd", "ParserError: Invalid character '1' at position 0 in text '1abcd'.");
 
   }
   private void testIdentify(String text, String resultString) {
