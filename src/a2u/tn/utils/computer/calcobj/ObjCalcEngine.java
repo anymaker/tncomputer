@@ -5,6 +5,8 @@ import a2u.tn.utils.computer.calcobj.functions.auxiliary.IfNotNull;
 import a2u.tn.utils.computer.calcobj.functions.auxiliary.Ifnn;
 import a2u.tn.utils.computer.calcobj.functions.auxiliary.Length;
 import a2u.tn.utils.computer.calcobj.functions.auxiliary.Nvl;
+import a2u.tn.utils.computer.calcobj.functions.auxiliary.ToList;
+import a2u.tn.utils.computer.calcobj.functions.auxiliary.ToMap;
 import a2u.tn.utils.computer.calcobj.functions.datetime.AddDays;
 import a2u.tn.utils.computer.calcobj.functions.datetime.AddHours;
 import a2u.tn.utils.computer.calcobj.functions.datetime.AddMinutes;
@@ -197,6 +199,8 @@ public class ObjCalcEngine extends Calculator {
     addFunction(new IfNotNull());
     addFunction(new Ifnn());
     addFunction(new Decode());
+    addFunction(new ToMap());
+    addFunction(new ToList());
 
     addFunction(new Distinct());
     addFunction(new First());
