@@ -19,6 +19,7 @@ public class TLong extends Type {
   public void fillConverter(Converter converter) {
     converter.addConverter(Long.class, null, value -> 0L);
     converter.addConverter(Long.class, Integer.class, value -> (long) (int) value);
+    converter.addConverter(Long.class, int.class, value -> (long) (int) value);
     converter.addConverter(Long.class, Long.class, value -> value);
     converter.addConverter(Long.class, Float.class, value -> (long) (float) value);
     converter.addConverter(Long.class, Double.class, value -> (long) (double) value);
@@ -26,6 +27,19 @@ public class TLong extends Type {
     converter.addConverter(Long.class, Boolean.class, value -> ((boolean) value) ? 1L : 0L);
     converter.addConverter(Long.class, Date.class, value -> ((Date) value).getTime());
     converter.addConverter(Long.class, String.class, value -> Long.parseLong((String) value));
+
+    converter.addConverter(long.class, null, value -> 0L);
+    converter.addConverter(long.class, Integer.class, value -> (long) (int) value);
+    converter.addConverter(long.class, int.class, value -> (long) (int) value);
+    converter.addConverter(long.class, Long.class, value -> value);
+    converter.addConverter(long.class, Float.class, value -> (long) (float) value);
+    converter.addConverter(long.class, Double.class, value -> (long) (double) value);
+    converter.addConverter(long.class, Character.class, value -> (long) (char) value);
+    converter.addConverter(long.class, Boolean.class, value -> ((boolean) value) ? 1L : 0L);
+    converter.addConverter(long.class, Date.class, value -> ((Date) value).getTime());
+    converter.addConverter(long.class, String.class, value -> Long.parseLong((String) value));
+    converter.addConverter(long.class, int.class, value -> (long) (int) value);
+
   }
 
   @Override

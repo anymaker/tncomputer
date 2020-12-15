@@ -22,6 +22,16 @@ public class TInt extends TLong {
     converter.addConverter(Integer.class, Character.class, value -> (int) (char) value);
     converter.addConverter(Integer.class, Boolean.class, value -> ((boolean) value) ? 1 : 0);
     converter.addConverter(Integer.class, String.class, value -> Integer.parseInt((String) value));
+
+    converter.addConverter(int.class, null, value -> 0);
+    converter.addConverter(int.class, Integer.class, value -> value);
+    converter.addConverter(int.class, Long.class, value -> Math.toIntExact((long) value));
+    converter.addConverter(int.class, Float.class, value -> Math.round((float) value));
+    converter.addConverter(int.class, Double.class, value -> Math.toIntExact((long) (double) value));
+    converter.addConverter(int.class, Character.class, value -> (int) (char) value);
+    converter.addConverter(int.class, Boolean.class, value -> ((boolean) value) ? 1 : 0);
+    converter.addConverter(int.class, String.class, value -> Integer.parseInt((String) value));
+    converter.addConverter(int.class, long.class, value -> Math.toIntExact((long) value));
   }
 
   @Override
