@@ -88,4 +88,11 @@ public class FormulaTest {
     System.out.println(formula.toString());
   }
 
+  @Test
+  public void test02() {
+    String query = "dateToStr(sysTime, 'yyyy-MM-dd\\'T\\'hh:mm:ss')";
+    Formula formula = new Formula(query);
+    System.out.println(formula.toString());
+  }
+
 }

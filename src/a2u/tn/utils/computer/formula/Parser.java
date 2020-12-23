@@ -146,7 +146,7 @@ class Parser {
 
       else if (c == '\'') {
         b.append(c);
-        getString(b, text, ix);
+        getStringBlock(b, text, ix);
         b.append(c);
       }
 
@@ -157,6 +157,49 @@ class Parser {
 
     }
     throw new FormulaException("Unexpected end of block in text '"+ text +"', no "+ entreNum +" parentheses.");
+  }
+
+  /**
+   * Extract string block
+   * @param b    StringBuilder for result
+   * @param text source text
+   * @param ix   before - first quote index; after - index of symbol after last quote
+   */
+  protected static void getStringBlock(StringBuilder b, String text, AtomicInteger ix) {
+    int index = ix.get();
+    char quoteSymbol = text.charAt(index);
+    if (quoteSymbol != '\'' && quoteSymbol != '"') {
+      throw new FormulaException("Invalid symbol ("+quoteSymbol+") at position "+ ix.get() +" in text '"+ text +"'. Require (') or (\").");
+    }
+
+    index = ix.addAndGet(1);
+    int len = text.length();
+    while (index < len) {
+      char c = text.charAt(index);
+
+      if (c == '\\') {
+        b.append(c);
+        index = ix.addAndGet(1);
+        if (index >= len) {
+          throw new FormulaException("Unexpected end of string in text '"+ text +"', obtained value '"+ b.toString() +"'.");
+        }
+        char next = text.charAt(index);
+        b.append(next);
+      }
+
+      else if (c == quoteSymbol) {
+        ix.addAndGet(1);
+        return;
+      }
+
+      else {
+        b.append(c);
+      }
+
+      index = ix.addAndGet(1);
+    }
+
+    throw new FormulaException("Unexpected end of block in text '"+ text +"', no closing quotation marks.");
   }
 
 
