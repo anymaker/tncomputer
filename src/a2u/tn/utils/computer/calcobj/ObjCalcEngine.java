@@ -152,7 +152,7 @@ public class ObjCalcEngine extends Calculator {
 
       }
       catch (Exception ex) {
-        throw new RuntimeException("Error on extract value by code '"+byCode+"' from object '"+String.valueOf(fromObj)+"'.");
+        throw new ExtractValueException("Error on extract value by code '"+byCode+"' from object '"+String.valueOf(fromObj)+"'.", ex);
       }
 
     }
