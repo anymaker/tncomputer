@@ -124,8 +124,7 @@ public class ParserTest {
     testString("'1\"23'",  "1\"23");      // '1"23' -> 1"23
     testString("\"1'23\"", "1'23");       // "1'23" -> 1'23
 
-    testString("'1\\'23'",    "1\\'23");  // '1\'23' -> 1\'23
-    testString("\"1\\\"23\"", "1\\\"23"); // "1\"23" -> 1\"23
+    testString("'1\\'23'",    "1'23");  // '1\'23' -> 1\'23
 
     checkStringError("'123",   "FormulaException: Unexpected end of block in text ''123', no closing quotation marks.");
     checkStringError("\"123'", "FormulaException: Unexpected end of block in text '\"123'', no closing quotation marks.");

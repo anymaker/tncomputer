@@ -179,7 +179,6 @@ class Parser {
       char c = text.charAt(index);
 
       if (c == '\\') {
-        b.append(c);
         index = ix.addAndGet(1);
         if (index >= len) {
           throw new FormulaException("Unexpected end of string in text '"+ text +"', obtained value '"+ b.toString() +"'.");
