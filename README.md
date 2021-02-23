@@ -1,6 +1,7 @@
 # tncomputer
 Computation with Extendable Query Language
 
+![Tests completed workflow](https://github.com/anymaker/tncomputer/actions/workflows/test.yml/badge.svg)
 
 ## Goal
 1. Creating an extensible mechanism for making calculations with structured data.
@@ -8,7 +9,7 @@ Computation with Extendable Query Language
 3. Creating a fully customizable mechanism for calculating and converting values of different types.
 
 This is like xpath for working with xml or like sql for working with databases. \
-The module allows you to manipulate any data from any sources - json, file system, or a java object, and of course from XML and databases. 
+The module allows you to manipulate any data from any sources - json, file system, or a java object, and of course from XML and databases.
 As a matter of fact, the data can be in absolutely any format.
 Data may not exist at all - you yourself can specify a method for extracting data from a source or a method for generating it.
 
@@ -29,7 +30,6 @@ You can use maven dependensy
 ```
 Or download jar from https://mvnrepository.com/artifact/com.github.anymaker/tncomputer
 
-[![Build Status](https://travis-ci.org/anymaker/tncomputer.svg?branch=master)](https://travis-ci.org/anymaker/tncomputer)
 
 ## Note
 Currently this is a experimental project and it has no fixed API.
@@ -158,13 +158,13 @@ BBB
 AAABBB
 ```
 
-The *ID* class is your own class that contains the data to retrieve the values ​​(*value* and *sourceName*). 
+The *ID* class is your own class that contains the data to retrieve the values ​​(*value* and *sourceName*).
 This class can retrieve values ​​using the *loadObj()* method.
 
 You can override the *extractValues* method in the *ObjCalcEngine* class.
 ```java
 protected Collection<Object> extractValues(String byCode, Collection<Object> fromObjList)
-``` 
+```
 where check *instanceof* to determine when you should call *ID.loadObj()*.
 ```java
 if (obj instanceof ID) {
