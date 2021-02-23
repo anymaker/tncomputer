@@ -2,6 +2,7 @@
 Computation with Extendable Query Language
 
 ![Tests completed workflow](https://github.com/anymaker/tncomputer/actions/workflows/test.yml/badge.svg)
+![Release published workflow](https://github.com/anymaker/tncomputer/actions/workflows/release.yml/badge.svg)
 
 ## Goal
 1. Creating an extensible mechanism for making calculations with structured data.
