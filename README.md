@@ -1,8 +1,10 @@
 # tncomputer
 Computation with Extendable Query Language
 
-![Tests completed workflow](https://github.com/anymaker/tncomputer/actions/workflows/test.yml/badge.svg)
-![Release published workflow](https://github.com/anymaker/tncomputer/actions/workflows/release.yml/badge.svg)
+[![License: Unlicense](https://img.shields.io/badge/license-Unlicense-blue.svg)](http://unlicense.org/)
+![workflow](https://github.com/anymaker/tncomputer/actions/workflows/test.yml/badge.svg)
+![workflow](https://github.com/anymaker/tncomputer/actions/workflows/release.yml/badge.svg)
+![Maven Central with version prefix filter](https://img.shields.io/maven-central/v/com.github.anymaker/tncomputer/0)
 
 ## Goal
 1. Creating an extensible mechanism for making calculations with structured data.
