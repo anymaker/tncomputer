@@ -37,10 +37,10 @@ public class LikeRegexp extends Function {
     String template = calculator.toType(String.class, templateValue);
 
     Pattern p = Pattern.compile(template);
-    Matcher mtch = p.matcher(string);
+    Matcher match = p.matcher(string);
 
-    boolean istrue =  mtch.find();
-    return istrue;
+    boolean isTrue =  match.find();
+    return isTrue;
   }
 
 }

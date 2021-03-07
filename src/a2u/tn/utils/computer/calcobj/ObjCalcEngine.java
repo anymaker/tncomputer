@@ -42,6 +42,7 @@ import a2u.tn.utils.computer.calcobj.functions.string.IsBlank;
 import a2u.tn.utils.computer.calcobj.functions.string.IsEmpty;
 import a2u.tn.utils.computer.calcobj.functions.string.LTrim;
 import a2u.tn.utils.computer.calcobj.functions.string.Like;
+import a2u.tn.utils.computer.calcobj.functions.string.LikeRegexp;
 import a2u.tn.utils.computer.calcobj.functions.string.NormalizeSpaces;
 import a2u.tn.utils.computer.calcobj.functions.string.PadLeft;
 import a2u.tn.utils.computer.calcobj.functions.string.PadRight;
@@ -152,7 +153,7 @@ public class ObjCalcEngine extends Calculator {
 
       }
       catch (Exception ex) {
-        throw new ExtractValueException("Error on extract value by code '"+byCode+"' from object '"+String.valueOf(fromObj)+"'.", ex);
+        throw new ExtractValueException("Error on extract value by code '"+byCode+"' from object '"+fromObj+"'.", ex);
       }
 
     }
@@ -236,6 +237,7 @@ public class ObjCalcEngine extends Calculator {
     addFunction(new NormalizeSpaces());
     addFunction(new ExtractDigits());
     addFunction(new Like());
+    addFunction(new LikeRegexp());
     addFunction(new Format());
     addFunction(new ToString());
 

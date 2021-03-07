@@ -25,7 +25,7 @@ public class FunctionsTest {
       "{\n" +
         " mailList: [\n" +
         "   {\n" +
-        "     autor: 'Autor01',\n" +
+        "     author: 'Author01',\n" +
         "     body: 'body01',\n" +
         "     attachment: {\n" +
         "       type: 'text',\n" +
@@ -33,7 +33,7 @@ public class FunctionsTest {
         "     }\n" +
         "   },\n" +
         "   {\n" +
-        "     autor: 'Autor02',\n" +
+        "     author: 'Author02',\n" +
         "     body: 'body02',\n" +
         "     attachment: {\n" +
         "       type: 'pict',\n" +
@@ -41,12 +41,12 @@ public class FunctionsTest {
         "     }\n" +
         "   },\n" +
         "   {\n" +
-        "     autor: 'Autor03',\n" +
+        "     author: 'Author03',\n" +
         "     body: 'body03',\n" +
         "     attachment: null\n" +
         "   },\n" +
         "   {\n" +
-        "     autor: 'Autor01',\n" +
+        "     author: 'Author01',\n" +
         "     body: 'body04'\n" +
         "   }\n" +
         " ]\n" +
@@ -59,16 +59,16 @@ public class FunctionsTest {
 
     check("count(.mailList.attachment)", "{Integer:2}");
 
-    check(".mailList",                                  "{List:[{autor:'Autor01',body:'body01',attachment:{type:'text',size:100}},{autor:'Autor02',body:'body02',attachment:{type:'pict',size:90}},{autor:'Autor03',body:'body03',attachment:null},{autor:'Autor01',body:'body04'}]}");
+    check(".mailList",                                  "{List:[{author:'Author01',body:'body01',attachment:{type:'text',size:100}},{author:'Author02',body:'body02',attachment:{type:'pict',size:90}},{author:'Author03',body:'body03',attachment:null},{author:'Author01',body:'body04'}]}");
     check(".mailList.attachment",                       "{List:[{type:'text',size:100},{type:'pict',size:90},null]}");
     check(".mailList(count(.attachment)>0).attachment", "{List:[{type:'text',size:100},{type:'pict',size:90}]}");
-    check(".mailList(count(.attachment)>0).autor",      "{List:['Autor01','Autor02']}");
+    check(".mailList(count(.attachment)>0).author",      "{List:['Author01','Author02']}");
 
   }
 
   @Test
   public void distinctTest() {
-    check(".mailList.autor(distinct)", "{List:['Autor01','Autor02','Autor03']}");
+    check(".mailList.author(distinct)", "{List:['Author01','Author02','Author03']}");
   }
 
   @Test
@@ -90,7 +90,7 @@ public class FunctionsTest {
   public void nvlTest() {
     check("nvl(null, 5)", "{Long:5}");
     check("nvl(33, 5)", "{Long:33}");
-    check(".mailList(nvl(.attachment.size, 555) > 100)", "{List:[{autor:'Autor03',body:'body03',attachment:null},{autor:'Autor01',body:'body04'}]}");
+    check(".mailList(nvl(.attachment.size, 555) > 100)", "{List:[{author:'Author03',body:'body03',attachment:null},{author:'Author01',body:'body04'}]}");
   }
 
   @Test
@@ -101,47 +101,54 @@ public class FunctionsTest {
 
   @Test
   public void firstRowTest() {
-    check(".mailList.autor(first)", "{String:'Autor01'}");
+    check(".mailList.author(first)", "{String:'Author01'}");
   }
 
   @Test
   public void lastRowTest() {
-    check(".mailList.autor(last)", "{String:'Autor03'}");
+    check(".mailList.author(last)", "{String:'Author03'}");
   }
 
   @Test
   public void likeTest() {
-    //check(".mailList(like(.autor, '.+or01'))", "{List:[{autor:'Autor01',body:'body01',attachment:{type:'text',size:100}},{autor:'Autor01',body:'body04'}]}");
-    //check("like('Autor03', '.+or01')", "{Boolean:false}");
-    //check("like('Autor03', '.+or03')", "{Boolean:true}");
+    check(".mailList(like(.author, '%or01'))", "{List:[{author:'Author01',body:'body01',attachment:{type:'text',size:100}},{author:'Author01',body:'body04'}]}");
+    check("like('Author03', '%or01')", "{Boolean:false}");
+    check("like('Author03', '%or03')", "{Boolean:true}");
   }
 
   @Test
+  public void LikeRegexpTest() {
+    check(".mailList(likeRegexp(.author, '.+or01'))", "{List:[{author:'Author01',body:'body01',attachment:{type:'text',size:100}},{author:'Author01',body:'body04'}]}");
+    check("likeRegexp('Author03', '.+or01')", "{Boolean:false}");
+    check("likeRegexp('Author03', '.+or03')", "{Boolean:true}");
+  }
+
+    @Test
   public void maxTest() {
     check("max(.mailList.attachment.size)", "{Integer:100}");
-    check(".mailList(.attachment.size = maxinrows(.attachment.size))", "{Map:{autor:'Autor01',body:'body01',attachment:{type:'text',size:100}}}");
-    check("max(.mailList.autor)", "{String:'Autor03'}");
+    check(".mailList(.attachment.size = maxinrows(.attachment.size))", "{Map:{author:'Author01',body:'body01',attachment:{type:'text',size:100}}}");
+    check("max(.mailList.author)", "{String:'Author03'}");
     check("max((1,2,3,4,5))", "{Long:5}");
   }
 
   @Test
   public void minTest() {
     check("min(.mailList.attachment.size)", "{Integer:90}");
-    check("min(.mailList.autor)", "{String:'Autor01'}");
+    check("min(.mailList.author)", "{String:'Author01'}");
   }
 
   @Test
   public void rowNumTest() {
-    check(".mailList.autor(rowNum=0)", "{String:'Autor01'}");
-    check(".mailList.autor(rowNum=1)", "{String:'Autor02'}");
-    check(".mailList.autor(rowNum=2)", "{String:'Autor03'}");
-    check(".mailList.autor(rowNum=3)", "{literal:null}");
+    check(".mailList.author(rowNum=0)", "{String:'Author01'}");
+    check(".mailList.author(rowNum=1)", "{String:'Author02'}");
+    check(".mailList.author(rowNum=2)", "{String:'Author03'}");
+    check(".mailList.author(rowNum=3)", "{literal:null}");
   }
 
   @Test
   public void rowsCountTest() {
-    check(".mailList.autor(rowNum=rowsCount)",   "{literal:null}");
-    check(".mailList.autor(rowNum=rowsCount-1)", "{String:'Autor03'}");
+    check(".mailList.author(rowNum=rowsCount)",   "{literal:null}");
+    check(".mailList.author(rowNum=rowsCount-1)", "{String:'Author03'}");
   }
 
   @Test
@@ -156,7 +163,8 @@ public class FunctionsTest {
 
 
 
-  TnJson jsonsettings = TnJson.builder().readable().withoutKeyQuote().singleQuote().keepNull();
+  private TnJson jsonSettings = TnJson.builder().readable().withoutKeyQuote().singleQuote().keepNull();
+
   private void check(String query, String value) {
     Object result = null;
     String jsonResult = null;
@@ -192,7 +200,7 @@ public class FunctionsTest {
         mapval.put(key, result);
       }
 
-      jsonResult = jsonsettings.buildJson(mapval);
+      jsonResult = jsonSettings.buildJson(mapval);
 
       assertEquals(value, jsonResult);
     }
