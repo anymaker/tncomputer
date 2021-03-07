@@ -7,15 +7,15 @@ import a2u.tn.utils.computer.formula.FormulaPart;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 /**
- * Return true if the condition specified by the regular expression is true
+ * Returns true if the condition specified in the template is met, similar to the 'like' operation as in databases.
  *
  * Parameters:
  *   - string for test
- *   - regular expression
+ *   - template expression, where
+ *          character '_' substitute any one characters
+ *          character '%' substitute more than one of any characters
  *
  */
 public class Like extends Function {
@@ -37,27 +37,165 @@ public class Like extends Function {
 
     String string   = calculator.toType(String.class, stringValue);
     String template = calculator.toType(String.class, templateValue);
-    /*
-    int ixTemplate = 0;
-    int ixString = 0;
 
-    while (ixTemplate < template.length() && ixString < string.length()) {
-      char ct = template.charAt(ixTemplate);
-      if (ct == '_') {
-        ixString++;
-        ixTemplate++;
-        continue;
+    Template parsedTemplate = parseTemplate(template);
+    boolean isTrue = match(string, parsedTemplate, 0, 0);
+
+    return isTrue;
+  }
+
+
+  private enum PartType {
+    Quantifier,
+    Text
+  }
+
+  private class TemplatePart {
+    private PartType type;
+    private String body;
+    @Override
+    public String toString() {
+      return type+"["+body+"]";
+    }
+  }
+
+  private class Template {
+    private List<TemplatePart> parts = new ArrayList<>();
+
+    void add(PartType type, String body) {
+      TemplatePart lastPart = getLast();
+      if (lastPart != null && type == PartType.Text && lastPart.type == PartType.Quantifier) {
+        lastPart.body = body;
       }
-      else if (ct == '%') {
+      else if (lastPart != null && type == PartType.Quantifier && lastPart.type == PartType.Quantifier && lastPart.body == null) {
+        lastPart.body = body;
+      }
+      else {
+        TemplatePart part = new TemplatePart();
+        part.type = type;
+        part.body = body;
+        parts.add(part);
+      }
 
+    }
+
+    private TemplatePart getLast() {
+      if (parts.isEmpty()) {
+        return null;
+      }
+      return parts.get(parts.size()-1);
+    }
+
+  }
+
+
+  private Template parseTemplate(String source) {
+    Template template = new Template();
+
+    StringBuilder body = new StringBuilder();
+
+    for (int ix = 0; ix < source.length(); ix++) {
+      char c = source.charAt(ix);
+      if (c == '%') {
+        if (body.length() > 0) {
+          template.add(PartType.Text, body.toString());
+          body = new StringBuilder();
+        }
+        template.add(PartType.Quantifier, null);
+      }
+      else {
+        body.append(c);
       }
     }
-     */
 
-    Pattern p = Pattern.compile(template);
-    Matcher mtch = p.matcher(string);
+    if (body.length() > 0) {
+      template.add(PartType.Text, body.toString());
+    }
 
-    boolean istrue =  mtch.find();
-    return istrue;
+    return template;
   }
+
+
+  /**
+   * Checking a string against a template
+   * @param string       checked string
+   * @param template     template to compare
+   * @param templateIx   index of first part in template
+   * @param stringIx     index of first character in string
+   * @return             true is match
+   */
+  private boolean match(String string, Template template, int templateIx, int stringIx) {
+      for (int tIx = templateIx; tIx < template.parts.size(); tIx++) {
+      TemplatePart currentPart = template.parts.get(tIx);
+
+      switch (currentPart.type) {
+        case Text:
+          boolean isMatch1 = isMatch(string, stringIx, currentPart.body);
+          stringIx+=currentPart.body.length();
+          if (!isMatch1) {
+            return false;
+          }
+          break;
+
+        case Quantifier:
+          if (currentPart.body == null) {
+            return true;
+          }
+          int isMatch2 = findSubstr(string, stringIx, currentPart.body);
+          if (isMatch2 < 0) {
+            return false;
+          }
+          stringIx = isMatch2;
+
+          boolean isMatch3 = match(string, template, tIx+1, isMatch2+currentPart.body.length());
+          while (!isMatch3 && string.length()-stringIx>currentPart.body.length()) {
+            isMatch3 = match(string, template, tIx, ++stringIx);
+          }
+          return isMatch3;
+      }
+
+    }
+
+    return stringIx == string.length();
+  }
+
+  /**
+   * Searches for a string
+   * @param source     string to compare
+   * @param ix         index of first character in a string
+   * @param substring  the string to be found
+   * @return           index of start a searched string
+   */
+  private int findSubstr(String source, int ix, String substring) {
+    if (source.length() < substring.length()) {
+      return -1;
+    }
+
+    boolean isMatch = isMatch(source, ix, substring);
+
+    while (ix < source.length()-substring.length() && !isMatch) {
+      ix++;
+      isMatch = isMatch(source, ix, substring);
+    }
+
+    return isMatch ? ix : -1;
+  }
+
+  /**
+   * Checks that part of a string matches a template
+   * @param str      incoming string
+   * @param startIx  index of first symbol in the incoming string
+   * @param template template for matching
+   * @return         true is template matches part of the incoming string
+   */
+  private boolean isMatch(String str, int startIx, String template) {
+    int ix = 0;
+    while (ix < template.length() && startIx+ix < str.length()
+      &&  (template.charAt(ix) == '_' || str.charAt(startIx + ix) == template.charAt(ix)))
+    {
+      ix++;
+    }
+    return ix == template.length();
+  }
+
 }
