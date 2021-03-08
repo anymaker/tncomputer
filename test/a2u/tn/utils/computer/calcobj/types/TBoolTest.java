@@ -39,6 +39,9 @@ public class TBoolTest {
     res = engine.toType(Boolean.class, true);
     assertEquals(true, res);
 
+    res = engine.toType(Boolean.class, new Object());
+    assertEquals(true, res);
+
   }
 
 
