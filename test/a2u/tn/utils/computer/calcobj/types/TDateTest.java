@@ -86,7 +86,7 @@ public class TDateTest {
   @Test
   public void convertToLong() throws Exception {
     Long res = engine.toType(Long.class, null);
-    assertEquals(null, res);
+    assertEquals((Long)0L, res);
 
     SimpleDateFormat df0 = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss:SSSXXX");
     SimpleDateFormat df1 = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
