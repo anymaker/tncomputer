@@ -331,66 +331,6 @@ public abstract class Calculator {
     Object result = fn.run(this, function.getParams(), paramValues, ctx);
     return result;
   }
-  private Object calcFunction2(FPFunction function, CalcContext ctx) {
-    Function fn = getFunction(function.getName().toLowerCase());
-    if (fn == null) {
-      throw new CalculatingException("Function '"+ function.getName() +"' is not defined.");
-    }
-
-    List<FormulaPart> params = new ArrayList<>(); // formulas for getting values
-    Map<String, Object> paramValues = new LinkedHashMap<>(); // prepared values for use as is
-
-    if (!fn.getParameters().isEmpty()) {
-
-      if (function.getParams() == null) {
-        String par2 = StringUtil.collectionToString(", ", fn.getParameters(), Function.Parameter::getTypeName);
-        throw new CalculatingException("For function '"+ function.getName() +"' parameter is not specified. You need specify (" + par2 + ").");
-      }
-
-      List<FormulaPart> paramValsList = function.getParams();
-      int ix = 0;
-      while (ix < fn.getParameters().size()) {
-        Function.Parameter fp = fn.getParameters().get(ix);
-        if (fp.isRequired()) {
-          if (paramValsList.size() > ix) {
-            FormulaPart param = paramValsList.get(ix);
-            params.add(param);
-          }
-          else {
-            throw new CalculatingException("Parameter '"+fp.getName()+"' is not specified for function '"+ function.getName() +"'.");
-          }
-        }
-        else {
-          if (paramValsList.size() > ix) {
-            FormulaPart param = paramValsList.get(ix);
-            params.add(param);
-          }
-          else if (fp.getDefaultValue() != null){
-            FormulaPart param = new FPLiteral(fp.getDefaultValue());
-            params.add(param);
-          }
-        }
-
-        Object rawPreparedValue = calcArgument(params.get(0), ctx);
-        Object preparedValue = toType(fp.getType(), rawPreparedValue);
-        paramValues.put(fp.getName(), preparedValue);
-
-        ix++;
-      }
-      if (paramValsList.size() > ix) {
-        params.addAll(paramValsList.subList(ix, paramValsList.size()));
-      }
-    }
-    else if (function.getParams() != null && fn.getParameters() == null) {
-      throw new CalculatingException("Function '"+ function.getName() +"' no need in parameters.");
-    }
-    else {
-      //for (FormulaPart param : function.getParams())
-    }
-
-    Object result = fn.run(this, params, paramValues, ctx);
-    return result;
-  }
 
   /**
    * Getting values from source by path

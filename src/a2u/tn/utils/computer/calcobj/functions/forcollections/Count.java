@@ -6,7 +6,6 @@ import a2u.tn.utils.computer.calculator.Function;
 import a2u.tn.utils.computer.formula.FormulaPart;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 

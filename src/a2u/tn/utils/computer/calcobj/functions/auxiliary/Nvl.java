@@ -6,7 +6,6 @@ import a2u.tn.utils.computer.calculator.Function;
 import a2u.tn.utils.computer.formula.FormulaPart;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 
@@ -18,8 +17,6 @@ public class Nvl extends Function {
   @Override
   protected List<Parameter> initParameters() {
     List<Parameter> parameters = new ArrayList<>();
-    //parameters.add(new Parameter(Object.class, "value"));
-    //parameters.add(new Parameter(Object.class, "substitute"));
     return parameters;
   }
 

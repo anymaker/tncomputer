@@ -3,12 +3,9 @@ package a2u.tn.utils.computer.calcobj.functions.auxiliary;
 import a2u.tn.utils.computer.calculator.CalcContext;
 import a2u.tn.utils.computer.calculator.Calculator;
 import a2u.tn.utils.computer.calculator.Function;
-import a2u.tn.utils.computer.formula.Formula;
 import a2u.tn.utils.computer.formula.FormulaPart;
 
 import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
@@ -21,7 +18,6 @@ public class ToMap extends Function {
   @Override
   protected List<Parameter> initParameters() {
     List<Parameter> parameters = new ArrayList<>();
-    //parameters.add(new Parameter(List.class, "fields", false, null));
     return parameters;
   }
 

@@ -8,7 +8,6 @@ import a2u.tn.utils.computer.formula.FormulaPart;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
@@ -31,9 +30,6 @@ abstract class DateCalculationAbstract extends Function {
 
   @Override
   public Object run(Calculator calculator, List<FormulaPart> params, Map<String, Object> paramValues, CalcContext ctx) {
-    //Object dateValue   = paramValues.get("date")calculator.calcArgument(params.get(0),  row, rowIndex, allRows);
-    //Object monthsValue = calculator.calcArgument(params.get(1),  row, rowIndex, allRows);
-
     LocalDateTime date  = (LocalDateTime) paramValues.get("date");//calculator.toType(LocalDateTime.class, dateValue);
     Long item           = (Long) paramValues.get(getSecondParamName());//calculator.toType(Long.class, monthsValue);
 

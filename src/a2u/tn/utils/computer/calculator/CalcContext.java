@@ -6,16 +6,19 @@ public interface CalcContext {
 
   /**
    * Data for computing
+   * @return Сurrent data for computing
    */
   Object getRowData();
 
   /**
-   * index in collection with all values
+   * Index in collection with all values
+   * @return Index
    */
   int getRowIndex();
 
   /**
-   * collection with all values
+   * Collection with all values
+   * @return All values
    */
   Collection<Object> getAllRows();
 
