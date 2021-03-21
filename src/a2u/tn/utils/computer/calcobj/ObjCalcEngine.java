@@ -20,6 +20,7 @@ import a2u.tn.utils.computer.calcobj.functions.datetime.LastDayInYear;
 import a2u.tn.utils.computer.calcobj.functions.datetime.SysDate;
 import a2u.tn.utils.computer.calcobj.functions.datetime.SysTime;
 import a2u.tn.utils.computer.calcobj.functions.datetime.ToDate;
+import a2u.tn.utils.computer.calcobj.functions.datetime.ToTimeZone;
 import a2u.tn.utils.computer.calcobj.functions.forcollections.Count;
 import a2u.tn.utils.computer.calcobj.functions.forcollections.Max;
 import a2u.tn.utils.computer.calcobj.functions.forcollections.Min;
@@ -255,6 +256,7 @@ public class ObjCalcEngine extends Calculator {
 
     addFunction(new SysDate());
     addFunction(new SysTime());
+    addFunction(new ToTimeZone());
 
     addFunction(new LastDayInMonth());
     addFunction(new LastDayInYear());
