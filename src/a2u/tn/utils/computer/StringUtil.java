@@ -234,6 +234,14 @@ public class StringUtil {
     return res;
   }
 
+  public static String trimToNull(String string) {
+    if (string == null) {
+      return null;
+    }
+    String result = trim(string);
+    return result.length() > 0 ? result : null;
+  }
+
   /**
    * Tests if string contain only whitespace characters or null
    * @param string String for test

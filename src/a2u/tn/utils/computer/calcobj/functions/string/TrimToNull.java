@@ -26,13 +26,8 @@ public class TrimToNull extends Function {
     Object string_ = calculator.calcArgument(params.get(0), row, rowIndex, allRows);
     String string = calculator.toType(String.class, string_);
 
-    if (string == null) {
-      return null;
-    }
-
-    String result = StringUtil.trim(string);
-
-    return result.length() > 0 ? result : null;
+    String result = StringUtil.trimToNull(string);
+    return result;
   }
 
 }
