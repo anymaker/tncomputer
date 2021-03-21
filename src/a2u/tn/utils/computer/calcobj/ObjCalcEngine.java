@@ -58,12 +58,14 @@ import a2u.tn.utils.computer.calcobj.functions.string.TrimToNull;
 import a2u.tn.utils.computer.calcobj.types.TBool;
 import a2u.tn.utils.computer.calcobj.types.TDate;
 import a2u.tn.utils.computer.calcobj.types.TDouble;
+import a2u.tn.utils.computer.calcobj.types.TFPValue;
 import a2u.tn.utils.computer.calcobj.types.TFloat;
 import a2u.tn.utils.computer.calcobj.types.TInt;
 import a2u.tn.utils.computer.calcobj.types.TList;
 import a2u.tn.utils.computer.calcobj.types.TLong;
 import a2u.tn.utils.computer.calcobj.types.TMap;
 import a2u.tn.utils.computer.calcobj.types.TNull;
+import a2u.tn.utils.computer.calcobj.types.TObject;
 import a2u.tn.utils.computer.calcobj.types.TSet;
 import a2u.tn.utils.computer.calcobj.types.TString;
 import a2u.tn.utils.computer.calculator.Calculator;
@@ -270,6 +272,8 @@ public class ObjCalcEngine extends Calculator {
     addType(new TSet(this));
     addType(new TMap(this));
     addType(new TNull(this));
+    addType(new TObject(this));
+    addType(new TFPValue(this));
   }
 
 }

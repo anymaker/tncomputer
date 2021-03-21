@@ -1,12 +1,13 @@
 package a2u.tn.utils.computer.calcobj.functions.string;
 
+import a2u.tn.utils.computer.calculator.CalcContext;
 import a2u.tn.utils.computer.calculator.Calculator;
 import a2u.tn.utils.computer.calculator.Function;
 import a2u.tn.utils.computer.formula.FormulaPart;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
+import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -29,12 +30,9 @@ public class LikeRegexp extends Function {
   }
 
   @Override
-  public Object run(Calculator calculator, List<FormulaPart> params, Object row, int rowIndex, Collection<Object> allRows) {
-    Object stringValue   = calculator.calcArgument(params.get(0), row, rowIndex, allRows);
-    Object templateValue = calculator.calcArgument(params.get(1), row, rowIndex, allRows);
-
-    String string   = calculator.toType(String.class, stringValue);
-    String template = calculator.toType(String.class, templateValue);
+  public Object run(Calculator calculator, List<FormulaPart> params, Map<String, Object> paramValues, CalcContext ctx) {
+    String string   = (String) paramValues.get("string");
+    String template = (String) paramValues.get("template");
 
     Pattern p = Pattern.compile(template);
     Matcher match = p.matcher(string);

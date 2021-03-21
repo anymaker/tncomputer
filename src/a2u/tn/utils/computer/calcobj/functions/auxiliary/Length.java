@@ -1,5 +1,6 @@
 package a2u.tn.utils.computer.calcobj.functions.auxiliary;
 
+import a2u.tn.utils.computer.calculator.CalcContext;
 import a2u.tn.utils.computer.calculator.Calculator;
 import a2u.tn.utils.computer.calculator.Function;
 import a2u.tn.utils.computer.formula.FormulaPart;
@@ -22,8 +23,8 @@ public class Length extends Function {
   }
 
   @Override
-  public Object run(Calculator calculator, List<FormulaPart> params, Object row, int rowIndex, Collection<Object> allRows) {
-    Object value = calculator.calcArgument(params.get(0), row, rowIndex, allRows);
+  public Object run(Calculator calculator, List<FormulaPart> params, Map<String, Object> paramValues, CalcContext ctx) {
+    Object value = paramValues.get("value");
 
     if (value == null) {
       return 0;

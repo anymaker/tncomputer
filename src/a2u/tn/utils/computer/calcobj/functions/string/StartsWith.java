@@ -1,12 +1,13 @@
 package a2u.tn.utils.computer.calcobj.functions.string;
 
+import a2u.tn.utils.computer.calculator.CalcContext;
 import a2u.tn.utils.computer.calculator.Calculator;
 import a2u.tn.utils.computer.calculator.Function;
 import a2u.tn.utils.computer.formula.FormulaPart;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Tests if string starts with the specified prefix.
@@ -16,18 +17,15 @@ public class StartsWith extends Function {
     @Override
     protected List<Parameter> initParameters() {
         List<Parameter> parameters = new ArrayList<>();
-        parameters.add(new Parameter(Object.class, "string"));
-        parameters.add(new Parameter(Object.class, "prefix"));
+        parameters.add(new Parameter(String.class, "string"));
+        parameters.add(new Parameter(String.class, "prefix"));
         return parameters;
     }
 
     @Override
-    public Object run(Calculator calculator, List<FormulaPart> params, Object row, int rowIndex, Collection<Object> allRows) {
-        Object string_  = calculator.calcArgument(params.get(0), row, rowIndex, allRows);
-        Object prefix_  = calculator.calcArgument(params.get(1), row, rowIndex, allRows);
-
-        String string = calculator.toType(String.class, string_);
-        String prefix = calculator.toType(String.class, prefix_);
+    public Object run(Calculator calculator, List<FormulaPart> params, Map<String, Object> paramValues, CalcContext ctx) {
+        String string = (String) paramValues.get("string");
+        String prefix = (String) paramValues.get("prefix");
 
         if (string == null) {
             string = "";

@@ -11,7 +11,7 @@ import java.util.List;
 public class FPFunction implements FormulaPart {
 
   private String name;              //Function name
-  private List<FormulaPart> params; //Caling arguments
+  private List<FormulaPart> params; //Calling arguments
 
   public FPFunction(String name, List<FormulaPart> params) {
     this.name = name;

@@ -1,5 +1,6 @@
 package a2u.tn.utils.computer.calcobj.functions.forcollections;
 
+import a2u.tn.utils.computer.calculator.CalcContext;
 import a2u.tn.utils.computer.calculator.Calculator;
 import a2u.tn.utils.computer.calculator.Function;
 import a2u.tn.utils.computer.calculator.Type;
@@ -9,6 +10,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Detect max value
@@ -23,29 +25,29 @@ public class Max extends Function {
   }
 
   @Override
-  public Object run(Calculator calculator, List<FormulaPart> params, Object row, int rowIndex, Collection<Object> allRows) {
-    Collection<?> iincomigCollection;
+  public Object run(Calculator calculator, List<FormulaPart> params, Map<String, Object> paramValues, CalcContext ctx) {
+    Collection<?> incomingCollection;
 
     if (params.size() == 1) {
-      Object data = calculator.calcArgument(params.get(0), row, rowIndex, allRows);
+      Object data = paramValues.get("collection");
       if (data instanceof Collection) {
-        iincomigCollection = (Collection) data;
+        incomingCollection = (Collection) data;
       }
       else {
-        iincomigCollection = Collections.singletonList(data);
+        incomingCollection = Collections.singletonList(data);
       }
     }
     else {
       List<Object> list = new ArrayList<>();
       for (FormulaPart param : params) {
-        Object data = calculator.calcArgument(param,  row, rowIndex, allRows);
+        Object data = calculator.calcArgument(param,  ctx);
         list.add(data);
       }
-      iincomigCollection = list;
+      incomingCollection = list;
     }
 
     Object max = null;
-    for (Object obj : iincomigCollection) {
+    for (Object obj : incomingCollection) {
       if (obj == null) {
         continue;
       }

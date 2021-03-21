@@ -2,9 +2,9 @@ package a2u.tn.utils.computer.calculator;
 
 import a2u.tn.utils.computer.formula.FormulaPart;
 
-import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Function descriptor
@@ -48,6 +48,11 @@ public abstract class Function {
     public String getDefaultValue() {
       return defaultValue;
     }
+
+    @Override
+    public String toString() {
+      return name +"("+ type.getSimpleName() +")";
+    }
   }
 
   private List<Parameter> parameters;
@@ -78,13 +83,12 @@ public abstract class Function {
 
   /**
    * Invoke function to execution
-   * @param params   Other params
-   * @param row      Data from current row
-   * @param rowIndex Index current row in rows
-   * @param allRows  Collection with all rows
-   * @return         result of execution function
+   * @param params      Other params
+   * @param paramValues Prepared values of parameters
+   * @param ctx         Data for calculating
+   * @return            Result of execution function
    */
-  public abstract Object run(Calculator calculator, List<FormulaPart> params, Object row, int rowIndex, Collection<Object> allRows);
+  public abstract Object run(Calculator calculator, List<FormulaPart> params, Map<String, Object> paramValues, CalcContext ctx);
 
 
   public String toString() {

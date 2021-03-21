@@ -1,12 +1,13 @@
 package a2u.tn.utils.computer.calcobj.functions.string;
 
+import a2u.tn.utils.computer.calculator.CalcContext;
 import a2u.tn.utils.computer.calculator.Calculator;
 import a2u.tn.utils.computer.calculator.Function;
 import a2u.tn.utils.computer.formula.FormulaPart;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Formats a number into a string by mask
@@ -31,16 +32,11 @@ public class Format extends Function {
   }
 
   @Override
-  public Object run(Calculator calculator, List<FormulaPart> params, Object row, int rowIndex, Collection<Object> allRows) {
-    Object value_ = calculator.calcArgument(params.get(0), row, rowIndex, allRows);
-    Object mask_ = calculator.calcArgument(params.get(1), row, rowIndex, allRows);
-    Object digitHolder_ = calculator.calcArgument(params.get(2), row, rowIndex, allRows);
-    Object signHolder_ = calculator.calcArgument(params.get(3), row, rowIndex, allRows);
-
-    String value = calculator.toType(String.class, value_);
-    String mask = calculator.toType(String.class, mask_);
-    String digitHolder = calculator.toType(String.class, digitHolder_);
-    String signHolder = calculator.toType(String.class, signHolder_);
+  public Object run(Calculator calculator, List<FormulaPart> params, Map<String, Object> paramValues, CalcContext ctx) {
+    String value =       (String) paramValues.get("value");
+    String mask =        (String) paramValues.get("mask");
+    String digitHolder = (String) paramValues.get("digitHolder");
+    String signHolder =  (String) paramValues.get("signHolder");
 
     char digitChar = digitHolder.charAt(0);
     char signChar = signHolder.charAt(0);

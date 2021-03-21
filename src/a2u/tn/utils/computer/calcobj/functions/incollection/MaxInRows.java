@@ -1,15 +1,17 @@
 package a2u.tn.utils.computer.calcobj.functions.incollection;
 
+import a2u.tn.utils.computer.calculator.CalcContext;
 import a2u.tn.utils.computer.calculator.CalculatingException;
 import a2u.tn.utils.computer.calculator.Calculator;
+import a2u.tn.utils.computer.calculator.Context;
 import a2u.tn.utils.computer.calculator.Function;
 import a2u.tn.utils.computer.calculator.Type;
 import a2u.tn.utils.computer.formula.FPValue;
 import a2u.tn.utils.computer.formula.FormulaPart;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Determine the max value in the path across all rows
@@ -25,16 +27,16 @@ public class MaxInRows extends Function {
   }
 
   @Override
-  public Object run(Calculator calculator, List<FormulaPart> params, Object row, int rowIndex, Collection<Object> allRows) {
-    if (allRows == null) {
+  public Object run(Calculator calculator, List<FormulaPart> params, Map<String, Object> paramValues, CalcContext ctx) {
+    if (ctx.getAllRows() == null) {
       throw new CalculatingException("Function 'maxInRows' can only be used to filtering rows.");
     }
 
-    FormulaPart path = params.get(0);
+    FPValue path = (FPValue) paramValues.get("path");
     Object max = null;
     int ix=0;
-    for (Object obj : allRows) {
-      Object value = calculator.calcArgument(path, obj, ix, allRows);
+    for (Object obj : ctx.getAllRows()) {
+      Object value = calculator.calcArgument(path, Context.of(obj, ix, ctx.getAllRows()));
       if (max == null) {
         max = value;
       }

@@ -1,5 +1,6 @@
 package a2u.tn.utils.computer.calcobj.functions.auxiliary;
 
+import a2u.tn.utils.computer.calculator.CalcContext;
 import a2u.tn.utils.computer.calculator.Calculator;
 import a2u.tn.utils.computer.calculator.Function;
 import a2u.tn.utils.computer.formula.FormulaPart;
@@ -7,6 +8,7 @@ import a2u.tn.utils.computer.formula.FormulaPart;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Provide switch-case-default functionality
@@ -32,36 +34,35 @@ public class Decode extends Function {
   }
 
   @Override
-  public Object run(Calculator calculator, List<FormulaPart> params, Object row, int rowIndex, Collection<Object> allRows) {
-    FormulaPart expression = params.get(0);
-    Object testValue = calculator.calcArgument(expression, row, rowIndex, allRows);
+  public Object run(Calculator calculator, List<FormulaPart> params, Map<String, Object> paramValues, CalcContext ctx) {
+    Object testValue = paramValues.get("expression");
 
     if (testValue instanceof Collection) {
       Collection caseValue = (Collection)testValue;
       List<Object> resultList = new ArrayList<>();
       for (Object test : caseValue) {
-        Object result = doDecode(calculator, test, params, row, rowIndex, allRows);
+        Object result = doDecode(calculator, test, params, ctx);
         resultList.add(result);
       }
       return resultList;
     }
     else {
-      Object result = doDecode(calculator, testValue, params, row, rowIndex, allRows);
+      Object result = doDecode(calculator, testValue, params, ctx);
       return result;
     }
   }
 
-  private Object doDecode(Calculator calculator, Object caseValue, List<FormulaPart> params, Object row, int rowIndex, Collection<Object> allRows) {
+  private Object doDecode(Calculator calculator, Object caseValue, List<FormulaPart> params, CalcContext ctx) {
     int ix = 1; // first param contains expression
     while (ix < params.size()) {
       FormulaPart part = params.get(ix++);
-      Object test = calculator.calcArgument(part, row, rowIndex, allRows);
+      Object test = calculator.calcArgument(part, ctx);
       if (ix >= params.size()) {
         return test;
       }
       FormulaPart retPart = params.get(ix++);
       if (calculator.equalValues(caseValue, test)) {
-        Object result = calculator.calcArgument(retPart, row, rowIndex, allRows);
+        Object result = calculator.calcArgument(retPart, ctx);
         return result;
       }
     }

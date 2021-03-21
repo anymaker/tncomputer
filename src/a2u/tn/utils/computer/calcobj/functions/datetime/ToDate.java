@@ -1,5 +1,6 @@
 package a2u.tn.utils.computer.calcobj.functions.datetime;
 
+import a2u.tn.utils.computer.calculator.CalcContext;
 import a2u.tn.utils.computer.calculator.Calculator;
 import a2u.tn.utils.computer.calculator.Function;
 import a2u.tn.utils.computer.formula.FormulaPart;
@@ -8,9 +9,9 @@ import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Converts a string with format to java.util.Date
@@ -26,12 +27,9 @@ public class ToDate extends Function {
   }
 
   @Override
-  public Object run(Calculator calculator, List<FormulaPart> params, Object row, int rowIndex, Collection<Object> allRows) {
-    Object inputValue  = calculator.calcArgument(params.get(0),  row, rowIndex, allRows);
-    Object formatValue = calculator.calcArgument(params.get(1), row, rowIndex, allRows);
-
-    String input  = calculator.toType(String.class, inputValue);
-    String format = calculator.toType(String.class, formatValue);
+  public Object run(Calculator calculator, List<FormulaPart> params, Map<String, Object> paramValues, CalcContext ctx) {
+    String input  = (String) paramValues.get("string");
+    String format = (String) paramValues.get("format");
 
     DateFormat df = new SimpleDateFormat(format);
     try {

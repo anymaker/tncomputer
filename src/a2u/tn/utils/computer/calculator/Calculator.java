@@ -1,10 +1,23 @@
 package a2u.tn.utils.computer.calculator;
 
-import a2u.tn.utils.computer.calcobj.types.TNull;
-import a2u.tn.utils.computer.formula.*;
 import a2u.tn.utils.computer.StringUtil;
+import a2u.tn.utils.computer.calcobj.types.TNull;
+import a2u.tn.utils.computer.formula.FPBlock;
+import a2u.tn.utils.computer.formula.FPFunction;
+import a2u.tn.utils.computer.formula.FPLiteral;
+import a2u.tn.utils.computer.formula.FPLiteralNumber;
+import a2u.tn.utils.computer.formula.FPLiteralString;
+import a2u.tn.utils.computer.formula.FPOperation;
+import a2u.tn.utils.computer.formula.FPValue;
+import a2u.tn.utils.computer.formula.Formula;
+import a2u.tn.utils.computer.formula.FormulaPart;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * Computing by formula
@@ -41,7 +54,7 @@ public abstract class Calculator {
   public Object calc(Formula formula) {
     try {
       FormulaPart root = formula.getRootPart();
-      Object result = calcArgument(root, null, 0, null);
+      Object result = calcArgument(root, Context.of(null, 0, null));
       return result;
     }
     catch (CalculatingException cex) {
@@ -76,7 +89,7 @@ public abstract class Calculator {
   public Object calc(Formula formula, Object startObj) {
     try {
       FormulaPart root = formula.getRootPart();
-      Object result = calcArgument(root, startObj, 0, null);
+      Object result = calcArgument(root, Context.of(startObj, 0, null));
       return result;
     }
     catch (CalculatingException cex) {
@@ -164,20 +177,18 @@ public abstract class Calculator {
   /**
    * Compute result for part of formula
    * @param part part of formula
-   * @param value value for computing
-   * @param rowIndex index in collection with all values
-   * @param allRows collection with all values
+   * @param ctx data for calculating
    * @return result of calculations
    */
-  public Object calcArgument(FormulaPart part, Object value, int rowIndex, Collection<Object> allRows) {
+  public Object calcArgument(FormulaPart part, CalcContext ctx) {
     if (part instanceof FPOperation) {
-      return calcOperation((FPOperation) part, value, rowIndex, allRows);
+      return calcOperation((FPOperation) part, ctx);
     }
     if (part instanceof FPFunction) {
-      return calcFunction((FPFunction) part, value, rowIndex, allRows);
+      return calcFunction((FPFunction) part, ctx);
     }
     if (part instanceof FPValue) {
-      return calcValue((FPValue) part, value);
+      return calcValue((FPValue) part, ctx.getRowData());
     }
     if (part instanceof FPLiteralNumber) {
       FPLiteralNumber exn = (FPLiteralNumber) part;
@@ -196,14 +207,14 @@ public abstract class Calculator {
     }
     if (part instanceof FPBlock) {
       FPBlock exb = (FPBlock) part;
-      Object v = calcArgument(exb.getOperation(), value, rowIndex, allRows);
+      Object v = calcArgument(exb.getOperation(), ctx);
       return v;
     }
     throw new CalculatingException("Illegal operation '" + part + "'.");
   }
 
-  private Object calcOperation(FPOperation operation, Object startval, int rowIndex, Collection<Object> allRows) {
-    Object value1 = calcArgument(operation.getArg1(), startval, rowIndex, allRows);
+  private Object calcOperation(FPOperation operation, CalcContext ctx) {
+    Object value1 = calcArgument(operation.getArg1(), ctx);
     if (value1 == null) {
       value1 = TNull.getNull();
     }
@@ -212,7 +223,7 @@ public abstract class Calculator {
       return value1;
     }
 
-    Object value2 = calcArgument(operation.getArg2(), startval, rowIndex, allRows);
+    Object value2 = calcArgument(operation.getArg2(), ctx);
 
     Type type = getType(value1.getClass());
 
@@ -271,13 +282,63 @@ public abstract class Calculator {
     return result;
   }
 
-  private Object calcFunction(FPFunction function, Object value, int rowIndex, Collection<Object> allRows) {
+  private Object calcFunction(FPFunction function, CalcContext ctx) {
     Function fn = getFunction(function.getName().toLowerCase());
     if (fn == null) {
       throw new CalculatingException("Function '"+ function.getName() +"' is not defined.");
     }
 
-    List<FormulaPart> params = new ArrayList<>();
+    Map<String, Object> paramValues = new LinkedHashMap<>(); // prepared values for use as is
+
+    if (!fn.getParameters().isEmpty()) {
+
+      if (function.getParams() == null) {
+        String par2 = StringUtil.collectionToString(", ", fn.getParameters(), Function.Parameter::getTypeName);
+        throw new CalculatingException("For function '"+ function.getName() +"' parameter is not specified. You need specify (" + par2 + ").");
+      }
+
+      for (int ix = 0; ix < fn.getParameters().size(); ix++) {
+        Function.Parameter fp = fn.getParameters().get(ix);
+
+        if (function.getParams().size() < ix+1 && fp.isRequired() && fp.getDefaultValue() == null) {
+          throw new CalculatingException("Parameter '"+fp.getName()+"' is not specified for function '"+ function.getName() +"'.");
+        }
+
+        Object rawPreparedValue;
+        if (function.getParams().size() > ix) {
+          FormulaPart  param = function.getParams().get(ix);
+          if (fp.getType().equals(FPValue.class)) {
+            rawPreparedValue = param;
+          }
+          else {
+            rawPreparedValue = calcArgument(param, ctx);
+          }
+        }
+        else {
+          rawPreparedValue = fp.getDefaultValue();
+        }
+
+        Object preparedValue = toType(fp.getType(), rawPreparedValue);
+        paramValues.put(fp.getName(), preparedValue);
+
+      }
+
+    }
+    else if (function.getParams() != null && fn.getParameters() == null) {
+       throw new CalculatingException("Function '"+ function.getName() +"' no need in parameters.");
+    }
+
+    Object result = fn.run(this, function.getParams(), paramValues, ctx);
+    return result;
+  }
+  private Object calcFunction2(FPFunction function, CalcContext ctx) {
+    Function fn = getFunction(function.getName().toLowerCase());
+    if (fn == null) {
+      throw new CalculatingException("Function '"+ function.getName() +"' is not defined.");
+    }
+
+    List<FormulaPart> params = new ArrayList<>(); // formulas for getting values
+    Map<String, Object> paramValues = new LinkedHashMap<>(); // prepared values for use as is
 
     if (!fn.getParameters().isEmpty()) {
 
@@ -309,17 +370,25 @@ public abstract class Calculator {
             params.add(param);
           }
         }
+
+        Object rawPreparedValue = calcArgument(params.get(0), ctx);
+        Object preparedValue = toType(fp.getType(), rawPreparedValue);
+        paramValues.put(fp.getName(), preparedValue);
+
         ix++;
       }
       if (paramValsList.size() > ix) {
         params.addAll(paramValsList.subList(ix, paramValsList.size()));
       }
     }
-    else if (function.getParams() == null && fn.getParameters().size() != 0) {
-       throw new CalculatingException("Function '"+ function.getName() +"' no need in parameters.");
+    else if (function.getParams() != null && fn.getParameters() == null) {
+      throw new CalculatingException("Function '"+ function.getName() +"' no need in parameters.");
+    }
+    else {
+      //for (FormulaPart param : function.getParams())
     }
 
-    Object result = fn.run(this, params, value, rowIndex, allRows);
+    Object result = fn.run(this, params, paramValues, ctx);
     return result;
   }
 
@@ -364,7 +433,7 @@ public abstract class Calculator {
         loopValues = new ArrayList<>();
         int ix = 0;
         for (Object value : extractedValues) {
-          Object isPassObj = calcArgument(current.getFilter(), value, ix, extractedValues);
+          Object isPassObj = calcArgument(current.getFilter(), Context.of(value, ix, extractedValues));
           boolean isPass = toType(Boolean.class, isPassObj);
           if (isPass) {
             loopValues.add(value);

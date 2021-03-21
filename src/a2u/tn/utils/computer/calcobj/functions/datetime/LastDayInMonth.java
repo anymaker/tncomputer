@@ -1,5 +1,6 @@
 package a2u.tn.utils.computer.calcobj.functions.datetime;
 
+import a2u.tn.utils.computer.calculator.CalcContext;
 import a2u.tn.utils.computer.calculator.Calculator;
 import a2u.tn.utils.computer.calculator.Function;
 import a2u.tn.utils.computer.formula.FormulaPart;
@@ -10,6 +11,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Returns the last day of the month
@@ -19,18 +21,15 @@ public class LastDayInMonth extends Function {
   @Override
   protected List<Parameter> initParameters() {
     List<Parameter> parameters = new ArrayList<>();
-    parameters.add(new Parameter(Date.class, "date"));
+    parameters.add(new Parameter(LocalDateTime.class, "date"));
     return parameters;
   }
 
   @Override
-  public Object run(Calculator calculator, List<FormulaPart> params, Object row, int rowIndex, Collection<Object> allRows) {
-    Object value  = calculator.calcArgument(params.get(0),  row, rowIndex, allRows);
-    LocalDateTime date = calculator.toType(LocalDateTime.class, value);
-
-    LocalDateTime calcedDate = date.with(TemporalAdjusters.lastDayOfMonth());
-
-    Date result = calculator.toType(Date.class, calcedDate);
+  public Object run(Calculator calculator, List<FormulaPart> params, Map<String, Object> paramValues, CalcContext ctx) {
+    LocalDateTime date = (LocalDateTime) paramValues.get("date");
+    LocalDateTime calculatedDate = date.with(TemporalAdjusters.lastDayOfMonth());
+    Date result = calculator.toType(Date.class, calculatedDate);
     return result;
   }
 }

@@ -1,12 +1,13 @@
 package a2u.tn.utils.computer.calcobj.functions.string;
 
+import a2u.tn.utils.computer.calculator.CalcContext;
 import a2u.tn.utils.computer.calculator.Calculator;
 import a2u.tn.utils.computer.calculator.Function;
 import a2u.tn.utils.computer.formula.FormulaPart;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Tests if string ends with the specified suffix.
@@ -16,18 +17,15 @@ public class EndWith extends Function {
     @Override
     protected List<Parameter> initParameters() {
         List<Parameter> parameters = new ArrayList<>();
-        parameters.add(new Parameter(Object.class, "string"));
-        parameters.add(new Parameter(Object.class, "suffix"));
+        parameters.add(new Parameter(String.class, "string"));
+        parameters.add(new Parameter(String.class, "suffix"));
         return parameters;
     }
 
     @Override
-    public Object run(Calculator calculator, List<FormulaPart> params, Object row, int rowIndex, Collection<Object> allRows) {
-        Object string_  = calculator.calcArgument(params.get(0), row, rowIndex, allRows);
-        Object suffix_  = calculator.calcArgument(params.get(1), row, rowIndex, allRows);
-
-        String string = calculator.toType(String.class, string_);
-        String suffix = calculator.toType(String.class, suffix_);
+    public Object run(Calculator calculator, List<FormulaPart> params, Map<String, Object> paramValues, CalcContext ctx) {
+        String string = (String) paramValues.get("string");
+        String suffix = (String) paramValues.get("suffix");
 
         if (string == null) {
             string = "";
