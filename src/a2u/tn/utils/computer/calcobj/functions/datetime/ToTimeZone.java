@@ -35,7 +35,14 @@ public class ToTimeZone extends Function {
 
     String zone = (String) paramValues.get("zone");
     zone = StringUtil.trimToNull(zone);
-    ZoneOffset zoneOffset = ZoneOffset.of(zone);
+
+    ZoneOffset zoneOffset;
+    if (zone == null) {
+      zoneOffset = OffsetDateTime.now().getOffset();
+    }
+    else {
+      zoneOffset = ZoneOffset.of(zone);
+    }
 
     OffsetDateTime newTime = time.plusSeconds(zoneOffset.getTotalSeconds() - time.getOffset().getTotalSeconds());
     OffsetDateTime result = OffsetDateTime.of(newTime.toLocalDateTime(), zoneOffset);
