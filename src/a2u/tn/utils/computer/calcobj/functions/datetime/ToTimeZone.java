@@ -44,6 +44,7 @@ public class ToTimeZone extends Function {
       zoneOffset = ZoneOffset.of(zone);
     }
 
+    // t = t-t.zone+zone == t-(zone-t.zone)
     OffsetDateTime newTime = time.plusSeconds(zoneOffset.getTotalSeconds() - time.getOffset().getTotalSeconds());
     OffsetDateTime result = OffsetDateTime.of(newTime.toLocalDateTime(), zoneOffset);
 
