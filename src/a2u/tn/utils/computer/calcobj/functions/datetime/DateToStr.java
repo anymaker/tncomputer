@@ -7,6 +7,8 @@ import a2u.tn.utils.computer.formula.FormulaPart;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.time.OffsetDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -20,18 +22,18 @@ public class DateToStr extends Function {
   @Override
   protected List<Parameter> initParameters() {
     List<Parameter> parameters = new ArrayList<>();
-    parameters.add(new Parameter(Date.class,   "date"));
+    parameters.add(new Parameter(OffsetDateTime.class,   "date"));
     parameters.add(new Parameter(String.class, "format"));
     return parameters;
   }
 
   @Override
   public Object run(Calculator calculator, List<FormulaPart> params, Map<String, Object> paramValues, CalcContext ctx) {
-    Date date     = (Date)   paramValues.get("date");
-    String format = (String) paramValues.get("format");
+    OffsetDateTime date = (OffsetDateTime) paramValues.get("date");
+    String format       = (String) paramValues.get("format");
 
-    DateFormat df = new SimpleDateFormat(format);
-    String str = df.format(date);
+    DateTimeFormatter dtf = DateTimeFormatter.ofPattern(format);
+    String str = dtf.format(date);
     return str;
   }
 }
