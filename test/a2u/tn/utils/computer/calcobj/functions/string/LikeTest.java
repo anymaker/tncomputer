@@ -12,7 +12,7 @@ public class LikeTest {
   private ObjCalcEngine engine;
 
   @Before
-  public void prapare() {
+  public void prepare() {
     engine = new ObjCalcEngine();
   }
 
@@ -37,7 +37,7 @@ public class LikeTest {
   }
 
   @Test
-  public void additionat() {
+  public void additional() {
     assertTrue( like("abcdfab",    "a%b"));
     assertTrue( like("abcdfabghc", "a%b%c"));
     assertTrue( like("abcabc",     "%abc"));
@@ -49,42 +49,42 @@ public class LikeTest {
     assertFalse(like("abcdfab",    "%ab%bab"));
 
 
-    assertEquals(true, like("abc_d", "abc\\_d"));
-    assertEquals(true, like("abc%d", "abc\\%%d"));
-    assertEquals(false, like("abcd", "abc\\_d"));
+    assertTrue( like("abc_d", "abc\\_d"));
+    assertTrue( like("abc%d", "abc\\%%d"));
+    assertFalse(like("abcd", "abc\\_d"));
 
     String source = "1abcd";
-    assertEquals(true, like(source, "_%d"));
+    assertEquals(true,  like(source, "_%d"));
     assertEquals(false, like(source, "%%a"));
     assertEquals(false, like(source, "1"));
-    assertEquals(true, like(source, "%d"));
-    assertEquals(true, like(source, "%%%%"));
-    assertEquals(true, like(source, "1%_"));
+    assertEquals(true,  like(source, "%d"));
+    assertEquals(true,  like(source, "%%%%"));
+    assertEquals(true,  like(source, "1%_"));
     assertEquals(false, like(source, "1%_2"));
     assertEquals(false, like(source, "1abcdef"));
-    assertEquals(true, like(source, "1abcd"));
+    assertEquals(true,  like(source, "1abcd"));
     assertEquals(false, like(source, "1abcde"));
 
-    assertEquals(true, like(source, "_%_"));
-    assertEquals(true, like(source, "_%____"));
-    assertEquals(true, like(source, "_____"));
+    assertEquals(true,  like(source, "_%_"));
+    assertEquals(true,  like(source, "_%____"));
+    assertEquals(true,  like(source, "_____"));
     assertEquals(false, like(source, "___"));
     assertEquals(false, like(source, "__%____"));
     assertEquals(false, like(source, "1"));
 
     assertEquals(false, like(source, "a_%b"));
-    assertEquals(true, like(source, "1%"));
+    assertEquals(true,  like(source, "1%"));
     assertEquals(false, like(source, "d%"));
-    assertEquals(true, like(source, "_%"));
-    assertEquals(true, like(source, "_abc%"));
-    assertEquals(true, like(source, "%d"));
-    assertEquals(true, like(source, "%abc%"));
+    assertEquals(true,  like(source, "_%"));
+    assertEquals(true,  like(source, "_abc%"));
+    assertEquals(true,  like(source, "%d"));
+    assertEquals(true,  like(source, "%abc%"));
     assertEquals(false, like(source, "ab_%"));
 
-    assertEquals(true, like(source, "1ab__"));
-    assertEquals(true, like(source, "1ab__%"));
+    assertEquals(true,  like(source, "1ab__"));
+    assertEquals(true,  like(source, "1ab__%"));
     assertEquals(false, like(source, "1ab___"));
-    assertEquals(true, like(source, "%"));
+    assertEquals(true,  like(source, "%"));
 
     assertEquals(false, like(null, "1ab___"));
     assertEquals(false, like(source, null));

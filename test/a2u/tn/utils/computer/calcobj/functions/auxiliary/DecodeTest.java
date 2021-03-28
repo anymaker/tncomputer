@@ -17,7 +17,7 @@ public class DecodeTest {
 
 
   @Before
-  public void prapare() {
+  public void prepare() {
     engine = new ObjCalcEngine();
 
     testValues = new LinkedHashMap<>();

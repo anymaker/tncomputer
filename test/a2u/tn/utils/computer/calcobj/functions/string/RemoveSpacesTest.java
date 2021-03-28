@@ -12,7 +12,7 @@ public class RemoveSpacesTest {
   private ObjCalcEngine engine;
 
   @Before
-  public void prapare() {
+  public void prepare() {
     engine = new ObjCalcEngine();
   }
 

@@ -15,7 +15,7 @@ public class ToMapTest {
   private ObjCalcEngine engine;
 
   @Before
-  public void prapare() {
+  public void prepare() {
     engine = new ObjCalcEngine();
   }
 

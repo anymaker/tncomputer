@@ -7,7 +7,7 @@ import org.junit.Test;
 
 import static org.junit.Assert.*;
 
-public class PadLeftTest {
+public class LikeRegexpTest {
 
   private ObjCalcEngine engine;
 
@@ -18,13 +18,8 @@ public class PadLeftTest {
 
   @Test
   public void run() {
-    Formula formula = new Formula("padLeft('AAA', 10, 'B')");
-    String result = engine.calc(formula, String.class);
-    assertEquals("BBBBBBBAAA", result);
-
-    formula = new Formula("padLeft('AAA', 2, 'B')");
-    result = engine.calc(formula, String.class);
-    assertEquals("AAA", result);
+    assertTrue(engine.calc(new Formula("likeRegexp('abcdfab', '^a.*b$')"), Boolean.class));
+    assertTrue(engine.calc(new Formula("likeRegexp('abcdfabghc', '^a.*b.*c$')"), Boolean.class));
   }
 
 }

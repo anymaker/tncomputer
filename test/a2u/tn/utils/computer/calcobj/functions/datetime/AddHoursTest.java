@@ -17,7 +17,7 @@ public class AddHoursTest {
   private DateFormat df;
 
   @Before
-  public void prapare() {
+  public void prepare() {
     engine = new ObjCalcEngine();
     df = new SimpleDateFormat("yyyy.MM.dd-HH:mm:ss");
   }

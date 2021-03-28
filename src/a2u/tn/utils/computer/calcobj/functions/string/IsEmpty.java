@@ -10,7 +10,7 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * Checks if a string is empty ("") or null.
+ * Checks that the string contains no characters or null.
  */
 public class IsEmpty extends Function {
 
