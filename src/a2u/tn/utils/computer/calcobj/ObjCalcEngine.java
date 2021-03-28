@@ -35,7 +35,7 @@ import a2u.tn.utils.computer.calcobj.functions.staticvalue.Nil;
 import a2u.tn.utils.computer.calcobj.functions.staticvalue.Null;
 import a2u.tn.utils.computer.calcobj.functions.staticvalue.True;
 import a2u.tn.utils.computer.calcobj.functions.string.CharAt;
-import a2u.tn.utils.computer.calcobj.functions.string.EndWith;
+import a2u.tn.utils.computer.calcobj.functions.string.EndsWith;
 import a2u.tn.utils.computer.calcobj.functions.string.ExtractDigits;
 import a2u.tn.utils.computer.calcobj.functions.string.Format;
 import a2u.tn.utils.computer.calcobj.functions.string.IndexOf;
@@ -223,7 +223,7 @@ public class ObjCalcEngine extends Calculator {
 
     addFunction(new CharAt());
     addFunction(new StartsWith());
-    addFunction(new EndWith());
+    addFunction(new EndsWith());
     addFunction(new IndexOf());
     addFunction(new Substring());
     addFunction(new Replace());

@@ -12,7 +12,7 @@ import java.util.Map;
 /**
  * Tests if string ends with the specified suffix.
  */
-public class EndWith extends Function {
+public class EndsWith extends Function {
 
     @Override
     protected List<Parameter> initParameters() {
