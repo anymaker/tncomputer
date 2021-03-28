@@ -27,7 +27,7 @@ public class ToListTest {
     data.put("value1", 100);
     data.put("value2", 200);
 
-    Formula formula = new Formula("tolist(.value1, .value2)");
+    Formula formula = new Formula("toList(.value1, .value2)");
     Object result = engine.calc(formula, data);
     assertEquals(ArrayList.class, result.getClass());
 
@@ -38,7 +38,7 @@ public class ToListTest {
 
   @Test
   public void emptyList() {
-    Formula formula = new Formula("tolist()");
+    Formula formula = new Formula("toList()");
     Object result = engine.calc(formula);
     assertEquals(ArrayList.class, result.getClass());
 

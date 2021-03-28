@@ -17,7 +17,7 @@ import java.util.Map;
  *  result: +(123)456-789 01
  *
  *  Where 'S' the sign holder, default character 'S';
- *        'X' the digit holder, default caracter 'X'.
+ *        'X' the digit holder, default character 'X'.
  */
 public class Format extends Function {
 
