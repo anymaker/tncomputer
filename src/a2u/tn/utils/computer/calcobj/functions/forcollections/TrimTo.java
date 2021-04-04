@@ -20,7 +20,7 @@ public class TrimTo extends Function {
     List<Parameter> parameters = new ArrayList<>();
     parameters.add(new Parameter(List.class, "collection"));
     parameters.add(new Parameter(Object.class, "firstValue"));
-    parameters.add(new Parameter(boolean.class, "includeFirstValue", false, "true"));
+    parameters.add(new Parameter(boolean.class, "leaveFirstValue", false, "true"));
     return parameters;
   }
 
@@ -37,7 +37,7 @@ public class TrimTo extends Function {
   public Object run(Calculator calculator, List<FormulaPart> params, Map<String, Object> paramValues, CalcContext ctx) {
     List<?> list  = (List<?>) paramValues.get("collection");
     Object firstValue = paramValues.get("firstValue");
-    boolean includeFirstValue = (boolean) paramValues.get("includeFirstValue");
+    boolean leaveFirstValue = (boolean) paramValues.get("leaveFirstValue");
 
     if (list == null) {
       return null;
@@ -53,7 +53,7 @@ public class TrimTo extends Function {
       return new ArrayList<>();
     }
 
-    if (!includeFirstValue) {
+    if (!leaveFirstValue) {
       ix++;
     }
 
