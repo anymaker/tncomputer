@@ -14,9 +14,12 @@ import java.util.Map;
  */
 public class Nvl extends Function {
 
+
   @Override
   protected List<Parameter<?>> initParameters() {
     List<Parameter<?>> parameters = new ArrayList<>();
+    parameters.add(new Parameter<>(Object.class, "checkedValue"));
+    parameters.add(new Parameter<>(Object.class, "replaceWith", false, null));
     return parameters;
   }
 

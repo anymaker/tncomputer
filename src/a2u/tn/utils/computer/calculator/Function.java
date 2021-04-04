@@ -76,7 +76,7 @@ public abstract class Function {
   }
 
   protected List<Parameter<?>> initParameters() {
-    return Collections.emptyList();
+    return null;
   }
 
   /**

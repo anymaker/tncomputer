@@ -27,17 +27,17 @@ public abstract class Calculator {
   /**
    * All known functions used in queries
    */
-  private Map<String, Function> functions;
+  private final Map<String, Function> functions;
 
   /**
    * All known types used in data
    */
-  private Map<Class<?>, Type> knownTypes;
+  private final Map<Class<?>, Type> knownTypes;
 
   /**
    * Converters to convert values
    */
-  private Converter converters;
+  private final Converter converters;
 
 
   public Calculator() {
@@ -100,7 +100,7 @@ public abstract class Calculator {
         b.append(tr).append("\n");
         tr = tr.getCause();
       }
-      throw new CalculatingException("Error calculate formula:\n" + formula.toString() + "\nby object " + String.valueOf(startObj) + "\n" + b.toString(), cex);
+      throw new CalculatingException("Error calculate formula:\n" + formula.toString() + "\nby object " + startObj + "\n" + b.toString(), cex);
     }
   }
 
@@ -252,7 +252,7 @@ public abstract class Calculator {
 
   }
   private Object calcOperationIn(Object value, Object valueList) {
-    List<Object> list = toType(List.class, valueList);
+    List<?> list = toType(List.class, valueList);
     Type type = getType(value.getClass());
     for (Object valInList : list) {
       boolean isPresent = type.equal(value, valInList);
@@ -263,7 +263,7 @@ public abstract class Calculator {
     return false;
   }
   private Object calcOperationNotIn(Object value, Object valueList) {
-    List<Object> list = toType(List.class, valueList);
+    List<?> list = toType(List.class, valueList);
     Type type = getType(value.getClass());
     for (Object valInList : list) {
       boolean isPresent = type.equal(value, valInList);
@@ -274,8 +274,8 @@ public abstract class Calculator {
     return true;
   }
   private Object calcOperationAddToDim(Object value1, Object value2) {
-    List<Object> val1 = toType(List.class, value1);
-    List<Object> val2 = toType(List.class, value2);
+    List<?> val1 = toType(List.class, value1);
+    List<?> val2 = toType(List.class, value2);
     List<Object> result = new ArrayList<>();
     result.addAll(val1);
     result.addAll(val2);
@@ -290,7 +290,7 @@ public abstract class Calculator {
 
     Map<String, Object> paramValues = new LinkedHashMap<>(); // prepared values for use as is
 
-    if (!fn.getParameters().isEmpty()) {
+    if (fn.getParameters() != null && !fn.getParameters().isEmpty()) {
 
       if (function.getParams() == null) {
         String par2 = StringUtil.collectionToString(", ", fn.getParameters(), Function.Parameter::getTypeName);
@@ -298,7 +298,7 @@ public abstract class Calculator {
       }
 
       for (int ix = 0; ix < fn.getParameters().size(); ix++) {
-        Function.Parameter fp = fn.getParameters().get(ix);
+        Function.Parameter<?> fp = fn.getParameters().get(ix);
 
         if (function.getParams().size() < ix+1 && fp.isRequired() && fp.getDefaultValue() == null) {
           throw new CalculatingException("Parameter '"+fp.getName()+"' is not specified for function '"+ function.getName() +"'.");
@@ -324,7 +324,7 @@ public abstract class Calculator {
       }
 
     }
-    else if (function.getParams() != null && fn.getParameters() == null) {
+    else if (function.getParams() != null && !function.getParams().isEmpty() && fn.getParameters() == null) {
        throw new CalculatingException("Function '"+ function.getName() +"' no need in parameters.");
     }
 
@@ -362,7 +362,7 @@ public abstract class Calculator {
         extractedValues = extractValues(current.getFieldName(), resultRows);
       }
       catch (Exception ex) {
-        throw new CalculatingException("Error on getting values from '"+String.valueOf(fromObj)+"' by code '"+current.getFieldName()+"' in path "+ path +".", ex);
+        throw new CalculatingException("Error on getting values from '"+fromObj+"' by code '"+current.getFieldName()+"' in path "+ path +".", ex);
       }
 
       Collection<Object> loopValues;
