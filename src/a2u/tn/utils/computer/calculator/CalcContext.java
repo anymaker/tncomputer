@@ -6,7 +6,7 @@ public interface CalcContext {
 
   /**
    * Data for computing
-   * @return Сurrent data for computing
+   * @return Current data for computing
    */
   Object getRowData();
 
