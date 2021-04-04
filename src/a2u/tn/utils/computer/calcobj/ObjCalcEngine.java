@@ -24,6 +24,9 @@ import a2u.tn.utils.computer.calcobj.functions.datetime.ToTimeZone;
 import a2u.tn.utils.computer.calcobj.functions.forcollections.Count;
 import a2u.tn.utils.computer.calcobj.functions.forcollections.Max;
 import a2u.tn.utils.computer.calcobj.functions.forcollections.Min;
+import a2u.tn.utils.computer.calcobj.functions.forcollections.SubList;
+import a2u.tn.utils.computer.calcobj.functions.forcollections.TrimAfter;
+import a2u.tn.utils.computer.calcobj.functions.forcollections.TrimTo;
 import a2u.tn.utils.computer.calcobj.functions.incollection.Distinct;
 import a2u.tn.utils.computer.calcobj.functions.incollection.First;
 import a2u.tn.utils.computer.calcobj.functions.incollection.Last;
@@ -213,10 +216,13 @@ public class ObjCalcEngine extends Calculator {
     addFunction(new RowNum());
     addFunction(new RowsCount());
     addFunction(new MaxInRows());
-    addFunction(new Count());
 
+    addFunction(new Count());
     addFunction(new Max());
     addFunction(new Min());
+    addFunction(new SubList());
+    addFunction(new TrimTo());
+    addFunction(new TrimAfter());
 
     addFunction(new ToDate());
     addFunction(new DateToStr());
