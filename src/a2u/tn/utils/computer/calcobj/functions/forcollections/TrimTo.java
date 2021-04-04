@@ -16,11 +16,11 @@ import java.util.Map;
 public class TrimTo extends Function {
 
   @Override
-  protected List<Parameter> initParameters() {
-    List<Parameter> parameters = new ArrayList<>();
-    parameters.add(new Parameter(List.class, "collection"));
-    parameters.add(new Parameter(Object.class, "firstValue"));
-    parameters.add(new Parameter(boolean.class, "leaveFirstValue", false, "true"));
+  protected List<Parameter<?>> initParameters() {
+    List<Parameter<?>> parameters = new ArrayList<>();
+    parameters.add(new Parameter<>(List.class, "collection"));
+    parameters.add(new Parameter<>(Object.class, "firstValue"));
+    parameters.add(new Parameter<>(boolean.class, "leaveFirstValue", false, true));
     return parameters;
   }
 

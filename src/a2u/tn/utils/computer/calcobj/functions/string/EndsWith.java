@@ -15,10 +15,10 @@ import java.util.Map;
 public class EndsWith extends Function {
 
     @Override
-    protected List<Parameter> initParameters() {
-        List<Parameter> parameters = new ArrayList<>();
-        parameters.add(new Parameter(String.class, "string"));
-        parameters.add(new Parameter(String.class, "suffix"));
+    protected List<Parameter<?>> initParameters() {
+        List<Parameter<?>> parameters = new ArrayList<>();
+        parameters.add(new Parameter<>(String.class, "string"));
+        parameters.add(new Parameter<>(String.class, "suffix"));
         return parameters;
     }
 

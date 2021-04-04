@@ -17,9 +17,9 @@ public class Count extends Function {
 
 
   @Override
-  protected List<Parameter> initParameters() {
-    List<Parameter> parameters = new ArrayList<>();
-    parameters.add(new Parameter(List.class, "collection"));
+  protected List<Parameter<?>> initParameters() {
+    List<Parameter<?>> parameters = new ArrayList<>();
+    parameters.add(new Parameter<>(List.class, "collection"));
     return parameters;
   }
 

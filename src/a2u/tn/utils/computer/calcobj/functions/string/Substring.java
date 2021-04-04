@@ -16,11 +16,11 @@ import java.util.Map;
 public class Substring extends Function {
 
   @Override
-  protected List<Parameter> initParameters() {
-    List<Parameter> parameters = new ArrayList<>();
-    parameters.add(new Parameter(String.class, "string"));
-    parameters.add(new Parameter(int.class,    "start"));
-    parameters.add(new Parameter(int.class,    "length"));
+  protected List<Parameter<?>> initParameters() {
+    List<Parameter<?>> parameters = new ArrayList<>();
+    parameters.add(new Parameter<>(String.class, "string"));
+    parameters.add(new Parameter<>(int.class,    "start"));
+    parameters.add(new Parameter<>(int.class,    "length"));
     return parameters;
   }
 

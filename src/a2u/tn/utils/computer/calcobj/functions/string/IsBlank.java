@@ -16,9 +16,9 @@ import java.util.Map;
 public class IsBlank extends Function {
 
   @Override
-  protected List<Parameter> initParameters() {
-    List<Parameter> parameters = new ArrayList<>();
-    parameters.add(new Parameter(String.class, "string"));
+  protected List<Parameter<?>> initParameters() {
+    List<Parameter<?>> parameters = new ArrayList<>();
+    parameters.add(new Parameter<>(String.class, "string"));
     return parameters;
   }
 

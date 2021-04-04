@@ -27,9 +27,9 @@ public class Decode extends Function {
 
 
   @Override
-  protected List<Parameter> initParameters() {
-    List<Parameter> parameters = new ArrayList<>();
-    parameters.add(new Parameter(Object.class, "expression"));
+  protected List<Parameter<?>> initParameters() {
+    List<Parameter<?>> parameters = new ArrayList<>();
+    parameters.add(new Parameter<>(Object.class, "expression"));
     return parameters;
   }
 

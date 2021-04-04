@@ -18,9 +18,9 @@ import java.util.Map;
 public class LastDayInYear extends Function {
 
   @Override
-  protected List<Parameter> initParameters() {
-    List<Parameter> parameters = new ArrayList<>();
-    parameters.add(new Parameter(LocalDateTime.class, "date"));
+  protected List<Parameter<?>> initParameters() {
+    List<Parameter<?>> parameters = new ArrayList<>();
+    parameters.add(new Parameter<>(LocalDateTime.class, "date"));
     return parameters;
   }
 

@@ -16,8 +16,8 @@ import java.util.Map;
 public class ToMap extends Function {
 
   @Override
-  protected List<Parameter> initParameters() {
-    List<Parameter> parameters = new ArrayList<>();
+  protected List<Parameter<?>> initParameters() {
+    List<Parameter<?>> parameters = new ArrayList<>();
     return parameters;
   }
 

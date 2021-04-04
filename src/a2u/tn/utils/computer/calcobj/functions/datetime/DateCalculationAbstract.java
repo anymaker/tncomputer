@@ -19,10 +19,10 @@ abstract class DateCalculationAbstract extends Function {
 
 
   @Override
-  protected List<Parameter> initParameters() {
-    List<Parameter> parameters = new ArrayList<>();
-    parameters.add(new Parameter(LocalDateTime.class, "date"));
-    parameters.add(new Parameter(Long.class, getSecondParamName()));
+  protected List<Parameter<?>> initParameters() {
+    List<Parameter<?>> parameters = new ArrayList<>();
+    parameters.add(new Parameter<>(LocalDateTime.class, "date"));
+    parameters.add(new Parameter<>(Long.class, getSecondParamName()));
     return parameters;
   }
 

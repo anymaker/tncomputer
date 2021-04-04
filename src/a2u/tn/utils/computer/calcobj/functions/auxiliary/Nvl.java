@@ -15,8 +15,8 @@ import java.util.Map;
 public class Nvl extends Function {
 
   @Override
-  protected List<Parameter> initParameters() {
-    List<Parameter> parameters = new ArrayList<>();
+  protected List<Parameter<?>> initParameters() {
+    List<Parameter<?>> parameters = new ArrayList<>();
     return parameters;
   }
 

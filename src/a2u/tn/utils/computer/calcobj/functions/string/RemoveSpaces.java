@@ -7,7 +7,6 @@ import a2u.tn.utils.computer.calculator.Function;
 import a2u.tn.utils.computer.formula.FormulaPart;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 
@@ -17,9 +16,9 @@ import java.util.Map;
 public class RemoveSpaces extends Function {
 
   @Override
-  protected List<Parameter> initParameters() {
-    List<Parameter> parameters = new ArrayList<>();
-    parameters.add(new Parameter(String.class, "string"));
+  protected List<Parameter<?>> initParameters() {
+    List<Parameter<?>> parameters = new ArrayList<>();
+    parameters.add(new Parameter<>(String.class, "string"));
     return parameters;
   }
 

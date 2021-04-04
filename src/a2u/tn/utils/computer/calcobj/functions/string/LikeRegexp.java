@@ -22,10 +22,10 @@ import java.util.regex.Pattern;
 public class LikeRegexp extends Function {
 
   @Override
-  protected List<Parameter> initParameters() {
-    List<Parameter> parameters = new ArrayList<>();
-    parameters.add(new Parameter(String.class, "string"));
-    parameters.add(new Parameter(String.class, "template"));
+  protected List<Parameter<?>> initParameters() {
+    List<Parameter<?>> parameters = new ArrayList<>();
+    parameters.add(new Parameter<>(String.class, "string"));
+    parameters.add(new Parameter<>(String.class, "template"));
     return parameters;
   }
 

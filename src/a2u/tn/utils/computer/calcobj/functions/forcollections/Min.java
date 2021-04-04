@@ -18,9 +18,9 @@ import java.util.Map;
 public class Min extends Function {
 
   @Override
-  protected List<Parameter> initParameters() {
-    List<Parameter> parameters = new ArrayList<>();
-    parameters.add(new Parameter(Object.class, "collection"));
+  protected List<Parameter<?>> initParameters() {
+    List<Parameter<?>> parameters = new ArrayList<>();
+    parameters.add(new Parameter<>(Object.class, "collection"));
     return parameters;
   }
 
@@ -31,7 +31,7 @@ public class Min extends Function {
     if (params.size() == 1) {
       Object data = paramValues.get("collection");
       if (data instanceof Collection) {
-        incomingCollection = (Collection) data;
+        incomingCollection = (Collection<?>) data;
       }
       else {
         incomingCollection = Collections.singletonList(data);

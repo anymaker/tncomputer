@@ -19,10 +19,10 @@ import java.util.Map;
 public class ToTimeZone extends Function {
 
   @Override
-  protected List<Parameter> initParameters() {
-    List<Parameter> parameters = new ArrayList<>();
-    parameters.add(new Parameter(OffsetDateTime.class, "time", true, null));
-    parameters.add(new Parameter(String.class,         "zone", true, "Z"));
+  protected List<Parameter<?>> initParameters() {
+    List<Parameter<?>> parameters = new ArrayList<>();
+    parameters.add(new Parameter<>(OffsetDateTime.class, "time", true, null));
+    parameters.add(new Parameter<>(String.class,         "zone", true, "Z"));
     return parameters;
   }
 

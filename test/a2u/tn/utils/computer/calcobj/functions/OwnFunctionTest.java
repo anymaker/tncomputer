@@ -23,10 +23,10 @@ public class OwnFunctionTest {
      * @return descriptors for incoming parameters
      */
     @Override
-    protected List<Parameter> initParameters() {
-      List<Parameter> parameters = new ArrayList<>();
-      parameters.add(new Parameter(String.class, "stringA"));
-      parameters.add(new Parameter(String.class, "stringB"));
+    protected List<Parameter<?>> initParameters() {
+      List<Parameter<?>> parameters = new ArrayList<>();
+      parameters.add(new Parameter<>(String.class, "stringA"));
+      parameters.add(new Parameter<>(String.class, "stringB"));
       return parameters;
     }
 

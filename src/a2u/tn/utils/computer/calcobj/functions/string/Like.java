@@ -23,11 +23,11 @@ public class Like extends Function {
 
 
   @Override
-  protected List<Parameter> initParameters() {
-    List<Parameter> parameters = new ArrayList<>();
-    parameters.add(new Parameter(String.class, "string"));
-    parameters.add(new Parameter(String.class, "template"));
-    parameters.add(new Parameter(String.class, "escape", false, null));
+  protected List<Parameter<?>> initParameters() {
+    List<Parameter<?>> parameters = new ArrayList<>();
+    parameters.add(new Parameter<>(String.class, "string"));
+    parameters.add(new Parameter<>(String.class, "template"));
+    parameters.add(new Parameter<>(String.class, "escape", false, null));
     return parameters;
   }
 

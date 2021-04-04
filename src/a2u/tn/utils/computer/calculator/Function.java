@@ -14,11 +14,11 @@ public abstract class Function {
   /**
    * Function parameter description
    */
-  public static class Parameter {
-    private final Class<?> type;
+  public static class Parameter<T> {
+    private final Class<? super T> type;
     private final String name;
     private boolean required = true;
-    private Object defaultValue = null;
+    private T defaultValue = null;
 
     /**
      * Constructor with some parameters
@@ -26,7 +26,7 @@ public abstract class Function {
      * @param type Incoming parameter value type
      * @param name Parameter name
      */
-    public Parameter(Class<?> type, String name) {
+    public Parameter(Class<T> type, String name) {
       this.type = type;
       this.name = name;
     }
@@ -39,7 +39,7 @@ public abstract class Function {
      * @param required     True if the parameter is required
      * @param defaultValue The default value for the parameter. Use it if the parameter is not required but must have a value.
      */
-    public Parameter(Class<?> type, String name, boolean required, Object defaultValue) {
+    public Parameter(Class<? super T> type, String name, boolean required, T defaultValue) {
       this.type = type;
       this.name = name;
       this.required = required;
@@ -59,7 +59,7 @@ public abstract class Function {
     public boolean isRequired() {
       return required;
     };
-    public Object getDefaultValue() {
+    public T getDefaultValue() {
       return defaultValue;
     }
 
@@ -69,13 +69,13 @@ public abstract class Function {
     }
   }
 
-  private final List<Parameter> parameters;
+  private final List<Parameter<?>> parameters;
 
   public Function() {
     parameters = initParameters();
   }
 
-  protected List<Parameter> initParameters() {
+  protected List<Parameter<?>> initParameters() {
     return Collections.emptyList();
   }
 
@@ -93,7 +93,7 @@ public abstract class Function {
    *
    * @return descriptors for incoming parameters
    */
-  public final List<Parameter> getParameters() {
+  public final List<Parameter<?>> getParameters() {
     return parameters;
   }
 

@@ -16,11 +16,11 @@ import java.util.Map;
 public class Replace extends Function {
 
   @Override
-  protected List<Parameter> initParameters() {
-    List<Parameter> parameters = new ArrayList<>();
-    parameters.add(new Parameter(String.class, "string"));
-    parameters.add(new Parameter(String.class, "oldString"));
-    parameters.add(new Parameter(String.class, "newString"));
+  protected List<Parameter<?>> initParameters() {
+    List<Parameter<?>> parameters = new ArrayList<>();
+    parameters.add(new Parameter<>(String.class, "string"));
+    parameters.add(new Parameter<>(String.class, "oldString"));
+    parameters.add(new Parameter<>(String.class, "newString"));
     return parameters;
   }
 

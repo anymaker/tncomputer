@@ -15,11 +15,11 @@ import java.util.Map;
 public class PadRight extends Function {
 
   @Override
-  protected List<Parameter> initParameters() {
-    List<Function.Parameter> parameters = new ArrayList<>();
-    parameters.add(new Function.Parameter(String.class, "string"));
-    parameters.add(new Function.Parameter(int.class,    "length"));
-    parameters.add(new Function.Parameter(String.class, "sample"));
+  protected List<Parameter<?>> initParameters() {
+    List<Parameter<?>> parameters = new ArrayList<>();
+    parameters.add(new Parameter<>(String.class, "string"));
+    parameters.add(new Parameter<>(int.class,    "length"));
+    parameters.add(new Parameter<>(String.class, "sample"));
     return parameters;
   }
 

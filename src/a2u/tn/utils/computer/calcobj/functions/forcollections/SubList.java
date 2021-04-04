@@ -19,13 +19,13 @@ import java.util.Map;
 public class SubList extends Function {
 
   @Override
-  protected List<Parameter> initParameters() {
-    List<Parameter> parameters = new ArrayList<>();
-    parameters.add(new Parameter(List.class, "collection"));
-    parameters.add(new Parameter(int.class, "indexFrom"));
-    parameters.add(new Parameter(int.class, "indexTo"));
-    parameters.add(new Parameter(boolean.class, "includeFirstValue", false, true));
-    parameters.add(new Parameter(boolean.class, "includeLastValue", false, true));
+  protected List<Parameter<?>> initParameters() {
+    List<Parameter<?>> parameters = new ArrayList<>();
+    parameters.add(new Parameter<>(List.class, "collection"));
+    parameters.add(new Parameter<>(int.class, "indexFrom"));
+    parameters.add(new Parameter<>(int.class, "indexTo"));
+    parameters.add(new Parameter<>(boolean.class, "includeFirstValue", false, true));
+    parameters.add(new Parameter<>(boolean.class, "includeLastValue", false, true));
 
     return parameters;
   }

@@ -15,10 +15,10 @@ import java.util.Map;
 public class IfNotNull extends Function {
 
     @Override
-    protected List<Parameter> initParameters() {
-        List<Parameter> parameters = new ArrayList<>();
-        parameters.add(new Parameter(Object.class, "expressionForCheck"));
-        parameters.add(new Parameter(Object.class, "expressionValue"));
+    protected List<Parameter<?>> initParameters() {
+        List<Parameter<?>> parameters = new ArrayList<>();
+        parameters.add(new Parameter<>(Object.class, "expressionForCheck"));
+        parameters.add(new Parameter<>(Object.class, "expressionValue"));
         return parameters;
     }
 

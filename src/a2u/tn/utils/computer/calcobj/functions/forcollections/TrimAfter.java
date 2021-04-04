@@ -16,11 +16,11 @@ import java.util.Map;
 public class TrimAfter extends Function {
 
   @Override
-  protected List<Parameter> initParameters() {
-    List<Parameter> parameters = new ArrayList<>();
-    parameters.add(new Parameter(List.class, "collection"));
-    parameters.add(new Parameter(Object.class, "lastValue"));
-    parameters.add(new Parameter(boolean.class, "leaveLastValue", false, "true"));
+  protected List<Parameter<?>> initParameters() {
+    List<Parameter<?>> parameters = new ArrayList<>();
+    parameters.add(new Parameter<>(List.class, "collection"));
+    parameters.add(new Parameter<>(Object.class, "lastValue"));
+    parameters.add(new Parameter<>(boolean.class, "leaveLastValue", false, true));
     return parameters;
   }
 

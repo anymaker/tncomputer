@@ -19,10 +19,10 @@ import java.util.Map;
 public class ToDate extends Function {
 
   @Override
-  protected List<Parameter> initParameters() {
-    List<Parameter> parameters = new ArrayList<>();
-    parameters.add(new Parameter(String.class, "string"));
-    parameters.add(new Parameter(String.class, "format"));
+  protected List<Parameter<?>> initParameters() {
+    List<Parameter<?>> parameters = new ArrayList<>();
+    parameters.add(new Parameter<>(String.class, "string"));
+    parameters.add(new Parameter<>(String.class, "format"));
     return parameters;
   }
 

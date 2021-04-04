@@ -16,10 +16,10 @@ import java.util.Map;
 public class CharAt extends Function {
 
     @Override
-    protected List<Parameter> initParameters() {
-        List<Parameter> parameters = new ArrayList<>();
-        parameters.add(new Parameter(String.class, "string"));
-        parameters.add(new Parameter(Integer.class, "position"));
+    protected List<Parameter<?>> initParameters() {
+        List<Parameter<?>> parameters = new ArrayList<>();
+        parameters.add(new Parameter<>(String.class, "string"));
+        parameters.add(new Parameter<>(Integer.class, "position"));
         return parameters;
     }
 

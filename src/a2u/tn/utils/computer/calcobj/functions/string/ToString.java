@@ -15,9 +15,9 @@ import java.util.Map;
 public class ToString extends Function {
 
   @Override
-  protected List<Parameter> initParameters() {
-    List<Parameter> parameters = new ArrayList<>();
-    parameters.add(new Parameter(Object.class, "object"));
+  protected List<Parameter<?>> initParameters() {
+    List<Parameter<?>> parameters = new ArrayList<>();
+    parameters.add(new Parameter<>(Object.class, "object"));
     return parameters;
   }
 

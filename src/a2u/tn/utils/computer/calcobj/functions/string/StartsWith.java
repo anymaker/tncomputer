@@ -15,10 +15,10 @@ import java.util.Map;
 public class StartsWith extends Function {
 
     @Override
-    protected List<Parameter> initParameters() {
-        List<Parameter> parameters = new ArrayList<>();
-        parameters.add(new Parameter(String.class, "string"));
-        parameters.add(new Parameter(String.class, "prefix"));
+    protected List<Parameter<?>> initParameters() {
+        List<Parameter<?>> parameters = new ArrayList<>();
+        parameters.add(new Parameter<>(String.class, "string"));
+        parameters.add(new Parameter<>(String.class, "prefix"));
         return parameters;
     }
 

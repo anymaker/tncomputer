@@ -20,9 +20,9 @@ import java.util.Map;
 public class MaxInRows extends Function {
 
   @Override
-  protected List<Parameter> initParameters() {
-    List<Parameter> parameters = new ArrayList<>();
-    parameters.add(new Parameter(FPValue.class, "path"));
+  protected List<Parameter<?>> initParameters() {
+    List<Parameter<?>> parameters = new ArrayList<>();
+    parameters.add(new Parameter<>(FPValue.class, "path"));
     return parameters;
   }
 

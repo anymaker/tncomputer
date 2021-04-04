@@ -22,12 +22,12 @@ import java.util.Map;
 public class Format extends Function {
 
   @Override
-  protected List<Parameter> initParameters() {
-    List<Parameter> parameters = new ArrayList<>();
-    parameters.add(new Parameter(String.class, "value"));
-    parameters.add(new Parameter(String.class, "mask"));
-    parameters.add(new Parameter(String.class, "digitHolder", false, "X"));
-    parameters.add(new Parameter(String.class, "signHolder", false, "S"));
+  protected List<Parameter<?>> initParameters() {
+    List<Parameter<?>> parameters = new ArrayList<>();
+    parameters.add(new Parameter<>(String.class, "value"));
+    parameters.add(new Parameter<>(String.class, "mask"));
+    parameters.add(new Parameter<>(String.class, "digitHolder", false, "X"));
+    parameters.add(new Parameter<>(String.class, "signHolder", false, "S"));
     return parameters;
   }
 

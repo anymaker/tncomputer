@@ -20,10 +20,10 @@ import java.util.Map;
 public class DateToStr extends Function {
 
   @Override
-  protected List<Parameter> initParameters() {
-    List<Parameter> parameters = new ArrayList<>();
-    parameters.add(new Parameter(OffsetDateTime.class,   "date"));
-    parameters.add(new Parameter(String.class, "format"));
+  protected List<Parameter<?>> initParameters() {
+    List<Parameter<?>> parameters = new ArrayList<>();
+    parameters.add(new Parameter<>(OffsetDateTime.class,   "date"));
+    parameters.add(new Parameter<>(String.class, "format"));
     return parameters;
   }
 
