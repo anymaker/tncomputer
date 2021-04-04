@@ -14,11 +14,11 @@ public abstract class Function {
   /**
    * Function parameter description
    */
-  public class Parameter {
-    private Class<?> type;
-    private String name;
+  public static class Parameter {
+    private final Class<?> type;
+    private final String name;
     private boolean required = true;
-    private String defaultValue = null;
+    private Object defaultValue = null;
 
     /**
      * Constructor with some parameters
@@ -39,7 +39,7 @@ public abstract class Function {
      * @param required     True if the parameter is required
      * @param defaultValue The default value for the parameter. Use it if the parameter is not required but must have a value.
      */
-    public Parameter(Class<?> type, String name, boolean required, String defaultValue) {
+    public Parameter(Class<?> type, String name, boolean required, Object defaultValue) {
       this.type = type;
       this.name = name;
       this.required = required;
@@ -59,7 +59,7 @@ public abstract class Function {
     public boolean isRequired() {
       return required;
     };
-    public String getDefaultValue() {
+    public Object getDefaultValue() {
       return defaultValue;
     }
 
@@ -69,7 +69,7 @@ public abstract class Function {
     }
   }
 
-  private List<Parameter> parameters;
+  private final List<Parameter> parameters;
 
   public Function() {
     parameters = initParameters();
@@ -101,7 +101,7 @@ public abstract class Function {
    * Invoke function to execution
    *
    * @param calculator  Calculator for executing or type conversion
-   * @param params      Other params
+   * @param params      Incoming params
    * @param paramValues Prepared values of parameters
    * @param ctx         Data for calculating
    * @return            Result of execution function
