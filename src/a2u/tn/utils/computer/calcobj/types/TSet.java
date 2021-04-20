@@ -43,8 +43,8 @@ public class TSet extends Type {
 
   @Override
   public Set<Object> plus(Object v1, Object v2) {
-    Set<Object> set1 = calculator.toType(Set.class, v1);
-    Set<Object> set2 = calculator.toType(Set.class, v2);
+    Set<?> set1 = calculator.toType(Set.class, v1);
+    Set<?> set2 = calculator.toType(Set.class, v2);
     Set<Object> resultSet = new LinkedHashSet<>();
     resultSet.addAll(set1);
     resultSet.addAll(set2);
@@ -53,9 +53,10 @@ public class TSet extends Type {
 
   @Override
   public Set<Object> minus(Object v1, Object v2) {
-    //delete values from v1, which present in v2
-    Set<Object> set1 = calculator.toType(Set.class, v1);
-    Set<Object> set2 = calculator.toType(Set.class, v2);
+    //remove values from v1, which is not present in v2
+    //do not change v1!
+    Set<?> set1 = calculator.toType(Set.class, v1);
+    Set<?> set2 = calculator.toType(Set.class, v2);
     Set<Object> resultSet = new LinkedHashSet<>();
     for (Object obj1 : set1) {
       boolean isPresent = set2.contains(obj1);
@@ -68,8 +69,8 @@ public class TSet extends Type {
 
   @Override
   public boolean equal(Object v1, Object v2) {
-    Set<Object> set1 = calculator.toType(Set.class, v1);
-    Set<Object> set2 = calculator.toType(Set.class, v2);
+    Set<?> set1 = calculator.toType(Set.class, v1);
+    Set<?> set2 = calculator.toType(Set.class, v2);
 
     if (set1.size() != set2.size()) {
       return false;
@@ -91,17 +92,14 @@ public class TSet extends Type {
   @Override
   public Set<Object> and(Object v1, Object v2) {
     //objects from v1, which present in v2
-    Set<Object> set1 = calculator.toType(Set.class, v1);
-    Set<Object> set2 = calculator.toType(Set.class, v2);
+    Set<?> set1 = calculator.toType(Set.class, v1);
+    Set<?> set2 = calculator.toType(Set.class, v2);
 
     Set<Object> resultSet = new LinkedHashSet<>();
     for (Object obj1 : set1) {
-      for (Object obj2 : set2) {
-        boolean isPresent = set2.contains(obj1);
-        if (isPresent) {
-          resultSet.add(obj1);
-          break;
-        }
+      boolean isPresent = set2.contains(obj1);
+      if (isPresent) {
+        resultSet.add(obj1);
       }
     }
     return resultSet;
@@ -109,20 +107,14 @@ public class TSet extends Type {
   @Override
   public Set<Object> or(Object v1, Object v2) {
     //unique objects from v1 + v2, like distinct
-    Set<Object> set1 = calculator.toType(Set.class, v1);
-    Set<Object> set2 = calculator.toType(Set.class, v2);
-
-    Set<Object> resultSet = new LinkedHashSet<>();
-    resultSet.add(set1);
-    resultSet.add(set2);
-    return resultSet;
+    return plus(v1, v2);
   }
 
   @Override
   public Set<Object> xor(Object v1, Object v2) {
-    //objects from v1, which is not present in v2
-    Set<Object> set1 = calculator.toType(Set.class, v1);
-    Set<Object> set2 = calculator.toType(Set.class, v2);
+    //objects from v1, which is not present in v2 + from v2, which is not present in v1
+    Set<?> set1 = calculator.toType(Set.class, v1);
+    Set<?> set2 = calculator.toType(Set.class, v2);
 
     Set<Object> resultSet = new LinkedHashSet<>();
     for (Object obj1 : set1) {
@@ -137,6 +129,12 @@ public class TSet extends Type {
     }
 
     return resultSet;
+  }
+
+  @Override
+  public Object remainder(Object v1, Object v2) {
+    //objects from v2, which is not present in v1
+    return minus(v2, v1);
   }
 
 

@@ -23,6 +23,14 @@ public abstract class Type {
   public Object div(Object v1, Object v2) {
     throw new IllegalOperationException("Operation div is not allowed for type '"+ forClass().getName() +"'.");
   }
+  public Object remainder(Object v1, Object v2) {
+    Long value1 = calculator.toType(Long.class, v1);
+    Long value2 = calculator.toType(Long.class, v2);
+    if (value1 == null || value2 == null) {
+      return null;
+    }
+    return value1 % value2;
+  }
 
   public Object plus(Object v1, Object v2) {
     throw new IllegalOperationException("Operation plus is not allowed for type '"+ forClass().getName() +"'.");
