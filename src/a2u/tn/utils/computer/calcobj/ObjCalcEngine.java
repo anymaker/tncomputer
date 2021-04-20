@@ -182,16 +182,28 @@ public class ObjCalcEngine extends Calculator {
     }
     else {
       Class<?> cls = fromObj.getClass();
-      Field fld;
-      try {
-        fld = cls.getDeclaredField(byCode);
+      Field  fld = getClassField(cls, byCode);
+      if (fld == null) {
+        throw new ExtractValueException("Not found field '"+byCode+"' in class "+cls.getName()+" from object '"+fromObj+"'.");
       }
-      catch (NoSuchFieldException e) {
-        return null;
-      }
-
       fld.setAccessible(true);
       return fld.get(fromObj);
+    }
+  }
+
+  private Field getClassField(Class<?> cls, String byCode) {
+    try {
+      Field  fld = cls.getDeclaredField(byCode);
+      return fld;
+    }
+    catch (NoSuchFieldException e) {
+      cls = cls.getSuperclass();
+      if (cls == null) {
+        return null;
+      }
+      else {
+        return getClassField(cls, byCode);
+      }
     }
   }
 
