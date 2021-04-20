@@ -9,7 +9,7 @@ public class ObjCalcEngineTest {
 
 
   public static class Parent {
-    public int field01;
+    private int field01;
     private String field02;
 
     public void setField01(int field01) {
@@ -45,16 +45,24 @@ public class ObjCalcEngineTest {
   @Test
   public void test01() {
     Children cl = new Children();
-    cl.field01 = 1;
-    cl.setField01(2);
+    cl.setField01(1);
     cl.setField02("dss");
+    cl.field03 = 3;
 
     int f01 = engine.calc(".field01", cl, int.class);
-    System.out.println(f01);
+    assertEquals(1, f01);
 
-    int f011 = engine.calc(".field011", cl, int.class);
-    System.out.println(f011);
+    String f02 = engine.calc(".field02", cl, String.class);
+    assertEquals("dss", f02);
+
+    int f03 = engine.calc(".field03", cl, int.class);
+    assertEquals(3, f03);
   }
 
+  @Test(expected = ExtractValueException.class)
+  public void test02() {
+    Children cl = new Children();
+    int f011 = engine.calc(".field011", cl, int.class);
+  }
 
 }
