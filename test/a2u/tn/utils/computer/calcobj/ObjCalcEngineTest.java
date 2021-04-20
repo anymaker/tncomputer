@@ -1,5 +1,6 @@
 package a2u.tn.utils.computer.calcobj;
 
+import a2u.tn.utils.computer.calculator.CalculatingException;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -59,8 +60,8 @@ public class ObjCalcEngineTest {
     assertEquals(3, f03);
   }
 
-  @Test(expected = ExtractValueException.class)
-  public void test02() {
+  @Test(expected = CalculatingException.class)
+  public void testException2() {
     Children cl = new Children();
     int f011 = engine.calc(".field011", cl, int.class);
   }
