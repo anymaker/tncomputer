@@ -43,8 +43,8 @@ public class TList extends Type {
 
   @Override
   public List<Object> plus(Object v1, Object v2) {
-    List<Object> list1 = calculator.toType(List.class, v1);
-    List<Object> list2 = calculator.toType(List.class, v2);
+    List<?> list1 = calculator.toType(List.class, v1);
+    List<?> list2 = calculator.toType(List.class, v2);
     List<Object> resultList = new ArrayList<>();
     resultList.addAll(list1);
     resultList.addAll(list2);
@@ -54,8 +54,8 @@ public class TList extends Type {
   @Override
   public List<Object> minus(Object v1, Object v2) {
     //delete values from v1, which present in v2
-    List<Object> list1 = calculator.toType(List.class, v1);
-    List<Object> list2 = calculator.toType(List.class, v2);
+    List<?> list1 = calculator.toType(List.class, v1);
+    List<?> list2 = calculator.toType(List.class, v2);
     List<Object> resultList = new ArrayList<>();
     for (Object obj1 : list1) {
       boolean isPresent = false;
@@ -74,8 +74,8 @@ public class TList extends Type {
 
   @Override
   public boolean equal(Object v1, Object v2) {
-    List<Object> list1 = calculator.toType(List.class, v1);
-    List<Object> list2 = calculator.toType(List.class, v2);
+    List<?> list1 = calculator.toType(List.class, v1);
+    List<?> list2 = calculator.toType(List.class, v2);
 
     if (list1.size() != list2.size()) {
       return false;
@@ -103,8 +103,8 @@ public class TList extends Type {
   @Override
   public List<Object> and(Object v1, Object v2) {
     //objects from v1, which present in v2
-    List<Object> list1 = calculator.toType(List.class, v1);
-    List<Object> list2 = calculator.toType(List.class, v2);
+    List<?> list1 = calculator.toType(List.class, v1);
+    List<?> list2 = calculator.toType(List.class, v2);
 
     List<Object> resultList = new ArrayList<>();
     for (Object obj1 : list1) {
@@ -121,8 +121,8 @@ public class TList extends Type {
   @Override
   public List<Object> or(Object v1, Object v2) {
     //unique objects from v1 + v2, like distinct
-    List<Object> list1 = calculator.toType(List.class, v1);
-    List<Object> list2 = calculator.toType(List.class, v2);
+    List<?> list1 = calculator.toType(List.class, v1);
+    List<?> list2 = calculator.toType(List.class, v2);
 
     List<Object> resultList = new ArrayList<>();
     addUnique(resultList, list1);
@@ -133,8 +133,8 @@ public class TList extends Type {
   @Override
   public List<Object> xor(Object v1, Object v2) {
     //objects from v1, which is not present in v2
-    List<Object> list1 = calculator.toType(List.class, v1);
-    List<Object> list2 = calculator.toType(List.class, v2);
+    List<?> list1 = calculator.toType(List.class, v1);
+    List<?> list2 = calculator.toType(List.class, v2);
 
     List<Object> resultList = new ArrayList<>();
     Set<Object> set1 = new LinkedHashSet<>();
@@ -155,7 +155,7 @@ public class TList extends Type {
     return resultList;
   }
 
-  private void addUnique(List<Object> resultList, List<Object> valueList) {
+  private void addUnique(List<Object> resultList, List<?> valueList) {
     for (Object obj : valueList) {
       boolean isPresent = false;
       for (Object objRes : resultList) {

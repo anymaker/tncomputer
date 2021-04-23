@@ -124,6 +124,12 @@ public class ObjCalcEngine extends Calculator {
 
 
 
+  /**
+   * Extract values from each object 'fromObjList' by code
+   * @param byCode code for extracting values
+   * @param fromObjList collection with objects for extracting values
+   * @return Values
+   */
   @SuppressWarnings("unchecked")
   @Override
   protected Collection<Object> extractValues(String byCode, Collection<Object> fromObjList) {
@@ -178,7 +184,7 @@ public class ObjCalcEngine extends Calculator {
       return map.get(byCode);
     }
     else if (fromObj instanceof CharSequence || fromObj instanceof Number || fromObj instanceof Boolean) {
-      throw new IllegalArgumentException("Object '"+fromObj+"' with class "+fromObj.getClass()+" is incorrect for extract field "+byCode+".");
+      throw new ExtractValueException("Object '"+fromObj+"' with class "+fromObj.getClass()+" is incorrect for extract field "+byCode+".");
     }
     else {
       Class<?> cls = fromObj.getClass();
