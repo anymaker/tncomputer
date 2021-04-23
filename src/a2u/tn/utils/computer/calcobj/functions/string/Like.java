@@ -37,6 +37,13 @@ public class Like extends Function {
     String template = (String) paramValues.get("template");
     String escape   = (String) paramValues.get("escape");
 
+    if (string == null) {
+      return false;
+    }
+    if (template == null) {
+      throw new IllegalArgumentException("The template can not be null.");
+    }
+
     Template parsedTemplate = parseTemplate(template);
     boolean isTrue = match(string, parsedTemplate, 0, 0);
 
@@ -49,7 +56,7 @@ public class Like extends Function {
     Text
   }
 
-  private class TemplatePart {
+  private static class TemplatePart {
     private PartType type;
     private String body;
     @Override
@@ -58,8 +65,8 @@ public class Like extends Function {
     }
   }
 
-  private class Template {
-    private List<TemplatePart> parts = new ArrayList<>();
+  private static class Template {
+    private final List<TemplatePart> parts = new ArrayList<>();
 
     void add(PartType type, String body) {
       TemplatePart lastPart = getLast();

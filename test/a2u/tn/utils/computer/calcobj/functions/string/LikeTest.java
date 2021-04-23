@@ -18,6 +18,9 @@ public class LikeTest {
 
   @Test
   public void run() {
+    assertTrue(engine.calc(new Formula("like('abcdfab', 'abcdfab')"), Boolean.class));
+    assertFalse(engine.calc(new Formula("like(null, 'abcdfab')"), Boolean.class));
+
     assertTrue(engine.calc(new Formula("like('abcdfab', 'a%b')"), Boolean.class));
     assertTrue(engine.calc(new Formula("like('abcdfabghc', 'a%b%c')"), Boolean.class));
 
@@ -94,6 +97,5 @@ public class LikeTest {
   private boolean like(String source, String template) {
     return engine.calc(new Formula("like('"+source+"', '"+template+"')"), Boolean.class);
   }
-
 
 }
