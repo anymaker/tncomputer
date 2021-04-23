@@ -54,7 +54,7 @@ public class TDate extends Type {
     converter.addConverter(long.class, Calendar.class,       (Object date) -> ((Calendar) date).getTimeInMillis());
 
     converter.addConverter(LocalDateTime.class, null, value -> null);
-    converter.addConverter(LocalDateTime.class, Date.class,           (Object date) -> ((Date)date).toInstant().atZone(ZoneId.systemDefault()).toLocalDateTime());
+    converter.addConverter(LocalDateTime.class, Date.class,           (Object date) -> Instant.ofEpochMilli( ((Date) date).getTime()).atZone(ZoneId.systemDefault()).toLocalDateTime());
     converter.addConverter(LocalDateTime.class, Long.class,           (Object date) -> (new Date((long)date)).toInstant().atZone(ZoneId.systemDefault()).toLocalDateTime());
     converter.addConverter(LocalDateTime.class, LocalDateTime.class,  (Object date) -> (LocalDateTime)date);
     converter.addConverter(LocalDateTime.class, LocalDate.class,      (Object date) -> LocalDateTime.of((LocalDate)date, LocalTime.of(0,0,0)));
@@ -64,7 +64,7 @@ public class TDate extends Type {
     converter.addConverter(LocalDateTime.class, Calendar.class,       (Object date) -> LocalDateTime.ofInstant(((Calendar)date).toInstant(), ZoneId.systemDefault()));
 
     converter.addConverter(LocalDate.class, null, value -> null);
-    converter.addConverter(LocalDate.class, Date.class,           (Object date) -> ((Date)date).toInstant().atZone(ZoneId.systemDefault()).toLocalDate());
+    converter.addConverter(LocalDate.class, Date.class,           (Object date) -> Instant.ofEpochMilli( ((Date) date).getTime()).atZone(ZoneId.systemDefault()).toLocalDate());
     converter.addConverter(LocalDate.class, Long.class,           (Object date) -> (new Date((long)date)).toInstant().atZone(ZoneId.systemDefault()).toLocalDate());
     converter.addConverter(LocalDate.class, LocalDateTime.class,  (Object date) -> ((LocalDateTime)date).toLocalDate());
     converter.addConverter(LocalDate.class, LocalDate.class,      (Object date) -> (LocalDate)date);
@@ -74,7 +74,7 @@ public class TDate extends Type {
     converter.addConverter(LocalDate.class, Calendar.class,       (Object date) -> LocalDateTime.ofInstant(((Calendar)date).toInstant(), ZoneId.systemDefault()).toLocalDate());
 
     converter.addConverter(OffsetDateTime.class, null, value -> null);
-    converter.addConverter(OffsetDateTime.class, Date.class,           (Object date) -> ((Date)date).toInstant().atZone(ZoneId.systemDefault()).toOffsetDateTime());
+    converter.addConverter(OffsetDateTime.class, Date.class,           (Object date) -> Instant.ofEpochMilli( ((Date) date).getTime()).atZone(ZoneId.systemDefault()).toOffsetDateTime());
     converter.addConverter(OffsetDateTime.class, Long.class,           (Object date) -> (new Date((long)date)).toInstant().atZone(ZoneId.systemDefault()).toOffsetDateTime());
     converter.addConverter(OffsetDateTime.class, LocalDateTime.class,  (Object date) -> OffsetDateTime.of((LocalDateTime) date, OffsetDateTime.now().getOffset()));
     converter.addConverter(OffsetDateTime.class, LocalDate.class,      (Object date) -> OffsetDateTime.of(LocalDateTime.of((LocalDate) date, LocalTime.of(0,0,0)), OffsetDateTime.now().getOffset()));
@@ -84,7 +84,7 @@ public class TDate extends Type {
     converter.addConverter(OffsetDateTime.class, Calendar.class,       (Object date) -> OffsetDateTime.ofInstant(((Calendar)date).toInstant(), ZoneId.systemDefault()));
 
     converter.addConverter(ZonedDateTime.class, null, value -> null);
-    converter.addConverter(ZonedDateTime.class, Date.class,           (Object date) -> ((Date)date).toInstant().atZone(ZoneId.systemDefault()));
+    converter.addConverter(ZonedDateTime.class, Date.class,           (Object date) -> Instant.ofEpochMilli( ((Date) date).getTime()).atZone(ZoneId.systemDefault()));
     converter.addConverter(ZonedDateTime.class, Long.class,           (Object date) -> (new Date((long)date)).toInstant().atZone(ZoneId.systemDefault()));
     converter.addConverter(ZonedDateTime.class, LocalDateTime.class,  (Object date) -> ZonedDateTime.of((LocalDateTime) date, ZoneId.systemDefault()));
     converter.addConverter(ZonedDateTime.class, LocalDate.class,      (Object date) -> ZonedDateTime.of(LocalDateTime.of((LocalDate) date, LocalTime.of(0,0,0)), ZoneId.systemDefault()));

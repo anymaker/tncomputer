@@ -12,6 +12,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.Date;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 
 public class DateToStrTest {
 
@@ -33,6 +34,13 @@ public class DateToStrTest {
     LocalDate ldate = LocalDate.parse(etalon, DateTimeFormatter.ofPattern("yyyy.MM.dd-HH:mm:ss"));
     String result3 = engine.calc("dateToStr(., 'yyyy.MM.dd-HH:mm:ss')", ldate, String.class);
     assertEquals("2018.11.23-00:00:00", result3);
+  }
+
+  @Test
+  public void run02() {
+    ObjCalcEngine calculator = new ObjCalcEngine();
+    Object obj = calculator.calc("dateToStr(sysDate,'dd.MM.yyyy')");
+    assertNotNull(obj);
   }
 
 }
