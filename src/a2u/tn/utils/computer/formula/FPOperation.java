@@ -3,6 +3,8 @@ package a2u.tn.utils.computer.formula;
 
 import a2u.tn.utils.computer.StringUtil;
 
+import java.util.Locale;
+
 /**
  * Operation
  *
@@ -16,6 +18,7 @@ public class FPOperation implements FormulaPart {
   public enum Command {
     mul(1),
     div(1),
+    remainder(1),
 
     plus(2),
     minus(2),
@@ -45,14 +48,16 @@ public class FPOperation implements FormulaPart {
       this.prior = prior;
     }
 
-    public boolean isPriorThen(Command oper) {
-      return prior <= oper.prior;
+    public boolean isPriorThen(Command cmd) {
+      return prior <= cmd.prior;
     }
 
     public static Command fromString(String string) {
-      switch (string) {
+      String prepared = string.toLowerCase(Locale.ROOT);
+      switch (prepared) {
         case "*" : return Command.mul;
         case "/" : return Command.div;
+        case "%" : return Command.remainder;
         case "+" : return Command.plus;
         case "-" : return Command.minus;
 
@@ -79,9 +84,11 @@ public class FPOperation implements FormulaPart {
     }
 
     public static boolean isOperation(String string) {
-      switch (string) {
+      String prepared = string.toLowerCase(Locale.ROOT);
+      switch (prepared) {
         case "*" :
         case "/" :
+        case "%" :
         case "+" :
         case "-" :
         case "=" :
@@ -109,6 +116,7 @@ public class FPOperation implements FormulaPart {
       switch (this) {
         case mul: return "*";
         case div: return "/";
+        case remainder: return "%";
         case plus: return "+";
         case minus: return "-";
         case equal: return "=";
@@ -124,7 +132,7 @@ public class FPOperation implements FormulaPart {
 
   Command command;  //command
   FormulaPart arg1; //first argument
-  FormulaPart arg2; //seconf argument
+  FormulaPart arg2; //second argument
   private FPOperation parent;  //parent operation, where this operation as the second argument (right part)
 
   FPOperation() {

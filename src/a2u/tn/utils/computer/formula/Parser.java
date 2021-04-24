@@ -80,7 +80,7 @@ class Parser {
         elt.value = b.toString();
         return elt;
       }
-      if (c == '=' || c == '+' || c == '-' || c == '/' || c == '*' || c == ',') {
+      if (c == '=' || c == '+' || c == '-' || c == '/' || c == '%' || c == '*' || c == ',') {
         elt.type = ElementType.OPERATOR;
         elt.value = String.valueOf(c);
         ix.addAndGet(1);

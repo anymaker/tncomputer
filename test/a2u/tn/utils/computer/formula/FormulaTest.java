@@ -13,7 +13,32 @@ public class FormulaTest {
     check("true",     "{type: 'function', name:'true'}");
     check("null",     "{type: 'function', name:'null'}");
 
-    check("1 + 2",    "{type: 'operation', command: 'plus', arg1: {type: 'number', value: 1}, arg2: {type: 'number', value: 2}}");
+    check("1 + 2",      "{type: 'operation', command: 'plus', arg1: {type: 'number', value: 1}, arg2: {type: 'number', value: 2}}");
+    check("1 - 2",      "{type: 'operation', command: 'minus', arg1: {type: 'number', value: 1}, arg2: {type: 'number', value: 2}}");
+    check("1 * 2",      "{type: 'operation', command: 'mul', arg1: {type: 'number', value: 1}, arg2: {type: 'number', value: 2}}");
+    check("1 / 2",      "{type: 'operation', command: 'div', arg1: {type: 'number', value: 1}, arg2: {type: 'number', value: 2}}");
+    check("1 % 2",      "{type: 'operation', command: 'remainder', arg1: {type: 'number', value: 1}, arg2: {type: 'number', value: 2}}");
+    check("1 = 2",      "{type: 'operation', command: 'equal', arg1: {type: 'number', value: 1}, arg2: {type: 'number', value: 2}}");
+    check("1 != 2",     "{type: 'operation', command: 'notequal', arg1: {type: 'number', value: 1}, arg2: {type: 'number', value: 2}}");
+    check("1 > 2",      "{type: 'operation', command: 'great', arg1: {type: 'number', value: 1}, arg2: {type: 'number', value: 2}}");
+    check("1 >= 2",     "{type: 'operation', command: 'greatEqual', arg1: {type: 'number', value: 1}, arg2: {type: 'number', value: 2}}");
+    check("1 < 2",      "{type: 'operation', command: 'less', arg1: {type: 'number', value: 1}, arg2: {type: 'number', value: 2}}");
+    check("1 <= 2",     "{type: 'operation', command: 'lessEqual', arg1: {type: 'number', value: 1}, arg2: {type: 'number', value: 2}}");
+    check("1 , 2",      "{type: 'operation', command: 'addToDim', arg1: {type: 'number', value: 1}, arg2: {type: 'number', value: 2}}");
+    check("1 in 2",     "{type: 'operation', command: 'in', arg1: {type: 'number', value: 1}, arg2: {type: 'number', value: 2}}");
+    check("1 In 2",     "{type: 'operation', command: 'in', arg1: {type: 'number', value: 1}, arg2: {type: 'number', value: 2}}");
+    check("1 notin 2",  "{type: 'operation', command: 'notin', arg1: {type: 'number', value: 1}, arg2: {type: 'number', value: 2}}");
+    check("1 NotIn 2",  "{type: 'operation', command: 'notin', arg1: {type: 'number', value: 1}, arg2: {type: 'number', value: 2}}");
+    check("1 like 2",   "{type: 'operation', command: 'like', arg1: {type: 'number', value: 1}, arg2: {type: 'number', value: 2}}");
+    check("1 LikE 2",   "{type: 'operation', command: 'like', arg1: {type: 'number', value: 1}, arg2: {type: 'number', value: 2}}");
+    check("1 notlike 2","{type: 'operation', command: 'notlike', arg1: {type: 'number', value: 1}, arg2: {type: 'number', value: 2}}");
+    check("1 notLike 2","{type: 'operation', command: 'notlike', arg1: {type: 'number', value: 1}, arg2: {type: 'number', value: 2}}");
+    check("1 and 2",    "{type: 'operation', command: 'and', arg1: {type: 'number', value: 1}, arg2: {type: 'number', value: 2}}");
+    check("1 And 2",    "{type: 'operation', command: 'and', arg1: {type: 'number', value: 1}, arg2: {type: 'number', value: 2}}");
+    check("1 or 2",     "{type: 'operation', command: 'or', arg1: {type: 'number', value: 1}, arg2: {type: 'number', value: 2}}");
+    check("1 OR 2",     "{type: 'operation', command: 'or', arg1: {type: 'number', value: 1}, arg2: {type: 'number', value: 2}}");
+    check("1 xor 2",    "{type: 'operation', command: 'xor', arg1: {type: 'number', value: 1}, arg2: {type: 'number', value: 2}}");
+    check("1 xOr 2",    "{type: 'operation', command: 'xor', arg1: {type: 'number', value: 1}, arg2: {type: 'number', value: 2}}");
 
     check("1+2+3", "{type: 'operation', command: 'plus', arg1: {type: 'operation', command: 'plus', arg1: {type: 'number', value: 1}, arg2: {type: 'number', value: 2}}, arg2: {type: 'number', value: 3}}");
     check("1*2+3", "{type: 'operation', command: 'plus', arg1: {type: 'operation', command: 'mul', arg1: {type: 'number', value: 1}, arg2: {type: 'number', value: 2}}, arg2: {type: 'number', value: 3}}");

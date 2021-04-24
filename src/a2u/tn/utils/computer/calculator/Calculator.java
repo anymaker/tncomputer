@@ -230,6 +230,7 @@ public abstract class Calculator {
     switch (operation.getCommand()) {
       case mul:        return type.mul(value1, value2);
       case div:        return type.div(value1, value2);
+      case remainder:  return type.remainder(value1, value2);
       case plus:       return type.plus(value1, value2);
       case minus:      return type.minus(value1, value2);
       case equal:      return type.equal(value1, value2);

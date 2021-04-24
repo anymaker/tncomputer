@@ -64,6 +64,12 @@ public class TLong extends Type {
     Long value2 = calculator.toType(Long.class, v2);
     return value1 / value2;
   }
+  @Override
+  public Long remainder(Object v1, Object v2) {
+    Long value1 = calculator.toType(Long.class, v1);
+    Long value2 = calculator.toType(Long.class, v2);
+    return value1 % value2;
+  }
 
   @Override
   public Long plus(Object v1, Object v2) {
