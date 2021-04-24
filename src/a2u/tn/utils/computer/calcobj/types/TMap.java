@@ -30,13 +30,17 @@ public class TMap extends Type {
 
 
   public boolean equal(Object v1, Object v2) {
-    Map<String, Object> map1 = calculator.toType(Map.class, v1);
-    Map<String, Object> map2 = calculator.toType(Map.class, v2);
+    Map<?,?> map1 = calculator.toType(Map.class, v1);
+    Map<?,?> map2 = calculator.toType(Map.class, v2);
+
+    if (map1 == null || map2 == null) {
+      return false;
+    }
 
     if (map1.keySet().size() != map1.keySet().size()) {
       return false;
     }
-    for (String key : map1.keySet()) {
+    for (Object key : map1.keySet()) {
       if (!map2.keySet().contains(key)) {
         return false;
       }
@@ -49,20 +53,20 @@ public class TMap extends Type {
   }
 
   public boolean notequal(Object v1, Object v2) {
-    Map<String, Object> map1 = calculator.toType(Map.class, v1);
-    Map<String, Object> map2 = calculator.toType(Map.class, v2);
+    Map<?,?> map1 = calculator.toType(Map.class, v1);
+    Map<?,?> map2 = calculator.toType(Map.class, v2);
 
     return !equal(map1, map2);
   }
 
 
-  public Map<String, Object> xor(Object v1, Object v2) {
-    Map<String, Object> map1 = calculator.toType(Map.class, v1);
-    Map<String, Object> map2 = calculator.toType(Map.class, v2);
+  public Map<Object, Object> xor(Object v1, Object v2) {
+    Map<?,?> map1 = calculator.toType(Map.class, v1);
+    Map<?,?> map2 = calculator.toType(Map.class, v2);
 
-    Map<String, Object> diff = new LinkedHashMap<>();
+    Map<Object, Object> diff = new LinkedHashMap<>();
 
-    for (String key : map1.keySet()) {
+    for (Object key : map1.keySet()) {
       if (!map2.keySet().contains(key)) {
         diff.put(key, map1.get(key));
       }
