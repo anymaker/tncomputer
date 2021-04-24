@@ -24,7 +24,7 @@ public class ToList extends Function {
   @Override
   public Object run(Calculator calculator, List<FormulaPart> params, Map<String, Object> paramValues, CalcContext ctx) {
 
-    List list = new ArrayList();
+    List<Object> list = new ArrayList<>();
 
     for (FormulaPart param : params) {
       Object obj = calculator.calcArgument(param, ctx);
