@@ -59,7 +59,12 @@ public class Converter {
     Class<?> key = value == null ? NullClass.class : value.getClass();
     ConvertHandler<?> handler = find(to, key);
     if (handler == null) {
-      handler = to.get(AnyClass.class);
+      if (toCls.isEnum()) {
+        return extractValueFromEnum(toCls, value);
+      }
+      else {
+        handler = to.get(AnyClass.class);
+      }
     }
     if (handler == null) {
       throw new UnknownDataTypeException("Not found converters to class "+ toCls.getName() +" from "+ (value == null ? "null" : value.getClass()) +".");
@@ -79,6 +84,18 @@ public class Converter {
       }
     }
     return null;
+  }
+
+  private <T> T extractValueFromEnum(Class<? extends T> toCls, Object value) {
+    String strValue  = this.toType(String.class, value);
+
+    for (T obj : toCls.getEnumConstants()) {
+      if (obj.toString().equals(strValue)) {
+        return obj;
+      }
+    }
+
+    throw new CalculatingException("Enum " + toCls.getName() + " is not contain value " + value + ".");
   }
 
 }

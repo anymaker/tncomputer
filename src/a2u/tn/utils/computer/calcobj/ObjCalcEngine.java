@@ -84,7 +84,7 @@ import java.util.Set;
  * Calculator with extract values by code from any objects such as plain object and Map or List instances
  */
 public class ObjCalcEngine extends Calculator {
-  private static ObjCalcEngine instance = new ObjCalcEngine();
+  private static final ObjCalcEngine instance = new ObjCalcEngine();
 
   public static ObjCalcEngine getInstance() {
     return instance;
@@ -106,6 +106,7 @@ public class ObjCalcEngine extends Calculator {
    * @return result of calculations
    */
   @SuppressWarnings("unchecked")
+  @Override
   public <T> T calc(String query, Object startObj, Class<? extends T> type) {
     Object obj = super.calc(query, startObj);
 
@@ -177,6 +178,7 @@ public class ObjCalcEngine extends Calculator {
    * @param byCode code for extracting values
    * @param fromObj objects for extracting values
    * @return Values
+   * @throws Exception on any exceptions
    */
   protected Object extractValue(String byCode, Object fromObj) throws Exception {
     if (fromObj instanceof Map) {

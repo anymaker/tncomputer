@@ -85,6 +85,10 @@ public class DecodeTest {
     formula = new Formula("decode(true, .fieldA=11, 'resultA', .fieldB=20, 'resultB')");
     str = engine.calc(formula, map, String.class);
     assertEquals("resultB", str);
+
+    formula = new Formula("decode(222, 11, 'resultA', 22, 'resultB', .fieldC)");
+    str = engine.calc(formula, map, String.class);
+    assertEquals("30", str);
   }
 
 }
